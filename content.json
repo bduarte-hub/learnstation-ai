@@ -11,188 +11,6 @@
     "totalEpisodes": 8,
     "coverColor": "#00e87a"
   },
-  "areas": [
-    {
-      "id": "talent-acquisition",
-      "title": "Talent Acquisition",
-      "icon": "🎯",
-      "tools": ["Lever", "Digaí", "Skill Hunter"],
-      "metric": "Leadtime da vaga",
-      "scene": "São 347 currículos no ATS para uma vaga de engenheiro. Você tem 2 dias para apresentar o shortlist para o gestor. A triagem manual vai levar pelo menos 6 horas — sem garantia de que o melhor perfil não ficou para trás.",
-      "problem": "Três ferramentas que não conversam entre si. Triagem manual que consome o tempo que deveria ser gasto em entrevistas que importam. Tempo de preenchimento de vaga que faz o gestor perder a fé no processo.",
-      "aiRole": "A IA conecta o Lever com o Skill Hunter, lê o perfil da vaga e ranqueia automaticamente os candidatos por aderência — não por palavras-chave, mas por fit real de competências. Você chega na reunião com dados, não com pilha de papel.",
-      "experiments": [
-        {
-          "title": "Triagem inteligente com prompt de ranqueamento",
-          "difficulty": "Hoje",
-          "description": "Cole a descrição da vaga e os resumos de 10 candidatos. Peça para a IA ranquear e justificar.",
-          "prompt": "Você é um especialista em recrutamento técnico. A seguir está a descrição de uma vaga e os perfis de [N] candidatos. Ranqueie os candidatos de 1 a [N] por aderência à vaga, considerando: competências técnicas obrigatórias, experiência relevante e potencial de crescimento. Para cada candidato, escreva 2 linhas justificando a posição no ranking. Seja direto — não elogie, avalie.\n\nVAGA:\n[cole aqui a descrição da vaga]\n\nCANDIDATOS:\n[cole aqui os perfis]"
-        },
-        {
-          "title": "Job description em 3 minutos",
-          "difficulty": "Hoje",
-          "description": "Transforme um briefing informal do gestor em uma JD completa, com linguagem inclusiva.",
-          "prompt": "Você é especialista em employer branding e atração de talentos. Com base no briefing abaixo de um gestor, escreva uma job description completa para o LinkedIn. A descrição deve: ser inclusiva e neutra em gênero, destacar impacto real da função, descrever o ambiente de trabalho da CI&T, ter no máximo 400 palavras e terminar com uma chamada para ação motivadora.\n\nBRIEFING DO GESTOR:\n[cole o briefing aqui]"
-        },
-        {
-          "title": "Perguntas de entrevista por competência",
-          "difficulty": "Hoje",
-          "description": "Gere perguntas comportamentais calibradas para o perfil específico da vaga.",
-          "prompt": "Com base na descrição da vaga abaixo, crie 8 perguntas de entrevista comportamental no formato STAR (Situação, Tarefa, Ação, Resultado). 4 perguntas para avaliar competências técnicas e 4 para avaliar fit cultural e colaboração. Para cada pergunta, inclua o que você está avaliando e um sinal de resposta positiva.\n\nVAGA:\n[cole a descrição da vaga]"
-        }
-      ]
-    },
-    {
-      "id": "business-partner",
-      "title": "Business Partner",
-      "icon": "🤝",
-      "tools": ["Plataforma interna de avaliação de performance", "Dashboards desconectados"],
-      "metric": "Turnover baixo · Squads montados mais rápido · Talento no lugar certo",
-      "scene": "O gestor te liga avisando que o sênior mais crítico do squad acabou de pedir demissão. Você não tinha nenhum sinal. Os dados estavam lá — performance caindo nos últimos 2 ciclos, ausência nas pesquisas de pulso, sem movimentação há 18 meses. Mas estavam em 4 sistemas diferentes.",
-      "problem": "Decisões sobre performance, promoção, movimentação e desligamento baseadas em dados fragmentados. Sem visão integrada, o BP reage a crises em vez de preveni-las. A reunião de diretoria pede dados que demoram 2 dias para consolidar.",
-      "aiRole": "A IA cruza os dados da plataforma interna de performance com histórico de movimentação e sinais de engajamento. Gera um mapa de risco de voo por squad — antes que o pedido de demissão chegue. E quando chega a hora de decidir sobre promoção, a análise comparativa já está pronta.",
-      "experiments": [
-        {
-          "title": "Análise de risco de turnover por squad",
-          "difficulty": "Esta semana",
-          "description": "Exporte os dados de performance e engajamento do seu squad e peça uma análise de risco.",
-          "prompt": "Você é um especialista em People Analytics com foco em retenção. Analise os dados abaixo de um squad e identifique: (1) os 3 perfis com maior risco de saída nos próximos 90 dias e por quê, (2) os padrões em comum entre eles, (3) 2 ações preventivas específicas que o gestor pode tomar esta semana para cada perfil de risco. Use linguagem direta para um BP que vai levar essa análise para o gestor.\n\nDADOS DO SQUAD:\n[cole dados de performance, tempo no cargo, última movimentação, participação em pesquisas]"
-        },
-        {
-          "title": "Síntese de ciclo de performance para calibração",
-          "difficulty": "Esta semana",
-          "description": "Transforme dados brutos de avaliação em síntese executiva para a reunião de calibração.",
-          "prompt": "Você é um Business Partner preparando uma reunião de calibração de performance. Com base nos dados abaixo de [N] pessoas, produza: (1) um mapa de distribuição por faixa de performance, (2) as 3 principais tendências do ciclo, (3) os casos que merecem atenção especial com justificativa, (4) sugestões de movimentação para maximizar potencial. Formato: relatório executivo de 1 página para apresentar à liderança.\n\nDADOS:\n[cole os dados do ciclo]"
-        },
-        {
-          "title": "Plano de desenvolvimento individual gerado por IA",
-          "difficulty": "Hoje",
-          "description": "Gere um PDI inicial personalizado a partir do perfil e feedback de performance.",
-          "prompt": "Você é um coach executivo especializado em desenvolvimento de carreira em empresas de tecnologia. Com base no perfil e no feedback de performance abaixo, crie um Plano de Desenvolvimento Individual para os próximos 6 meses. O PDI deve ter: 2 competências prioritárias para desenvolver, 3 ações concretas por competência (com prazo e como medir), e 1 experiência de aprendizagem recomendada. Linguagem direta, sem jargão de RH.\n\nPERFIL:\n[cargo, tempo na empresa, área]\n\nFEEDBACK DE PERFORMANCE:\n[cole o feedback]"
-        }
-      ]
-    },
-    {
-      "id": "people-services",
-      "title": "People Services",
-      "icon": "⚙️",
-      "tools": ["Oracle HCM", "ADP"],
-      "metric": "Mais automação · Fluxos inteligentes e conectados",
-      "scene": "São 38 mensagens no WhatsApp e e-mail perguntando sobre o holerite de dezembro. Cada mensagem é diferente na forma, mas a resposta é a mesma para 35 delas. O analista vai passar 2 horas respondendo uma por uma — tempo que poderia estar em análise estratégica de benefícios.",
-      "problem": "Oracle e ADP guardam os dados. Mas o colaborador não consegue acessar o que precisa sem passar pelo analista. Fluxos que deveriam ser automáticos ainda dependem de intervenção humana. A equipe é operacional quando poderia ser estratégica.",
-      "aiRole": "Um agente conectado ao Oracle responde dúvidas de folha, benefícios e férias com dados reais — 24h, sem fila. O analista para de ser atendente e passa a ser arquiteto dos processos que o agente vai executar.",
-      "experiments": [
-        {
-          "title": "FAQ inteligente de RH",
-          "difficulty": "Hoje",
-          "description": "Monte uma base de perguntas e respostas das dúvidas mais frequentes e use IA para responder variações.",
-          "prompt": "Você é o assistente virtual de RH da CI&T. Responda a pergunta do colaborador abaixo com base nas políticas da empresa. Seja objetivo, amigável e direto. Se a resposta exigir uma ação do colaborador, liste os passos numerados. Se a dúvida não puder ser respondida sem consultar o sistema, diga isso claramente e oriente para quem acionar.\n\nPOLÍTICAS DE REFERÊNCIA:\n[cole o trecho relevante da política]\n\nPERGUNTA DO COLABORADOR:\n[cole a pergunta]"
-        },
-        {
-          "title": "Mapeamento de processos manuais para automação",
-          "difficulty": "Esta semana",
-          "description": "Liste os processos da sua área e identifique quais têm maior potencial de automação.",
-          "prompt": "Você é um especialista em automação de processos de RH com experiência em Oracle HCM e ADP. Analise os processos abaixo da área de People Services e, para cada um: (1) avalie o potencial de automação de 1 a 5, (2) identifique qual parte do processo pode ser automatizada hoje sem integração de sistemas, (3) qual parte exige integração técnica. Produza uma matriz de priorização com os 5 processos de maior retorno para começar.\n\nPROCESSOS MAPEADOS:\n[liste os processos]"
-        },
-        {
-          "title": "Comunicado de benefícios personalizado por perfil",
-          "difficulty": "Hoje",
-          "description": "Gere comunicados diferentes para públicos diferentes a partir de um briefing único.",
-          "prompt": "Você é especialista em comunicação de benefícios corporativos. Com base no briefing abaixo sobre uma mudança de benefício, escreva 3 versões do comunicado para: (1) colaboradores CLT de escritório, (2) colaboradores PJ ou alocados em clientes, (3) gestores que precisam comunicar para o time. Cada versão deve destacar o que é mais relevante para aquele público. Tom: claro, direto e positivo.\n\nBRIEFING:\n[descreva a mudança de benefício]"
-        }
-      ]
-    },
-    {
-      "id": "learning-engagement",
-      "title": "Learning & Engagement",
-      "icon": "📚",
-      "tools": ["TeamCulture", "LinkedIn Learning", "Unico Skills"],
-      "metric": "Formação estratégica para o futuro · Engajamento mapeado para decisão",
-      "scene": "A trilha de upskilling foi montada manualmente no LinkedIn Learning, levou 3 semanas para configurar e tem 12% de taxa de conclusão. O gestor pergunta o que as pessoas aprenderam esse trimestre. Você não tem como responder com dados — só com suposições.",
-      "problem": "Três plataformas, curadoria manual, sem sinal claro de qual conteúdo realmente gera upskilling. O engajamento é medido por cliques, não por impacto no trabalho. A formação estratégica que a empresa precisa para o futuro não é a que as pessoas estão consumindo hoje.",
-      "aiRole": "A IA lê o mapa de competências do Unico Skills, identifica os gaps por squad e recomenda trilhas do LinkedIn Learning calibradas para fechar esses gaps — não por popularidade, mas por relevância estratégica. O TeamCulture vira fonte de sinal de engajamento, não só de NPS.",
-      "experiments": [
-        {
-          "title": "Curadoria de trilha por gap de competência",
-          "difficulty": "Hoje",
-          "description": "Descreva o perfil do squad e o objetivo estratégico e receba uma trilha de aprendizagem curada.",
-          "prompt": "Você é um Learning Designer especializado em upskilling para times de tecnologia. Com base no perfil do squad e no objetivo estratégico abaixo, monte uma trilha de aprendizagem para os próximos 90 dias. A trilha deve: ter no máximo 8 horas de conteúdo total, incluir formatos variados (vídeo, artigo, prática), ser dividida em semanas, e especificar o que a pessoa deve conseguir fazer diferente ao final. Sugira conteúdos que existam no LinkedIn Learning quando possível.\n\nPERFIL DO SQUAD:\n[cargo, nível, área de atuação]\n\nOBJETIVO ESTRATÉGICO:\n[ex: o squad precisa trabalhar com AI Agents em 6 meses]"
-        },
-        {
-          "title": "Análise de engajamento para decisão estratégica",
-          "difficulty": "Esta semana",
-          "description": "Transforme dados de engajamento da plataforma em insights acionáveis para a liderança.",
-          "prompt": "Você é um especialista em People Analytics com foco em engajamento e aprendizagem. Com base nos dados de engajamento abaixo, produza um relatório executivo que responda: (1) quais squads têm maior risco de desengajamento e por quê, (2) que tipo de conteúdo ou iniciativa está gerando mais impacto real, (3) 3 recomendações prioritárias para o próximo trimestre. Use dados para justificar cada recomendação. Formato: máximo 1 página, para apresentar ao CHRO.\n\nDADOS DE ENGAJAMENTO:\n[cole os dados do TeamCulture ou da plataforma]"
-        },
-        {
-          "title": "Descrição de programa de desenvolvimento",
-          "difficulty": "Hoje",
-          "description": "Transforme um briefing de programa em uma comunicação que gera adesão real.",
-          "prompt": "Você é especialista em comunicação de programas de aprendizagem corporativa. Com base no briefing abaixo de um programa de desenvolvimento, escreva: (1) um título que gere curiosidade, (2) uma descrição de 150 palavras focada no que a pessoa vai ganhar — não no que vai aprender, (3) 3 depoimentos fictícios mas realistas de participantes que completaram o programa. Tom: motivador, concreto, sem clichê de RH.\n\nBRIEFING DO PROGRAMA:\n[descreva o programa]"
-        }
-      ]
-    },
-    {
-      "id": "internal-comms-esg",
-      "title": "Internal Comms & ESG",
-      "icon": "📣",
-      "tools": ["Bondy"],
-      "metric": "Mensagem estratégica alinhada chegando em todas as posições",
-      "scene": "A mensagem sobre a nova estratégia da empresa saiu no Bondy, no e-mail, no town hall e no grupo de gestores. Mas chegou de 5 jeitos diferentes. Cada área interpretou de um jeito. Uma semana depois, o time ainda não sabe o que mudou — e o que muda para eles.",
-      "problem": "Muitos canais, muitos emissores, sem um tom de voz unificado que expresse a cultura. A comunicação estratégica chega fragmentada — quando chega. O risco é mensagem que deveria gerar alinhamento gerando ruído.",
-      "aiRole": "A IA atua como guardião do tom de voz da cultura. Você define a mensagem central uma vez — ela adapta para cada canal, cada público e cada formato, mantendo consistência. O Bondy se torna um canal mais efetivo porque o conteúdo que entra já está calibrado.",
-      "experiments": [
-        {
-          "title": "Adaptação de mensagem para múltiplos canais",
-          "difficulty": "Hoje",
-          "description": "Escreva uma mensagem estratégica uma vez e receba versões calibradas para cada canal.",
-          "prompt": "Você é o especialista em comunicação interna da CI&T, uma empresa de tecnologia com cultura de alto desempenho, colaboração e inovação. Com base na mensagem central abaixo, escreva 4 versões adaptadas para: (1) post no Bondy — informal, engajador, máximo 100 palavras; (2) e-mail para todos os colaboradores — claro, direto, máximo 200 palavras; (3) comunicado para gestores levarem para o time — com contexto e orientação de como comunicar; (4) post para LinkedIn da empresa — inspirador, sem revelar dados internos. Mantenha o mesmo tom: humano, direto, sem corporativês.\n\nMENSAGEM CENTRAL:\n[descreva a mensagem que precisa chegar]"
-        },
-        {
-          "title": "Auditoria de consistência de tom de voz",
-          "difficulty": "Esta semana",
-          "description": "Avalie se as últimas comunicações refletem a cultura e o tom de voz que a empresa quer projetar.",
-          "prompt": "Você é um especialista em cultura organizacional e comunicação. Analise os textos de comunicação interna abaixo e avalie: (1) consistência de tom de voz em relação à cultura declarada da empresa, (2) pontos onde a comunicação é genérica ou corporativa demais, (3) sugestão de reescrita para 2 dos textos aplicando o tom de voz correto. Parâmetros de tom desejado: humano, direto, sem jargão, que trate o colaborador como adulto.\n\nCULTURA DECLARADA:\n[cole os valores e atributos culturais]\n\nTEXTOS PARA ANÁLISE:\n[cole os comunicados recentes]"
-        },
-        {
-          "title": "Calendário editorial de comunicação interna",
-          "difficulty": "Esta semana",
-          "description": "Gere um calendário mensal de comunicação alinhado com os marcos estratégicos da empresa.",
-          "prompt": "Você é estrategista de comunicação interna. Com base nos marcos estratégicos e datas importantes abaixo, monte um calendário editorial de comunicação interna para o próximo mês. Para cada comunicação, especifique: tema, objetivo, canal principal, público-alvo, formato sugerido e tom. Priorize qualidade sobre quantidade — máximo 3 comunicações por semana. Destaque as 2 mais críticas para o alinhamento estratégico.\n\nMARCOS DO MÊS:\n[liste eventos, lançamentos, datas importantes]\n\nCANAIS DISPONÍVEIS:\nBondy, e-mail, town hall, reunião de gestores"
-        }
-      ]
-    },
-    {
-      "id": "executive-mastery",
-      "title": "Executive Mastery",
-      "icon": "⭐",
-      "tools": ["Executive Assessment (produto interno)"],
-      "metric": "High performers habilitando a estratégia da empresa",
-      "scene": "O Executive Assessment tem os dados de performance dos líderes de maior impacto da empresa. Mas transformar esses dados em uma experiência de desenvolvimento personalizada para cada arquétipo ainda é um processo manual, lento e que não escala.",
-      "problem": "Alta liderança é o público mais exigente e com menos paciência para experiências genéricas. Um programa de desenvolvimento que não considera o arquétipo, o momento e o contexto de cada executivo é percebido como burocracia — não como valor.",
-      "aiRole": "A IA lê os dados do Executive Assessment e gera rotas de desenvolvimento personalizadas por arquétipo. Identifica padrões entre os high performers e os que estão em risco de underperformance. Permite que a experiência de 1:1 do coach seja informada por dados — não por intuição.",
-      "experiments": [
-        {
-          "title": "Mapeamento de arquétipos de liderança",
-          "difficulty": "Esta semana",
-          "description": "Use os dados do Executive Assessment para identificar arquétipos e padrões entre os executivos.",
-          "prompt": "Você é um especialista em desenvolvimento de liderança e assessment executivo. Com base nos dados abaixo de [N] executivos, identifique: (1) os arquétipos de liderança presentes no grupo (máximo 4 arquétipos), descrevendo as características de cada um; (2) o executivo que melhor representa cada arquétipo; (3) os padrões que distinguem os high performers dos demais; (4) 2 pontos de atenção para o grupo como um todo. Use linguagem executiva — sem jargão de psicologia.\n\nDADOS DO EXECUTIVE ASSESSMENT:\n[cole os dados de performance e comportamento]"
-        },
-        {
-          "title": "Rota de desenvolvimento por arquétipo",
-          "difficulty": "Esta semana",
-          "description": "Gere recomendações de desenvolvimento personalizadas para cada perfil executivo.",
-          "prompt": "Você é um coach executivo sênior. Com base no perfil e nos resultados do Executive Assessment abaixo, crie uma rota de desenvolvimento para os próximos 6 meses. A rota deve: identificar as 2 alavancas de performance mais importantes para este perfil, propor 3 experiências de desenvolvimento concretas (não cursos genéricos), sugerir 1 desafio de stretch assignment, e definir como medir o progresso. Tom: direto, como uma conversa entre pares de alto nível.\n\nPERFIL DO EXECUTIVO:\n[cargo, área, tempo na empresa]\n\nRESULTADOS DO ASSESSMENT:\n[cole os resultados]"
-        },
-        {
-          "title": "Síntese executiva para o CHRO",
-          "difficulty": "Hoje",
-          "description": "Transforme dados de assessment em um briefing estratégico sobre o pipeline de liderança.",
-          "prompt": "Você é Chief People Officer preparando um briefing para o board sobre o pipeline de liderança da empresa. Com base nos dados do Executive Assessment de [N] líderes, produza um briefing de 1 página que responda: (1) qual é a saúde geral do pipeline de liderança, (2) quem são os 3 nomes mais prontos para assumir responsabilidades maiores e por quê, (3) quais são os 2 maiores riscos no pipeline atual, (4) recomendação de investimento prioritário em desenvolvimento para o próximo semestre. Linguagem: executiva, baseada em dados, sem eufemismos.\n\nDADOS DO ASSESSMENT:\n[cole os dados]"
-        }
-      ]
-    }
-  ],
   "episodes": [
     {
       "id": 1,
@@ -205,7 +23,7 @@
       "thumbnail": "🧠",
       "duration": "14 min de leitura",
       "tags": ["fundamentos", "GenAI", "LLMs", "modelos fundação"],
-      "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. Spoiler: é mais fascinante e mais limitada do que a maioria das pessoas imagina.",
+      "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. E desde o primeiro módulo, não conseguia parar de pensar no que isso muda para o RH.",
       "sections": [
         {
           "type": "stats",
@@ -221,7 +39,7 @@
         {
           "type": "insight",
           "title": "A distinção que ninguém explica direito",
-          "body": "Existe uma divisão fundamental que raramente aparece nas conversas do dia a dia. A IA que a maioria conhece é discriminativa — ela aprende a classificar, identificar, separar. É ela que filtra spam, detecta fraude em cartão de crédito e avalia currículos com base em critérios pré-definidos. Ela olha para dados e responde: 'isso é X ou Y?'. A IA Generativa é outra coisa. Ela não classifica — ela cria. Aprende os padrões de tudo o que existe e usa esse aprendizado para gerar algo novo: texto, imagem, código, áudio, vídeo. Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa. McKinsey estima que ela tem potencial de adicionar trilhões de dólares em valor à economia global — em grande parte porque ela opera onde antes só cabia gente."
+          "body": "Existe uma divisão fundamental que raramente aparece nas conversas do dia a dia. A IA que a maioria conhece é discriminativa — ela aprende a classificar, identificar, separar. É ela que filtra spam, detecta fraude em cartão e avalia currículos por palavras-chave. Ela olha para dados e responde: 'isso é X ou Y?'. A IA Generativa é outra coisa. Ela não classifica — ela cria. Aprende os padrões de tudo o que existe e usa esse aprendizado para gerar algo novo: texto, imagem, código, áudio, vídeo. Pensando em Talent Acquisition: a IA discriminativa diz se um currículo passa ou não passa num filtro. A Generativa lê 300 currículos, entende o contexto da vaga e escreve uma análise comparativa dos 5 melhores perfis — com justificativas. São capacidades completamente diferentes."
         },
         {
           "type": "concept",
@@ -229,39 +47,39 @@
           "items": [
             {
               "term": "VAEs — Variational Autoencoders",
-              "description": "Funcionam comprimindo dados em uma representação matemática compacta e depois reconstruindo algo novo a partir dela. São rápidos, versáteis e usados em síntese de imagens, detecção de anomalias e compressão de dados. O setor de saúde usa VAEs para detectar doenças por eletrocardiograma."
+              "description": "Comprimem dados em representação compacta e reconstroem algo novo a partir dela. Rápidos e versáteis. Usados em síntese de imagens, detecção de anomalias e até diagnósticos médicos por eletrocardiograma. Em RH: potencial para detectar padrões anômalos em dados de performance ou engajamento antes que virem problema."
             },
             {
               "term": "GANs — Generative Adversarial Networks",
-              "description": "Dois modelos competindo: um gerador que cria imagens falsas e um discriminador que tenta detectar as falsas. A competição os torna cada vez melhores. São a base de deepfakes, transferência de estilo artístico e geração de rostos sintéticos realistas. Requerem muitos dados e poder computacional."
+              "description": "Dois modelos competindo: um gera conteúdo falso, o outro tenta identificar. A competição os torna cada vez mais precisos. São a base de deepfakes e geração de rostos sintéticos realistas. Em RH: relevante entender porque o mesmo mecanismo que cria arte pode criar fraudes — e isso tem impacto direto em como validamos identidade em processos seletivos."
             },
             {
               "term": "Transformers",
-              "description": "A arquitetura que revolucionou o campo. Usam 'mecanismos de atenção' para entender o contexto de palavras dentro de sequências longas — por isso conseguem gerar parágrafos coerentes, não só frases soltas. GPT, BERT, PaLM e Llama são todos baseados em Transformers."
+              "description": "A arquitetura que mudou tudo. Usam mecanismos de atenção para entender o contexto de palavras em sequências longas — por isso geram parágrafos coerentes, não só frases isoladas. GPT, Claude, Gemini e Llama são todos Transformers. É o motor por trás de qualquer assistente de RH que você vai usar ou construir."
             },
             {
               "term": "Modelos de Difusão",
-              "description": "Funcionam adicionando ruído gradual aos dados de treino e aprendendo a remover esse ruído. São a base do DALL-E 2, Stable Diffusion XL e Imagen do Google. Produzem imagens de qualidade excepcionalmente alta, mas demoram mais para treinar."
+              "description": "Adicionam ruído gradual aos dados de treino e aprendem a removê-lo. Produzem imagens de altíssima qualidade (DALL-E 2, Stable Diffusion, Imagen). Em RH: criação de conteúdo visual para comunicação interna, materiais de onboarding, campanhas de employer branding — sem depender de banco de imagens ou agência."
             }
           ]
         },
         {
           "type": "definition",
-          "title": "O que é um Modelo Fundação — e por que isso muda tudo",
-          "body": "O Stanford Center for Research on Foundation Models define assim: 'treine um modelo em uma quantidade enorme de dados e adapte-o para muitas aplicações'. Modelos Fundação são pré-treinados com bilhões de parâmetros usando algoritmos não supervisionados, o que lhes permite desenvolver capacidades multimodais — processar texto, imagem, áudio e vídeo ao mesmo tempo. O ChatGPT é construído sobre GPT-3 e GPT-4, modelos fundação da OpenAI. O Gemini é construído sobre o PaLM do Google. Eles funcionam como uma base: ao invés de criar uma IA do zero para cada tarefa (caro e lento), você parte de um modelo fundação e especializa. Para o RH, isso significa que hoje qualquer empresa pode ter um assistente de IA especializado em suas políticas, processos e cultura — sem precisar de uma equipe de pesquisa em machine learning."
+          "title": "O que é um Modelo Fundação — e por que isso muda tudo para o RH",
+          "body": "Stanford define assim: 'treine um modelo em uma quantidade enorme de dados e adapte-o para muitas aplicações'. Modelos Fundação são pré-treinados com bilhões de parâmetros, o que lhes permite desenvolver capacidades multimodais — processar texto, imagem, áudio e vídeo ao mesmo tempo. O que isso significa na prática para RH? Você não precisa de uma equipe de pesquisa em machine learning para ter uma IA que fala a língua da sua organização. Você pega um modelo fundação — o GPT-4, o Claude, o Llama — e especializa usando os dados que já existem: políticas da empresa, histórico de avaliações, perfis de competências, resultados de pesquisas de clima. Esse processo se chama fine-tuning. Um BP que hoje passa horas consolidando dados de diferentes sistemas poderia ter um assistente treinado especificamente no contexto da empresa — que responde perguntas sobre performance, movimentação e risco de turnover com base em dados reais, não em suposições."
         },
         {
           "type": "highlight",
-          "body": "Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa."
+          "body": "Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa. O RH que só usa IA para filtrar está deixando o mais poderoso na mesa."
         },
         {
           "type": "insight",
           "title": "Como o Deep Learning torna isso possível",
-          "body": "O Deep Learning é o motor que faz a IA Generativa funcionar. Redes Neurais Artificiais (ANNs) são organizadas em camadas: uma camada de entrada, várias camadas ocultas e uma camada de saída. Cada neurônio nas camadas ocultas tem parâmetros de viés e peso que são ajustados durante o treinamento. Quanto mais parâmetros, maior o poder computacional e a precisão preditiva. O treinamento pode ser supervisionado (dados rotulados — bom para classificar, menos criativo) ou não supervisionado (dados sem rótulos — mais livre para descobrir padrões). A maioria dos grandes modelos de linguagem é treinada de forma não supervisionada, o que os torna capazes de descobrir hierarquias e padrões que humanos nem sabiam que existiam nos dados."
+          "body": "O Deep Learning é o motor que faz a IA Generativa funcionar. Redes Neurais Artificiais são organizadas em camadas — entrada, camadas ocultas, saída. Cada neurônio tem parâmetros ajustados durante o treinamento. Quanto mais parâmetros, maior o poder e a precisão. O treinamento não supervisionado — sem dados rotulados — é o que permite aos grandes modelos descobrir padrões que humanos nem sabiam que existiam. Pense no que isso significa para People Analytics: um modelo treinado no histórico de colaboradores da empresa pode descobrir correlações entre padrões de comportamento e risco de saída que nenhum analista encontraria olhando planilha por planilha. Não porque o modelo seja mais inteligente — mas porque ele processa escala que um humano não consegue."
         },
         {
           "type": "videos",
-          "title": "Assista: entenda como LLMs e Deep Learning funcionam",
+          "title": "Assista: como LLMs e Deep Learning funcionam",
           "description": "Vídeos selecionados para aprofundar os conceitos desta parte — do visual ao técnico:",
           "items": [
             {
@@ -293,7 +111,7 @@
         {
           "type": "reflection",
           "title": "O que levo desta parte",
-          "body": "Saí desta primeira parte percebendo que o ChatGPT é só a ponta do iceberg. A riqueza está embaixo: modelos que aprendem padrões em escalas que o cérebro humano não consegue imaginar. Para quem trabalha com RH, o insight central é este: você não precisa entender os bilhões de parâmetros, mas precisa entender que esses modelos podem ser especializados. Um modelo fundação adaptado para as políticas da sua empresa é um assistente que fala a língua da sua organização. Isso não é ficção científica — já existe e está acessível."
+          "body": "Saí desta primeira parte com uma pergunta que não sai da cabeça: quantos processos de RH ainda tratam IA como filtro quando ela poderia ser geradora? Triagem de currículos como filtro de palavras-chave versus triagem como análise contextual de aderência real. Pesquisa de clima como formulário tabulado versus sinal interpretado em tempo real. Plano de desenvolvimento como template genérico versus rota personalizada por perfil e momento. A diferença não é de ferramenta — é de como você pensa sobre o que a IA pode fazer. E essa mudança de perspectiva começa aqui."
         }
       ]
     },
@@ -308,12 +126,12 @@
       "thumbnail": "✍️",
       "duration": "12 min de leitura",
       "tags": ["prompt engineering", "LLMs", "comunicação", "prática"],
-      "intro": "Se a Parte 1 foi sobre entender o motor, a Parte 2 é sobre aprender a dirigir. Prompt Engineering é a arte — e a ciência — de instruir modelos de IA de forma que eles entreguem o que você realmente precisa. E foi aqui que eu comecei a ver aplicações diretas no meu dia a dia como líder de RH.",
+      "intro": "Se a Parte 1 foi sobre entender o motor, a Parte 2 é sobre aprender a dirigir. Prompt Engineering é a arte — e a ciência — de instruir modelos de IA de forma que eles entreguem o que você realmente precisa. E foi aqui que os exemplos pararam de ser abstratos e começaram a parecer com o meu trabalho de toda semana.",
       "sections": [
         {
           "type": "definition",
           "title": "O que é um prompt — e o que ele não é",
-          "body": "Um prompt é qualquer input que você fornece a um modelo generativo para produzir um output desejado. Pode ser uma pergunta, uma instrução, uma situação ou uma série de contextos encadeados. O que a maioria das pessoas faz é 'naive prompting' — perguntar da forma mais simples possível. 'Faça uma análise de clima.' O resultado é genérico porque a instrução é genérica. Prompt Engineering é o processo iterativo de refinar essas instruções para extrair o máximo do modelo — como um pesquisador que aprende a fazer as perguntas certas para a fonte certa."
+          "body": "Um prompt é qualquer input que você fornece a um modelo generativo para produzir um output desejado. Pode ser uma pergunta, uma instrução, uma situação ou uma série de contextos encadeados. O que a maioria das pessoas faz é 'naive prompting' — pedir da forma mais simples possível. 'Faça uma análise de clima.' 'Escreva uma job description para engenheiro.' 'Resuma esse feedback de performance.' O resultado é sempre genérico porque a instrução é genérica. O modelo não sabe quem é você, qual é o contexto, o que você vai fazer com o resultado. Prompt Engineering é o processo iterativo de refinar essas instruções para extrair o máximo — como um líder que aprende a dar briefings que geram o trabalho que ele realmente precisa, não o que o colaborador interpretou."
         },
         {
           "type": "concept",
@@ -321,45 +139,45 @@
           "items": [
             {
               "term": "Instrução",
-              "description": "A tarefa específica que você quer que o modelo execute. Deve ser clara, com verbo de ação: 'escreva', 'analise', 'liste', 'compare', 'resuma'. Sem ambiguidade."
+              "description": "A tarefa específica com verbo de ação claro: 'escreva', 'analise', 'ranqueie', 'compare', 'identifique'. Sem ambiguidade. Um BP que pede 'me ajude com performance' vai receber algo genérico. Um que pede 'identifique os 3 principais padrões de comportamento que distinguem os top performers dos demais neste grupo' vai receber análise real."
             },
             {
               "term": "Contexto",
-              "description": "As circunstâncias que enquadram a instrução. Quem é o usuário? Qual é a situação? Qual é o objetivo final? Quanto mais contexto, mais relevante o output."
+              "description": "As circunstâncias que enquadram a instrução. Quem é o usuário? Qual é a situação? Para que serve o output? Exemplos práticos: 'você é um especialista em retenção de talentos em empresas de tecnologia', 'estou preparando uma reunião de calibração com 6 gestores', 'o público são analistas de RH sem formação técnica em dados'."
             },
             {
               "term": "Dados de entrada",
-              "description": "O material de referência que o modelo deve usar: um texto, uma tabela, um conjunto de respostas de pesquisa, trechos de documentos. Modelos com dados de entrada específicos produzem muito mais do que modelos sem referência."
+              "description": "O material de referência que ancora a resposta na realidade da sua organização — não em generalidades. Cole os resultados da pesquisa de pulso. Inclua o histórico de performance. Anexe a política de benefícios. Quanto mais dado específico, menos a IA precisa inventar."
             },
             {
               "term": "Indicador de saída",
-              "description": "O formato, o tom, o tamanho e as características do que você quer receber. 'Em formato de lista com 5 tópicos', 'em linguagem acessível para gestores não-técnicos', 'em até 200 palavras', 'sem jargão'."
+              "description": "O formato, tom, tamanho e características do resultado esperado. 'Em formato de relatório executivo de 1 página', 'em linguagem acessível para gestores não-técnicos', 'com 3 recomendações priorizadas por impacto', 'sem jargão de RH'. Esse elemento é o mais esquecido — e faz toda a diferença."
             }
           ]
         },
         {
           "type": "insight",
-          "title": "Antes vs. depois: o mesmo pedido, resultados completamente diferentes",
-          "body": "Deixa eu mostrar com um exemplo real do mundo de RH. Prompt fraco: 'Faça uma análise de clima da minha equipe.' O modelo vai gerar algo genérico, provavelmente uma lista de dimensões que ele aprendeu em textos de RH. Prompt forte: 'Você é um especialista em clima organizacional e engajamento de equipes. A seguir estão os resultados de uma pesquisa de pulso com 45 respondentes de um time de tecnologia da CI&T, com foco em 3 dimensões: colaboração, clareza de objetivos e reconhecimento. Com base nesses dados, identifique os 2 principais pontos de tensão, explique o provável impacto no turnover, e sugira 3 ações práticas que um gestor de time pode implementar sem orçamento adicional. Responda em linguagem direta, sem jargão de RH, em formato de relatório executivo com no máximo 400 palavras.' A diferença entre os dois prompts não é técnica — é clareza de intenção."
+          "title": "O mesmo pedido, resultados completamente diferentes — um exemplo real de RH",
+          "body": "Prompt fraco: 'Faça uma análise de clima da minha equipe.' O modelo vai gerar algo que parece de um manual de RH de 2015. Prompt com os 4 elementos: 'Você é um especialista em clima organizacional e engajamento em empresas de tecnologia. A seguir estão os resultados de uma pesquisa de pulso com 45 respondentes de um squad de desenvolvimento da CI&T, coletados em maio de 2026. As dimensões avaliadas foram colaboração (média 3,2/5), clareza de objetivos (média 2,8/5) e reconhecimento (média 2,4/5). Com base nesses dados: identifique os 2 principais riscos de turnover nos próximos 90 dias, explique o mecanismo pelo qual cada risco pode se materializar, e sugira 3 ações que o gestor do squad pode implementar sem orçamento adicional. Formato: relatório executivo direto, sem jargão, máximo 400 palavras.' A segunda instrução não é mais complicada — é mais precisa. E precisão é tudo."
         },
         {
           "type": "highlight",
-          "body": "Prompt Engineering não é sobre falar com máquinas. É sobre ser preciso sobre o que você realmente quer."
+          "body": "Prompt Engineering não é sobre falar com máquinas. É sobre ter clareza do que você realmente quer — e saber comunicar isso."
         },
         {
           "type": "insight",
-          "title": "O processo iterativo: não existe prompt perfeito de primeira",
-          "body": "Prompt Engineering é descrito no curso como um processo de 5 passos: (1) defina o objetivo com clareza; (2) escreva o prompt inicial; (3) teste e analise a resposta; (4) identifique onde ela ficou aquém; (5) refine e repita. Na prática, é como uma conversa de coaching: você começa, observa o que o modelo traz, identifica o gap e ajusta. Um exemplo do curso: um capitão de navio precisando de previsão meteorológica. O prompt inicial 'previsão do tempo no Atlântico' é insuficiente. O prompt refinado especifica coordenadas geográficas exatas, janela de tempo (semana de 28/08 a 01/09), e os elementos específicos necessários (velocidade do vento, altura de ondas, probabilidade de tempestades). O capitão não mudou a pergunta — ele ficou mais preciso sobre o que precisava saber."
+          "title": "O processo iterativo — e por que o primeiro prompt raramente é o melhor",
+          "body": "O curso descreve Prompt Engineering como um ciclo de 5 passos: definir o objetivo → escrever o prompt inicial → testar e analisar → identificar gaps → refinar e repetir. Na prática de RH, isso tem uma analogia direta com o trabalho de um Business Partner: você não chega numa conversa de feedback com o script pronto e perfeito. Você começa, observa o que aparece, ajusta. Um exemplo do curso que ficou na cabeça: um capitão de navio precisando de previsão meteorológica. O prompt 'previsão do Atlântico' é inútil. O prompt refinado especifica coordenadas exatas, janela de tempo (28/08 a 01/09), e os elementos específicos necessários — velocidade do vento, altura de ondas, probabilidade de tempestade. O capitão não mudou o objetivo. Ele ficou mais preciso sobre o que precisava saber. É exatamente o que um bom BP faz quando define o escopo de uma análise."
         },
         {
           "type": "definition",
-          "title": "Ferramentas de Prompt Engineering que você pode usar hoje",
-          "body": "O mercado de ferramentas para prompts cresceu muito. Algumas merecem atenção: IBM Watsonx.ai tem um Prompt Lab com exemplos pré-construídos para casos de uso como sumarização, classificação e extração. Spellbook (Scale AI) permite encadear prompts e testar variações. PromptPerfect otimiza automaticamente um prompt para diferentes modelos (GPT, Claude, Llama). LangChain é uma biblioteca Python para quem quer ir além do básico e construir pipelines de prompts. Existe inclusive um marketplace de prompts (PromptBase) onde é possível comprar e vender instruções testadas para casos de uso específicos — imagine comprar um prompt já validado para análise de desempenho ou mapeamento de competências."
+          "title": "Ferramentas de Prompt Engineering que você pode usar agora",
+          "body": "IBM Watsonx.ai tem um Prompt Lab com exemplos pré-construídos para casos como sumarização, classificação e extração — casos diretos de People Analytics e L&D. PromptPerfect otimiza automaticamente um prompt para diferentes modelos (GPT, Claude, Llama) — útil para quem está explorando qual modelo funciona melhor para processos de RH. LangChain é uma biblioteca Python para construir pipelines de prompts encadeados — relevante para quem quer conectar a IA às ferramentas que já usa, como o Lever, o Oracle ou o TeamCulture. E existe até um marketplace de prompts (PromptBase) onde é possível comprar instruções já validadas para casos específicos. Imagine um prompt calibrado especificamente para análise de desempenho em empresas de tecnologia — já testado, já refinado."
         },
         {
           "type": "videos",
           "title": "Assista: Prompt Engineering na prática",
-          "description": "Selecionei vídeos que vão do conceitual ao aplicado — com foco em quem quer usar prompts no trabalho, não só entender a teoria:",
+          "description": "Do conceitual ao aplicado — com foco em quem quer usar prompts no trabalho:",
           "items": [
             {
               "videoId": "1c9iyoVIwDs",
@@ -384,7 +202,7 @@
         {
           "type": "reflection",
           "title": "O que muda na minha prática",
-          "body": "Depois desta parte, parei de usar a IA como um Google melhorado e comecei a usá-la como um colaborador que precisa de briefing. Antes de pedir qualquer coisa, agora me pergunto: quem é o 'eu' que ele precisa ser? Qual contexto ele precisa ter? Que dados preciso fornecer? Em que formato quero a resposta? É um hábito mental que leva tempo para construir, mas os resultados são imediatamente perceptíveis. Experimentei reescrever um pedido de análise de engajamento com esses 4 elementos e o resultado foi 10 vezes mais útil do que qualquer coisa que havia gerado antes."
+          "body": "Parei de usar a IA como um Google melhorado e comecei a usá-la como um colaborador que precisa de briefing. Antes de qualquer pedido, agora me pergunto: qual é o papel que ele precisa assumir? Qual contexto precisa ter? Quais dados preciso fornecer? Em que formato quero a resposta? Para as equipes de RH que lidero, o desafio não é técnico — é esse. A maioria das pessoas que vai usar IA no dia a dia de RH não precisa saber programar. Precisa aprender a dar briefing. E briefing é algo que todo profissional de RH sênior já sabe fazer. Essa é a ponte."
         }
       ]
     },
@@ -399,57 +217,53 @@
       "thumbnail": "⚙️",
       "duration": "13 min de leitura",
       "tags": ["deep learning", "RAG", "alucinação", "capacidades", "modelos"],
-      "intro": "Depois de entender o que a IA Generativa é e como instruí-la, chegou a hora de olhar para o que ela realmente consegue fazer — e onde ela falha. Esta parte da semana foi a mais técnica, mas também a mais reveladora: entender alucinação, RAG e as capacidades multimodais muda completamente como você usa essa tecnologia.",
+      "intro": "Depois de entender o que a IA Generativa é e como instruí-la, chegou a hora de olhar para o que ela realmente consegue fazer — e onde ela falha de forma previsível. Esta foi a parte mais técnica da semana, mas também a mais reveladora. Entender alucinação e RAG mudou completamente como eu penso sobre usar IA em processos que afetam decisões sobre pessoas.",
       "sections": [
         {
           "type": "definition",
           "title": "O problema que a indústria prefere não destacar: alucinação",
-          "body": "Modelos de linguagem alucinam. Eles inventam informações com a mesma confiança com que dizem verdades. Por quê? Porque foram treinados para maximizar a probabilidade do próximo token (palavra) — não para verificar se aquilo é verdade. Um modelo pode gerar um artigo com fatos fabricados, citar um estudo que não existe, criar código que parece correto mas contém bugs sutis. Overfitting é um dos mecanismos: quando o modelo aprende demais com os dados de treino e tem dificuldade com dados novos, tende a gerar conteúdo que é estatisticamente plausível mas factualmente incorreto. As implicações para quem trabalha com RH são sérias: uma IA que gera uma política interna com dados inventados, ou uma análise de desempenho com inferências sem base, pode levar a decisões prejudiciais a pessoas reais."
+          "body": "Modelos de linguagem alucinam. Eles inventam informações com a mesma confiança com que dizem verdades. Por quê? Porque foram treinados para maximizar a probabilidade do próximo token — não para verificar se aquilo é real. Um modelo pode gerar um artigo com fatos fabricados, citar um estudo que não existe, criar código que parece correto mas tem um bug crítico. Overfitting é um dos mecanismos: o modelo aprende demais com os dados de treino e, quando encontra situações novas, tende a gerar o que é estatisticamente plausível — não o que é factualmente correto. Para People Services, isso é crítico: uma IA respondendo dúvidas de colaboradores sobre benefícios ou folha de pagamento com dados incorretos não é só um erro técnico — é um risco jurídico e de confiança. Para Business Partners tomando decisões de movimentação baseadas em análises de IA, o mesmo vale. A regra é simples: nunca use output de IA em decisão que afeta pessoas sem revisão humana."
         },
         {
           "type": "highlight",
-          "body": "O modelo não sabe o que é verdade. Ele sabe o que é estatisticamente provável. Nunca use o output sem revisar."
+          "body": "O modelo não sabe o que é verdade. Ele sabe o que é estatisticamente provável. Essa distinção muda tudo em RH."
         },
         {
           "type": "insight",
-          "title": "A solução mais eficaz: RAG — Retrieval-Augmented Generation",
-          "body": "RAG é a técnica mais usada hoje para reduzir alucinação. A lógica é simples: em vez de depender apenas do que o modelo aprendeu durante o treinamento (que tem uma data de corte e pode estar desatualizado), você conecta o modelo a uma base de dados confiável e atual. Antes de responder, ele busca informações nessa base — como um pesquisador que consulta fontes antes de falar. A IBM ilustrou com um exemplo perfeito: quando perguntaram a um LLM 'qual planeta tem mais luas no nosso sistema solar?', ele respondeu com confiança 'Júpiter'. A resposta estava errada — é Saturno, com 146 luas (e contando). Com RAG, o modelo consulta uma base atualizada da NASA antes de responder e acerta. Para o RH, RAG abre uma possibilidade enorme: conectar um modelo às políticas da empresa, ao histórico de avaliações, ao banco de dados de vagas e competências. Ele responde com base na realidade da sua organização, não em suposições genéricas."
+          "title": "A solução mais eficaz: RAG — e o que ela abre para RH",
+          "body": "RAG é a técnica mais usada para reduzir alucinação. Em vez de depender só do que o modelo aprendeu no treino — que tem data de corte e pode estar desatualizado — você conecta o modelo a uma base de dados confiável e atual. Antes de responder, ele busca informações nessa base. A IBM ilustrou com um exemplo: perguntaram a um LLM qual planeta tem mais luas. Ele respondeu Júpiter com total confiança — errado. Com RAG conectado a uma base atualizada da NASA, ele respondeu Saturno (146 luas) corretamente. O paralelo para RH é direto. Imagine um assistente conectado via RAG às políticas internas do Oracle HCM, ao histórico de avaliações da plataforma de performance, e ao banco de vagas e perfis do Lever. Ele não responde com base em RH genérico de internet — responde com base na realidade da CI&T. Um colaborador pergunta sobre férias e recebe a resposta correta para o regime de trabalho dele, não uma resposta genérica que pode estar errada. Um BP pede análise de risco de turnover e recebe um output baseado nos dados reais do squad, não em padrões de mercado."
         },
         {
           "type": "concept",
-          "title": "As capacidades que já existem — e o que isso significa na prática",
+          "title": "As capacidades que já existem — o que cada área de RH pode usar agora",
           "items": [
             {
               "term": "Geração de texto",
-              "description": "LLMs como GPT-4, PaLM e Llama geram texto coerente e contextualmente relevante: resumos, análises, traduções, código, roteiros, políticas, avaliações. A qualidade depende do prompt e do modelo usado."
+              "description": "LLMs geram texto coerente e contextualmente relevante em qualidade próxima à humana. Para Talent Acquisition: job descriptions, e-mails de candidatos, feedback estruturado. Para Internal Comms: adaptação de uma mensagem estratégica para diferentes canais (Bondy, e-mail, gestores) mantendo o mesmo tom de voz. Para L&D: descrições de trilhas de aprendizagem que realmente geram adesão."
             },
             {
               "term": "Geração de imagem",
-              "description": "DALL-E 2, Midjourney, Stable Diffusion XL e Imagen geram imagens realistas ou artísticas a partir de descrições em texto. StyleGAN consegue criar rostos de pessoas que nunca existiram com qualidade fotográfica."
+              "description": "DALL-E 2, Midjourney, Stable Diffusion geram imagens realistas ou artísticas a partir de texto. Para Internal Comms & ESG: criar visuais para campanhas internas, materiais de employer branding e comunicados de cultura sem depender de banco de imagens ou agência. O mesmo conceito visual comunicado de formas diferentes para públicos diferentes."
             },
             {
-              "term": "Geração de áudio e voz",
-              "description": "Modelos como WaveGAN, MuseNet e Tacotron 2 compõem músicas, clonam vozes e geram fala sintética com tom, ritmo e emoção. A linha entre voz real e sintética já é indistinguível em muitos casos."
-            },
-            {
-              "term": "Geração de código",
-              "description": "GitHub Copilot, IBM Watson Code Assistant e AlphaCode completam, corrigem e geram código. Útil para times de desenvolvimento — mas requer revisão humana, pois o código gerado pode ter bugs ou vulnerabilidades não óbvias."
+              "term": "Análise e síntese de dados",
+              "description": "Modelos conseguem processar grandes volumes de texto não estruturado e extrair padrões. Para Business Partners com dashboards desconectados: a IA pode sintetizar dados de múltiplas fontes e gerar uma visão integrada — exatamente o gap que existe hoje entre Oracle, ADP e as plataformas de performance internas."
             },
             {
               "term": "Geração e augmentação de dados",
-              "description": "Modelos podem gerar dados sintéticos para treinar outros modelos — especialmente útil em domínios com dados escassos, como doenças raras. Na área de People Analytics, dados sintéticos podem ser usados para validar análises sem expor dados pessoais reais."
+              "description": "Modelos geram dados sintéticos para treinar outros modelos, útil quando dados reais são escassos ou sensíveis. Para People Analytics: validar análises sem expor dados pessoais reais de colaboradores — relevante dado o marco regulatório de LGPD que se aplica a todos os processos de RH."
             }
           ]
         },
         {
           "type": "insight",
-          "title": "Os limites que o curso foi honesto em admitir",
-          "body": "IA Generativa tem limitações estruturais que não devem ser ignoradas. Primeiro, ela é fundamentalmente limitada pelos dados de treino: se os dados tiverem viés, a IA vai reproduzir esse viés. Se os dados tiverem data de corte (o GPT-3.5 vai até janeiro de 2022), ela não sabe de nada que aconteceu depois. Segundo, ela não tem criatividade genuína — ela recombina padrões do que já existiu. Não inventa algo completamente novo. Terceiro, ela não entende contexto emocional com confiabilidade: sarcasmo, humor, subtext cultural são áreas onde ainda falha. Quarto — e o mais relevante para RH — ela é opaca: é difícil saber exatamente por que chegou a uma resposta. Esse problema de explainability limita seu uso em decisões que precisam ser justificadas, como promoções, feedbacks ou avaliações de desempenho."
+          "title": "Os limites que o curso não escondeu",
+          "body": "A IA Generativa tem limitações estruturais que não devem ser ignoradas por quem vai usá-la em processos de RH. Primeiro: ela é limitada pelos dados de treino — se os dados tiverem viés, a IA reproduz esse viés. Um modelo de triagem treinado em históricos de contratação enviesados vai reproduzir e escalar esses vieses. A Amazon aprendeu isso da pior forma em 2018. Segundo: ela não tem criatividade genuína — recombina padrões do que já existiu. Não inventa algo completamente novo. Para Executive Mastery, isso significa que a IA pode identificar padrões em perfis de liderança existentes — mas não pode definir o que é um líder ideal para o futuro de uma empresa em transformação. Isso ainda é humano. Terceiro: ela é opaca. É difícil saber exatamente por que chegou a uma resposta. Isso limita o uso em decisões que precisam ser justificadas — promoções, desligamentos, feedbacks críticos. A IA pode auxiliar o processo, mas o raciocínio que sustenta a decisão precisa ser do humano."
         },
         {
           "type": "videos",
-          "title": "Assista: alucinação, RAG e as capacidades da IA",
-          "description": "Vídeos para entender os mecanismos por trás dos problemas e soluções discutidos nesta parte:",
+          "title": "Assista: alucinação, RAG e capacidades da IA",
+          "description": "Vídeos para entender os mecanismos por trás dos problemas e soluções desta parte:",
           "items": [
             {
               "videoId": "T-D1OfcDW1M",
@@ -459,7 +273,7 @@
             },
             {
               "videoId": "IHZwWFHWa-w",
-              "title": "Gradient Descent, How Neural Networks Learn — Deep Learning Ch. 2",
+              "title": "Gradient Descent, How Neural Networks Learn",
               "channel": "3Blue1Brown",
               "duration": "21 min"
             },
@@ -474,7 +288,7 @@
         {
           "type": "reflection",
           "title": "A pergunta que ficou",
-          "body": "Se o modelo não sabe a diferença entre verdade e probabilidade, o que garante a qualidade do que ele produz? A resposta honesta do curso é: o humano. RAG reduz o problema, mas não elimina. Fine-tuning ajuda, mas não é infalível. A revisão humana continua sendo o controle de qualidade mais confiável — especialmente em decisões que afetam pessoas. Isso não diminui a utilidade da IA; muda o papel de quem a usa. O analista de People Analytics não para de existir. Ele para de ser o processador de dados e passa a ser o curador de outputs."
+          "body": "Se o modelo não distingue verdade de probabilidade, quem garante a qualidade do que ele produz? A resposta do curso é honesta: o humano. RAG reduz o problema, fine-tuning ajuda, mas a revisão humana continua sendo o controle de qualidade mais confiável — especialmente em decisões sobre pessoas. O que muda é o papel de quem revisa. O analista de People Analytics não para de existir. Ele para de ser o processador manual de dados entre Oracle e ADP e passa a ser o curador inteligente dos outputs que a IA gera. Para os times de Learning & Engagement: em vez de montar trilhas manualmente no LinkedIn Learning, o trabalho passa a ser validar e calibrar o que a IA recomendou com base nos gaps do Unico Skills. Menos operação, mais julgamento."
         }
       ]
     },
@@ -485,68 +299,63 @@
       "weekLabel": "Semana 1 · Parte 4",
       "status": "published",
       "publishedAt": "2026-06-03",
-      "tagline": "Deepfakes, vieses, direito autoral e os limites legais da IA — o que ninguém quer discutir",
+      "tagline": "Deepfakes, vieses, direito autoral e os limites legais — o que ninguém quer discutir",
       "thumbnail": "⚖️",
       "duration": "11 min de leitura",
       "tags": ["ética", "viés", "deepfakes", "legislação", "responsabilidade"],
-      "intro": "A parte mais desconfortável da semana — e talvez a mais importante para quem trabalha com pessoas. Quando a IA gera uma imagem falsa de um CEO dando uma instrução que nunca deu, quando um modelo de seleção rejeita sistematicamente candidatas mulheres, quando dados pessoais de funcionários alimentam modelos sem consentimento — de quem é a responsabilidade? Essa parte do curso não deixou essa pergunta sem resposta.",
+      "intro": "A parte mais desconfortável da semana — e talvez a mais importante para quem trabalha com pessoas. Quando a IA gera um comunicado que parece oficial mas não é, quando um modelo de seleção rejeita sistematicamente certos perfis, quando dados de colaboradores alimentam modelos sem consentimento — de quem é a responsabilidade? Essa parte do curso não deixou essa pergunta sem resposta.",
       "sections": [
         {
           "type": "insight",
-          "title": "O problema dos vieses que a IA herda — e amplifica",
-          "body": "Modelos de linguagem são treinados em dados produzidos por humanos. Humanos têm vieses. Logo, os modelos herdam esses vieses — e os reproduzem em escala. O exemplo mais citado: peça a um gerador de imagem para criar 'um CEO' sem especificar nada mais. Em muitos modelos, o resultado padrão é um homem branco de meia-idade. Isso não é coincidência — é reflexo de quais imagens predominam nos dados de treino. No contexto de RH, isso é um risco real: ferramentas de triagem de currículos que penalizam candidatas, modelos de análise de desempenho que replicam avaliações históricas enviesadas, assistentes de RH que reproduzem estereótipos de gênero ou raça. A Amazon teve que abandonar uma ferramenta de recrutamento por IA em 2018 exatamente por esse motivo — ela aprendia a penalizar currículos com a palavra 'mulheres' baseada nos padrões históricos de contratação da empresa."
+          "title": "O viés que a IA herda — e amplifica em escala",
+          "body": "Modelos de linguagem são treinados em dados produzidos por humanos. Humanos têm vieses históricos. Logo, os modelos os herdam — e os reproduzem em escala industrial. O exemplo mais citado: peça a um gerador de imagem para criar 'um CEO' sem especificação adicional. Em muitos modelos, o resultado padrão é um homem branco de meia-idade. Isso não é coincidência — é reflexo de quais imagens predominam nos dados de treino. Para Talent Acquisition, o risco é concreto: um modelo de triagem que aprende com histórico de contratações da empresa vai reproduzir exatamente os vieses que já existem nesse histórico. Se a empresa historicamente contratou mais homens para papéis técnicos, o modelo vai continuar priorizando homens para papéis técnicos — em escala, em velocidade, sem que ninguém perceba. A Amazon desligou uma ferramenta de recrutamento em 2018 exatamente por isso: ela penalizava currículos com a palavra 'mulheres' porque os dados históricos de contratação da empresa eram majoritariamente masculinos."
         },
         {
           "type": "definition",
-          "title": "Deepfakes: o poder de fabricar qualquer realidade",
-          "body": "Deepfakes são vídeos, imagens ou áudios manipulados por IA para parecerem reais. As mesmas GANs que criam arte digital podem ser usadas para colocar palavras na boca de qualquer pessoa. As aplicações maliciosas documentadas incluem: criação de notícias falsas com líderes políticos; assédio e extorsão com imagens íntimas fabricadas; fraudes financeiras onde um deepfake de voz do CEO instrui transferências bancárias; e phishing onde criminosos imitam a voz de um familiar para pedir dinheiro. A pesquisa mostra que fraudes potencializadas por IA são a principal causa de roubo de identidade. O Pentágono americano trabalha com DARPA para desenvolver tecnologia que detecte deepfakes. Na Europa, a Inglaterra está criminalizando deepfakes pornográficos. No Brasil, o Marco Civil da Internet e o Art. 66 da Lei de IT fornecem base legal para denúncias, mas não há legislação específica ainda."
+          "title": "Deepfakes: o poder de fabricar qualquer realidade — e o impacto no RH",
+          "body": "Deepfakes são vídeos, imagens ou áudios manipulados por IA para parecerem reais. As mesmas GANs que criam arte digital podem colocar palavras na boca de qualquer pessoa com qualidade indistinguível. As aplicações maliciosas já documentadas incluem: fraudes financeiras onde um deepfake de voz do CEO instrui transferências bancárias urgentes; phishing onde criminosos imitam gestores ou colegas; criação de comunicados internos falsos que parecem oficiais; e manipulação de processos seletivos com identidades fabricadas. Para Internal Comms & ESG, isso levanta uma questão direta: como garantir que uma comunicação estratégica importante seja percebida como autêntica num mundo onde qualquer voz ou imagem pode ser sintética? Para Talent Acquisition: como validar a identidade de candidatos em processos cada vez mais digitais? A autenticidade vai se tornar um ativo organizacional tanto quanto a competência."
         },
         {
           "type": "stats",
           "title": "O cenário regulatório: onde estamos agora",
-          "description": "A legislação sobre IA ainda engatinha globalmente. O que existe hoje:",
+          "description": "A legislação sobre IA ainda está se formando globalmente:",
           "items": [
-            { "number": "1ª", "label": "Legislação de IA do mundo: AI Act da União Europeia — ainda em processo de aprovação final" },
-            { "number": "2018", "label": "Ano em que a Amazon abandonou sua ferramenta de recrutamento por IA por viés de gênero comprovado" },
-            { "number": "0", "label": "Leis específicas sobre deepfakes no Brasil — usa-se a Lei de IT e o Marco Civil" },
-            { "number": "GDPR", "label": "Regulação europeia que pode ser usada para contestar uso não autorizado de dados pessoais em IA" }
+            { "number": "1ª", "label": "Legislação de IA do mundo: AI Act da União Europeia — em processo de aprovação final" },
+            { "number": "2018", "label": "Amazon abandona ferramenta de recrutamento por IA por viés de gênero comprovado" },
+            { "number": "LGPD", "label": "Lei brasileira que já se aplica ao uso de dados de colaboradores em sistemas de IA" },
+            { "number": "GDPR", "label": "Regulação europeia que pode ser invocada contra uso não autorizado de dados em IA" }
           ]
         },
         {
           "type": "concept",
-          "title": "As 4 principais preocupações éticas que o RH precisa conhecer",
+          "title": "As 4 preocupações éticas que todo profissional de RH precisa conhecer",
           "items": [
             {
               "term": "Imprecisão e viés",
-              "description": "Modelos geram informação incorreta e reproduzem os vieses dos dados de treino. Exigem validação humana constante, especialmente em decisões que afetam pessoas: contratação, promoção, avaliação de desempenho."
+              "description": "Modelos geram informação incorreta e reproduzem vieses dos dados. Exigem validação humana, especialmente em decisões que afetam pessoas: contratação, promoção, avaliação de desempenho, desligamento. Para Business Partners e Executive Mastery: qualquer análise de IA sobre performance ou potencial precisa de olhar humano antes de gerar ação."
             },
             {
               "term": "Privacidade e segurança de dados",
-              "description": "Qualquer dado inserido em modelos de IA abertos pode virar dado de treino. Informações sensíveis de funcionários, dados de saúde, dados salariais — nunca devem ser inseridos em modelos sem garantias contratuais de não-uso para treinamento."
+              "description": "Qualquer dado inserido em modelos de IA abertos pode virar dado de treino. Dados de People Services (folha, benefícios, saúde), dados de avaliação de performance dos sistemas internos da CI&T, dados do Executive Assessment — nada disso deve entrar em modelos sem garantias contratuais explícitas de não-uso para treinamento. LGPD se aplica integralmente."
             },
             {
               "term": "Violação de direito autoral",
-              "description": "A IA pode gerar conteúdo que inclui logotipos, imagens e textos protegidos. Usar esses outputs comercialmente sem verificação pode gerar ações legais. A questão de quem detém o copyright de um conteúdo gerado por IA ainda está sendo definida pelos tribunais."
+              "description": "IA pode gerar conteúdo que inclui elementos protegidos. Para Internal Comms: material criado com auxílio de IA precisa de verificação antes de uso comercial ou público. Para L&D: conteúdo de treinamento gerado por IA pode inadvertidamente reproduzir material de terceiros."
             },
             {
-              "term": "Ambiguidade de autoria",
-              "description": "Se um analista usa IA para gerar um relatório, quem assina? Se o relatório contém um erro que gera uma decisão ruim, quem responde? Essas perguntas não têm resposta legal clara ainda — mas as organizações já estão sendo forçadas a definir políticas internas."
+              "term": "Ambiguidade de autoria e responsabilidade",
+              "description": "Se um BP usa IA para gerar análise que embasa uma decisão de desligamento, e essa análise tem erro, quem responde? As organizações precisam definir isso antes que o problema aconteça, não depois. A política de uso de IA em decisões sobre pessoas é tão necessária quanto a política de privacidade."
             }
           ]
         },
         {
-          "type": "insight",
-          "title": "Retratos com IA e a fronteira entre arte e fraude",
-          "body": "Os mesmos modelos que criam retratos artísticos impressionantes — envelhecendo rostos, aplicando estilos de pintores famosos, gerando rostos de pessoas que nunca existiram — são os que alimentam deepfakes. A diferença está na intenção e no contexto. GANs analisam vastos datasets de rostos humanos para aprender características faciais, expressões e estilos. Essa tecnologia tem aplicações legítimas incríveis: preservação de patrimônio histórico, animação de personagens, pesquisa médica. Mas o mesmo mecanismo cria materiais que podem destruir reputações. O curso foi direto: deepfakes são antiéticos, mas em muitos países não são ilegais. A vítima precisa provar intenção de causar dano — uma barreira alta na prática. Para o RH, o risco imediato é o phishing sofisticado: um deepfake de voz do CEO pedindo a um colaborador que transfira fundos ou revele senhas."
-        },
-        {
           "type": "highlight",
-          "body": "A IA não substitui o julgamento humano. Ela amplifica — para o bem e para o mal — o julgamento de quem a usa e dos dados com que foi treinada."
+          "body": "A IA não substitui o julgamento humano. Ela amplifica — para o bem e para o mal — o julgamento de quem a usa e os vieses dos dados com que foi treinada."
         },
         {
           "type": "videos",
           "title": "Assista: viés, ética e responsabilidade na IA",
-          "description": "Vídeos que aprofundam as questões éticas e legais — obrigatórios para quem usa ou planeja usar IA em processos que afetam pessoas:",
+          "description": "Obrigatórios para quem usa ou planeja usar IA em processos que afetam pessoas:",
           "items": [
             {
               "videoId": "ZsjDvyuxxgg",
@@ -556,7 +365,7 @@
             },
             {
               "videoId": "uirhantKzVg",
-              "title": "Avoiding AI Bias: Generative AI's Impact on Enterprises & Governance",
+              "title": "Avoiding AI Bias: Generative AI Impact on Enterprises",
               "channel": "IBM Technology",
               "duration": "12 min"
             },
@@ -571,7 +380,7 @@
         {
           "type": "reflection",
           "title": "O que muda na forma como vou liderar a adoção de IA no RH",
-          "body": "Essa parte da semana me deu um senso de responsabilidade diferente. Não é suficiente adotar IA porque é eficiente — é preciso adotar com governança. Três princípios que vou carregar: primeiro, qualquer ferramenta de IA que afete decisões sobre pessoas precisa de revisão humana obrigatória antes da decisão final. Segundo, dados de funcionários nunca entram em modelos sem garantias contratuais explícitas de que não serão usados para treinamento. Terceiro, o público de RH — meu cliente interno — precisa entender o que a IA pode e não pode fazer, para não delegar julgamento a uma máquina que não tem julgamento. Esse é o trabalho de transformação que eu precisava entender antes de começar a automatizar qualquer coisa."
+          "body": "Essa parte da semana me deu um senso de responsabilidade diferente. Não é suficiente adotar IA porque é eficiente — precisa ser adotada com governança. Três princípios que vou carregar para todos os projetos de IA no RH: primeiro, qualquer ferramenta de IA que afete decisões sobre pessoas tem revisão humana obrigatória antes da ação — sem exceção, seja no Talent Acquisition, no BP ou no Executive Mastery. Segundo, dados de colaboradores — do Oracle, do ADP, das plataformas internas de performance — nunca entram em modelos sem garantias contratuais explícitas. Terceiro, e mais importante: o público de RH precisa entender o que a IA pode e não pode fazer. Não para se tornar técnico — mas para não delegar julgamento a uma máquina que não tem julgamento. Esse é o trabalho de transformação que precede qualquer automação."
         }
       ]
     },
