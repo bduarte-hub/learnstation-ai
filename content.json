@@ -23,7 +23,8 @@
       "thumbnail": "🧠",
       "duration": "14 min de leitura",
       "tags": ["fundamentos", "GenAI", "LLMs", "modelos fundação"],
-      "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. E desde o primeiro módulo, não conseguia parar de pensar no que isso muda para o RH.",
+      "openerVideo": "qYNweeDHiyU",
+      "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. Assista o vídeo acima para ativar a intuição — e depois o texto vai fazer muito mais sentido.",
       "sections": [
         {
           "type": "stats",
@@ -71,6 +72,19 @@
         {
           "type": "highlight",
           "body": "Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa. O RH que só usa IA para filtrar está deixando o mais poderoso na mesa."
+        },
+        {
+          "type": "checkpoint",
+          "questions": [
+            {
+              "question": "Qual é a diferença fundamental entre IA discriminativa e IA generativa — e qual das duas está por trás do ChatGPT?",
+              "answer": "<strong>IA discriminativa</strong> classifica e separa dados (spam vs. não-spam, passa vs. não-passa). <strong>IA generativa</strong> cria conteúdo novo a partir de padrões aprendidos — texto, imagem, código, áudio. O ChatGPT é generativa, construído sobre Transformers, e pertence à categoria dos Modelos Fundação: treinado em escala massiva e adaptável para múltiplas aplicações."
+            },
+            {
+              "question": "Dos 4 modelos de IA Generativa (VAEs, GANs, Transformers, Difusão) — qual tem mais conexão direta com os riscos que o RH precisa conhecer, e por quê?",
+              "answer": "<strong>GANs</strong> são o modelo mais crítico do ponto de vista de risco para RH: são a base dos deepfakes — vídeos, áudios e imagens sintéticos indistinguíveis do real. O mesmo mecanismo que cria arte pode fabricar comunicados internos falsos, clonar a voz de um gestor ou manipular processos seletivos. Conhecer o mecanismo ajuda a criar salvaguardas."
+            }
+          ]
         },
         {
           "type": "insight",
@@ -126,6 +140,7 @@
       "thumbnail": "✍️",
       "duration": "12 min de leitura",
       "tags": ["prompt engineering", "LLMs", "comunicação", "prática"],
+      "openerVideo": "1c9iyoVIwDs",
       "intro": "Se a Parte 1 foi sobre entender o motor, a Parte 2 é sobre aprender a dirigir. Prompt Engineering é a arte — e a ciência — de instruir modelos de IA de forma que eles entreguem o que você realmente precisa. E foi aqui que os exemplos pararam de ser abstratos e começaram a parecer com o meu trabalho de toda semana.",
       "sections": [
         {
@@ -163,6 +178,19 @@
         {
           "type": "highlight",
           "body": "Prompt Engineering não é sobre falar com máquinas. É sobre ter clareza do que você realmente quer — e saber comunicar isso."
+        },
+        {
+          "type": "checkpoint",
+          "questions": [
+            {
+              "question": "Quais são os 4 elementos de um prompt bem construído? Tente nomear todos antes de ver a resposta.",
+              "answer": "<strong>Instrução</strong> (o que fazer, com verbo claro), <strong>Contexto</strong> (quem você é, qual é a situação), <strong>Dados de entrada</strong> (o material de referência específico) e <strong>Indicador de saída</strong> (formato, tom, tamanho esperado). O elemento mais esquecido na prática é o indicador de saída — e é ele que evita receber um texto genérico quando você precisava de um relatório executivo de 1 página."
+            },
+            {
+              "question": "Pense em uma tarefa repetitiva da sua área que você faz toda semana. Como você reescreveria o pedido para a IA usando os 4 elementos?",
+              "answer": "Não existe resposta única aqui — o exercício é o ponto. Uma estrutura útil: <strong>Instrução:</strong> [verbo + tarefa específica]. <strong>Contexto:</strong> Você é um especialista em [área] trabalhando em [empresa/situação]. <strong>Dados:</strong> [cole o material real]. <strong>Saída:</strong> Formato [X], tom [Y], tamanho [Z], para o público [W]. Quanto mais específico, mais útil o resultado."
+            }
+          ]
         },
         {
           "type": "insight",
@@ -217,6 +245,7 @@
       "thumbnail": "⚙️",
       "duration": "13 min de leitura",
       "tags": ["deep learning", "RAG", "alucinação", "capacidades", "modelos"],
+      "openerVideo": "T-D1OfcDW1M",
       "intro": "Depois de entender o que a IA Generativa é e como instruí-la, chegou a hora de olhar para o que ela realmente consegue fazer — e onde ela falha de forma previsível. Esta foi a parte mais técnica da semana, mas também a mais reveladora. Entender alucinação e RAG mudou completamente como eu penso sobre usar IA em processos que afetam decisões sobre pessoas.",
       "sections": [
         {
@@ -227,6 +256,19 @@
         {
           "type": "highlight",
           "body": "O modelo não sabe o que é verdade. Ele sabe o que é estatisticamente provável. Essa distinção muda tudo em RH."
+        },
+        {
+          "type": "checkpoint",
+          "questions": [
+            {
+              "question": "O que é alucinação em modelos de linguagem — e por que isso acontece mesmo quando o modelo parece confiante?",
+              "answer": "Alucinação é quando o modelo gera informação incorreta com tom assertivo. Acontece porque o modelo foi treinado para <strong>maximizar a probabilidade do próximo token</strong>, não para verificar a veracidade do que produz. Overfitting é um fator: o modelo aprende demais com os dados de treino e, em situações novas, gera o que é estatisticamente plausível — não o que é factualmente correto. Em RH, isso significa que qualquer output de IA que embase uma decisão sobre pessoas precisa de revisão humana antes de virar ação."
+            },
+            {
+              "question": "O que é RAG e qual problema ele resolve? Descreva em uma frase.",
+              "answer": "<strong>RAG (Retrieval-Augmented Generation)</strong> é uma técnica que conecta o modelo a uma base de dados externa e atual antes de gerar a resposta — reduzindo alucinação e desatualização. Em vez de depender só do que aprendeu no treino, o modelo consulta fontes confiáveis primeiro. Para RH: um agente com RAG conectado ao Oracle HCM responde sobre folha com os dados reais do colaborador, não com uma resposta genérica que pode estar errada."
+            }
+          ]
         },
         {
           "type": "insight",
@@ -303,6 +345,7 @@
       "thumbnail": "⚖️",
       "duration": "11 min de leitura",
       "tags": ["ética", "viés", "deepfakes", "legislação", "responsabilidade"],
+      "openerVideo": "ZsjDvyuxxgg",
       "intro": "A parte mais desconfortável da semana — e talvez a mais importante para quem trabalha com pessoas. Quando a IA gera um comunicado que parece oficial mas não é, quando um modelo de seleção rejeita sistematicamente certos perfis, quando dados de colaboradores alimentam modelos sem consentimento — de quem é a responsabilidade? Essa parte do curso não deixou essa pergunta sem resposta.",
       "sections": [
         {
@@ -351,6 +394,19 @@
         {
           "type": "highlight",
           "body": "A IA não substitui o julgamento humano. Ela amplifica — para o bem e para o mal — o julgamento de quem a usa e os vieses dos dados com que foi treinada."
+        },
+        {
+          "type": "checkpoint",
+          "questions": [
+            {
+              "question": "Por que uma ferramenta de IA para triagem de currículos pode perpetuar desigualdade mesmo sem intenção — e o que isso tem a ver com os dados de treino?",
+              "answer": "Porque o modelo aprende com dados históricos de contratação — que refletem os vieses de quem contratou no passado. Se a empresa historicamente contratou mais homens para cargos técnicos, o modelo vai aprender que homens são candidatos melhores para cargos técnicos. Não por má-fé — por reprodução de padrão. A Amazon viveu esse problema em 2018 e precisou desligar a ferramenta. <strong>Dado enviesado → modelo enviesado → decisão enviesada em escala.</strong> A solução exige auditoria constante dos outputs e dados de treino diversificados."
+            },
+            {
+              "question": "Dos 4 riscos éticos (viés, privacidade, direito autoral, ambiguidade de autoria) — qual é o mais urgente para a sua área de atuação em RH, e por quê?",
+              "answer": "Não há resposta única — a reflexão é o objetivo. Algumas âncoras: <strong>Talent Acquisition</strong> → viés de seleção e privacidade de dados de candidatos. <strong>Business Partner / Exec Mastery</strong> → ambiguidade de autoria em decisões de performance e desligamento. <strong>People Services</strong> → privacidade de dados sensíveis (folha, saúde) no Oracle/ADP. <strong>Internal Comms</strong> → autenticidade e direito autoral em conteúdo gerado. A LGPD se aplica a todos."
+            }
+          ]
         },
         {
           "type": "videos",

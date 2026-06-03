@@ -19,6 +19,23 @@ function ytThumb(videoId) {
   return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 }
 
+/* ── Reading progress bar ─────────────────────────── */
+function initReadProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'read-progress';
+  bar.id = 'read-progress';
+  document.body.prepend(bar);
+
+  function update() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
 /* ── Load & route ─────────────────────────────────── */
 fetch('content.json')
   .then(r => r.json())
@@ -39,7 +56,6 @@ function renderIndexPage(data) {
   const pct       = Math.round((published / series.totalEpisodes) * 100);
   const featured  = episodes.find(e => e.status === 'published') || episodes[0];
 
-  /* ── Hero banner ── */
   const heroBanner = $('hero-banner');
   if (heroBanner) {
     heroBanner.innerHTML = `
@@ -50,7 +66,7 @@ function renderIndexPage(data) {
         <p class="hero-subtitle">${series.description}</p>
         <div class="hero-actions">
           <a class="btn-primary" href="episode.html?ep=${featured.slug}">
-            ▶ Assistir Episódio 1
+            ▶ Começar Episódio 1
           </a>
           <button class="btn-ghost" onclick="document.getElementById('all-episodes').scrollIntoView({behavior:'smooth'})">
             Ver todos os episódios
@@ -69,7 +85,6 @@ function renderIndexPage(data) {
     `;
   }
 
-  /* ── Episodes grid ── */
   const grid = $('episodes-grid');
   if (grid) {
     episodes.forEach(ep => {
@@ -102,7 +117,6 @@ function renderIndexPage(data) {
     });
   }
 
-  /* ── About ── */
   const about = $('about-strip');
   if (about) {
     about.innerHTML = `
@@ -114,7 +128,6 @@ function renderIndexPage(data) {
     `;
   }
 
-  /* ── Footer ── */
   const foot = $('footer-text');
   if (foot) foot.textContent = `${series.title} · ${series.author.name} · CI&T`;
   document.title = series.title;
@@ -137,9 +150,23 @@ function renderEpisodePage(data, slug) {
   }
 
   document.title = `${ep.weekLabel}: ${ep.title} — ${series.title}`;
+  initReadProgress();
 
   const nextIdx = episodes.indexOf(ep) + 1;
   const next    = nextIdx < episodes.length ? episodes[nextIdx] : null;
+
+  /* Opener video — shown before intro if defined */
+  const openerHTML = ep.openerVideo
+    ? `<div class="ep-opener">
+         <p class="ep-opener-label">Assista antes de ler</p>
+         <div class="ep-opener-embed">
+           <iframe src="https://www.youtube.com/embed/${ep.openerVideo}?rel=0&modestbranding=1"
+                   loading="lazy"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                   allowfullscreen></iframe>
+         </div>
+       </div>`
+    : '';
 
   const sectionsHTML = ep.sections.map(renderSection).join('');
 
@@ -153,6 +180,22 @@ function renderEpisodePage(data, slug) {
          <span class="next-ep-arrow">→</span>
        </a>`
     : '';
+
+  /* Sandbox CTA — always present at end of every published episode */
+  const sandboxHTML = `
+    <div class="sandbox-cta">
+      <div class="sandbox-cta-text">
+        <p class="sandbox-cta-eyebrow">Agora é com você</p>
+        <p class="sandbox-cta-title">Qual problema da sua área você resolveria com isso?</p>
+        <p class="sandbox-cta-desc">Registre sua ideia de aplicação — processo, desafio, hipótese. Leva 2 minutos e é o primeiro passo real da transformação.</p>
+      </div>
+      <a class="sandbox-btn"
+         href="https://docs.google.com/forms/d/e/1FAIpQLSd_PLACEHOLDER/viewform"
+         target="_blank" rel="noopener noreferrer">
+        <span class="sandbox-btn-icon">💡</span>
+        Registrar minha ideia
+      </a>
+    </div>`;
 
   page.innerHTML = `
     <a class="ep-back" href="index.html">← Todos os episódios</a>
@@ -168,9 +211,11 @@ function renderEpisodePage(data, slug) {
         ${ep.tags.map(t => `<span class="tag">${t}</span>`).join('')}
       </div>
     </header>
+    ${openerHTML}
     <p class="ep-intro">${ep.intro}</p>
     <article>${sectionsHTML}</article>
     ${nextHTML}
+    ${sandboxHTML}
   `;
 
   const foot = $('footer-text');
@@ -242,10 +287,33 @@ function renderSection(s) {
         </div>
       </div>`;
 
+    case 'checkpoint':
+      return `<div class="section-checkpoint">
+        <p class="checkpoint-label">Pausa para reflexão</p>
+        <div class="checkpoint-questions">
+          ${s.questions.map((q, i) => `
+            <div class="checkpoint-q" id="cpq-${i}">
+              <div class="checkpoint-q-text" onclick="toggleCheckpoint('cpq-${i}')">
+                <span>${q.question}</span>
+                <span class="checkpoint-toggle">▾</span>
+              </div>
+              <div class="checkpoint-answer">
+                <p>${q.answer}</p>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
     default:
       return `<div class="ep-section">
         ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
         <p class="ep-section-body">${s.body || ''}</p>
       </div>`;
   }
+}
+
+/* ── Checkpoint toggle ───────────────────────────────── */
+function toggleCheckpoint(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
 }
