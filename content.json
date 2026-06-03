@@ -1,0 +1,453 @@
+{
+  "series": {
+    "title": "Orquestrando o Futuro",
+    "subtitle": "Uma jornada de 5 semanas em AI Orchestration",
+    "description": "Um diário de bordo de um líder sênior explorando como a inteligência artificial pode transformar processos, sistemas e pessoas. Conteúdo destilado de um programa corporativo e traduzido para quem quer entender — sem jargão desnecessário.",
+    "author": {
+      "name": "Vic",
+      "role": "Líder de HR Tech & Performance na CI&T",
+      "bio": "Responsável pelas verticais de Sistemas, People Analytics e Performance. Aprendendo sobre AI Orchestration para transformar a forma como o RH opera e como as pessoas trabalham."
+    },
+    "totalEpisodes": 8,
+    "coverColor": "#00e87a"
+  },
+  "episodes": [
+    {
+      "id": 1,
+      "slug": "ai-basics",
+      "title": "AI Basics",
+      "weekLabel": "Semana 1 · Parte 1",
+      "status": "published",
+      "publishedAt": "2026-06-03",
+      "tagline": "Do que a IA discrimina ao que ela cria — entendendo o motor por dentro",
+      "thumbnail": "🧠",
+      "duration": "14 min de leitura",
+      "tags": ["fundamentos", "GenAI", "LLMs", "modelos fundação"],
+      "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. Spoiler: é mais fascinante e mais limitada do que a maioria das pessoas imagina.",
+      "sections": [
+        {
+          "type": "stats",
+          "title": "O tamanho do que estamos falando",
+          "description": "Números que ajudam a situar a escala da IA Generativa hoje:",
+          "items": [
+            { "number": "180T", "label": "Parâmetros estimados do GPT-4 — o equivalente a 180 trilhões de ajustes internos" },
+            { "number": "10%", "label": "De todo dado produzido no mundo até 2025 será gerado por IA, segundo o Gartner" },
+            { "number": "540B", "label": "Parâmetros do PaLM 2, modelo de linguagem do Google" },
+            { "number": "2014", "label": "Ano em que as GANs foram introduzidas — o marco que transformou a IA Generativa" }
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "A distinção que ninguém explica direito",
+          "body": "Existe uma divisão fundamental que raramente aparece nas conversas do dia a dia. A IA que a maioria conhece é discriminativa — ela aprende a classificar, identificar, separar. É ela que filtra spam, detecta fraude em cartão de crédito e avalia currículos com base em critérios pré-definidos. Ela olha para dados e responde: 'isso é X ou Y?'. A IA Generativa é outra coisa. Ela não classifica — ela cria. Aprende os padrões de tudo o que existe e usa esse aprendizado para gerar algo novo: texto, imagem, código, áudio, vídeo. Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa. McKinsey estima que ela tem potencial de adicionar trilhões de dólares em valor à economia global — em grande parte porque ela opera onde antes só cabia gente."
+        },
+        {
+          "type": "concept",
+          "title": "Os 4 modelos que constroem a IA Generativa",
+          "items": [
+            {
+              "term": "VAEs — Variational Autoencoders",
+              "description": "Funcionam comprimindo dados em uma representação matemática compacta e depois reconstruindo algo novo a partir dela. São rápidos, versáteis e usados em síntese de imagens, detecção de anomalias e compressão de dados. O setor de saúde usa VAEs para detectar doenças por eletrocardiograma."
+            },
+            {
+              "term": "GANs — Generative Adversarial Networks",
+              "description": "Dois modelos competindo: um gerador que cria imagens falsas e um discriminador que tenta detectar as falsas. A competição os torna cada vez melhores. São a base de deepfakes, transferência de estilo artístico e geração de rostos sintéticos realistas. Requerem muitos dados e poder computacional."
+            },
+            {
+              "term": "Transformers",
+              "description": "A arquitetura que revolucionou o campo. Usam 'mecanismos de atenção' para entender o contexto de palavras dentro de sequências longas — por isso conseguem gerar parágrafos coerentes, não só frases soltas. GPT, BERT, PaLM e Llama são todos baseados em Transformers."
+            },
+            {
+              "term": "Modelos de Difusão",
+              "description": "Funcionam adicionando ruído gradual aos dados de treino e aprendendo a remover esse ruído. São a base do DALL-E 2, Stable Diffusion XL e Imagen do Google. Produzem imagens de qualidade excepcionalmente alta, mas demoram mais para treinar."
+            }
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "O que é um Modelo Fundação — e por que isso muda tudo",
+          "body": "O Stanford Center for Research on Foundation Models define assim: 'treine um modelo em uma quantidade enorme de dados e adapte-o para muitas aplicações'. Modelos Fundação são pré-treinados com bilhões de parâmetros usando algoritmos não supervisionados, o que lhes permite desenvolver capacidades multimodais — processar texto, imagem, áudio e vídeo ao mesmo tempo. O ChatGPT é construído sobre GPT-3 e GPT-4, modelos fundação da OpenAI. O Gemini é construído sobre o PaLM do Google. Eles funcionam como uma base: ao invés de criar uma IA do zero para cada tarefa (caro e lento), você parte de um modelo fundação e especializa. Para o RH, isso significa que hoje qualquer empresa pode ter um assistente de IA especializado em suas políticas, processos e cultura — sem precisar de uma equipe de pesquisa em machine learning."
+        },
+        {
+          "type": "highlight",
+          "body": "Enquanto a IA discriminativa imita nossa capacidade analítica, a Generativa imita nossa capacidade criativa."
+        },
+        {
+          "type": "insight",
+          "title": "Como o Deep Learning torna isso possível",
+          "body": "O Deep Learning é o motor que faz a IA Generativa funcionar. Redes Neurais Artificiais (ANNs) são organizadas em camadas: uma camada de entrada, várias camadas ocultas e uma camada de saída. Cada neurônio nas camadas ocultas tem parâmetros de viés e peso que são ajustados durante o treinamento. Quanto mais parâmetros, maior o poder computacional e a precisão preditiva. O treinamento pode ser supervisionado (dados rotulados — bom para classificar, menos criativo) ou não supervisionado (dados sem rótulos — mais livre para descobrir padrões). A maioria dos grandes modelos de linguagem é treinada de forma não supervisionada, o que os torna capazes de descobrir hierarquias e padrões que humanos nem sabiam que existiam nos dados."
+        },
+        {
+          "type": "videos",
+          "title": "Assista: entenda como LLMs e Deep Learning funcionam",
+          "description": "Vídeos selecionados para aprofundar os conceitos desta parte — do visual ao técnico:",
+          "items": [
+            {
+              "videoId": "qYNweeDHiyU",
+              "title": "AI, Machine Learning, Deep Learning and Generative AI Explained",
+              "channel": "IBM Technology",
+              "duration": "9 min"
+            },
+            {
+              "videoId": "aircAruvnKk",
+              "title": "But what is a Neural Network? Deep Learning Chapter 1",
+              "channel": "3Blue1Brown",
+              "duration": "19 min"
+            },
+            {
+              "videoId": "5sLYAQS9sWQ",
+              "title": "How Large Language Models Work",
+              "channel": "IBM Technology",
+              "duration": "10 min"
+            },
+            {
+              "videoId": "zjkBMFhNj_g",
+              "title": "Intro to Large Language Models (1h)",
+              "channel": "Andrej Karpathy",
+              "duration": "60 min"
+            }
+          ]
+        },
+        {
+          "type": "reflection",
+          "title": "O que levo desta parte",
+          "body": "Saí desta primeira parte percebendo que o ChatGPT é só a ponta do iceberg. A riqueza está embaixo: modelos que aprendem padrões em escalas que o cérebro humano não consegue imaginar. Para quem trabalha com RH, o insight central é este: você não precisa entender os bilhões de parâmetros, mas precisa entender que esses modelos podem ser especializados. Um modelo fundação adaptado para as políticas da sua empresa é um assistente que fala a língua da sua organização. Isso não é ficção científica — já existe e está acessível."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "engenharia-de-prompt",
+      "title": "Engenharia de Prompt",
+      "weekLabel": "Semana 1 · Parte 2",
+      "status": "published",
+      "publishedAt": "2026-06-03",
+      "tagline": "A qualidade do que você pede determina a qualidade do que você recebe",
+      "thumbnail": "✍️",
+      "duration": "12 min de leitura",
+      "tags": ["prompt engineering", "LLMs", "comunicação", "prática"],
+      "intro": "Se a Parte 1 foi sobre entender o motor, a Parte 2 é sobre aprender a dirigir. Prompt Engineering é a arte — e a ciência — de instruir modelos de IA de forma que eles entreguem o que você realmente precisa. E foi aqui que eu comecei a ver aplicações diretas no meu dia a dia como líder de RH.",
+      "sections": [
+        {
+          "type": "definition",
+          "title": "O que é um prompt — e o que ele não é",
+          "body": "Um prompt é qualquer input que você fornece a um modelo generativo para produzir um output desejado. Pode ser uma pergunta, uma instrução, uma situação ou uma série de contextos encadeados. O que a maioria das pessoas faz é 'naive prompting' — perguntar da forma mais simples possível. 'Faça uma análise de clima.' O resultado é genérico porque a instrução é genérica. Prompt Engineering é o processo iterativo de refinar essas instruções para extrair o máximo do modelo — como um pesquisador que aprende a fazer as perguntas certas para a fonte certa."
+        },
+        {
+          "type": "concept",
+          "title": "Os 4 elementos de um prompt bem construído",
+          "items": [
+            {
+              "term": "Instrução",
+              "description": "A tarefa específica que você quer que o modelo execute. Deve ser clara, com verbo de ação: 'escreva', 'analise', 'liste', 'compare', 'resuma'. Sem ambiguidade."
+            },
+            {
+              "term": "Contexto",
+              "description": "As circunstâncias que enquadram a instrução. Quem é o usuário? Qual é a situação? Qual é o objetivo final? Quanto mais contexto, mais relevante o output."
+            },
+            {
+              "term": "Dados de entrada",
+              "description": "O material de referência que o modelo deve usar: um texto, uma tabela, um conjunto de respostas de pesquisa, trechos de documentos. Modelos com dados de entrada específicos produzem muito mais do que modelos sem referência."
+            },
+            {
+              "term": "Indicador de saída",
+              "description": "O formato, o tom, o tamanho e as características do que você quer receber. 'Em formato de lista com 5 tópicos', 'em linguagem acessível para gestores não-técnicos', 'em até 200 palavras', 'sem jargão'."
+            }
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "Antes vs. depois: o mesmo pedido, resultados completamente diferentes",
+          "body": "Deixa eu mostrar com um exemplo real do mundo de RH. Prompt fraco: 'Faça uma análise de clima da minha equipe.' O modelo vai gerar algo genérico, provavelmente uma lista de dimensões que ele aprendeu em textos de RH. Prompt forte: 'Você é um especialista em clima organizacional e engajamento de equipes. A seguir estão os resultados de uma pesquisa de pulso com 45 respondentes de um time de tecnologia da CI&T, com foco em 3 dimensões: colaboração, clareza de objetivos e reconhecimento. Com base nesses dados, identifique os 2 principais pontos de tensão, explique o provável impacto no turnover, e sugira 3 ações práticas que um gestor de time pode implementar sem orçamento adicional. Responda em linguagem direta, sem jargão de RH, em formato de relatório executivo com no máximo 400 palavras.' A diferença entre os dois prompts não é técnica — é clareza de intenção."
+        },
+        {
+          "type": "highlight",
+          "body": "Prompt Engineering não é sobre falar com máquinas. É sobre ser preciso sobre o que você realmente quer."
+        },
+        {
+          "type": "insight",
+          "title": "O processo iterativo: não existe prompt perfeito de primeira",
+          "body": "Prompt Engineering é descrito no curso como um processo de 5 passos: (1) defina o objetivo com clareza; (2) escreva o prompt inicial; (3) teste e analise a resposta; (4) identifique onde ela ficou aquém; (5) refine e repita. Na prática, é como uma conversa de coaching: você começa, observa o que o modelo traz, identifica o gap e ajusta. Um exemplo do curso: um capitão de navio precisando de previsão meteorológica. O prompt inicial 'previsão do tempo no Atlântico' é insuficiente. O prompt refinado especifica coordenadas geográficas exatas, janela de tempo (semana de 28/08 a 01/09), e os elementos específicos necessários (velocidade do vento, altura de ondas, probabilidade de tempestades). O capitão não mudou a pergunta — ele ficou mais preciso sobre o que precisava saber."
+        },
+        {
+          "type": "definition",
+          "title": "Ferramentas de Prompt Engineering que você pode usar hoje",
+          "body": "O mercado de ferramentas para prompts cresceu muito. Algumas merecem atenção: IBM Watsonx.ai tem um Prompt Lab com exemplos pré-construídos para casos de uso como sumarização, classificação e extração. Spellbook (Scale AI) permite encadear prompts e testar variações. PromptPerfect otimiza automaticamente um prompt para diferentes modelos (GPT, Claude, Llama). LangChain é uma biblioteca Python para quem quer ir além do básico e construir pipelines de prompts. Existe inclusive um marketplace de prompts (PromptBase) onde é possível comprar e vender instruções testadas para casos de uso específicos — imagine comprar um prompt já validado para análise de desempenho ou mapeamento de competências."
+        },
+        {
+          "type": "videos",
+          "title": "Assista: Prompt Engineering na prática",
+          "description": "Selecionei vídeos que vão do conceitual ao aplicado — com foco em quem quer usar prompts no trabalho, não só entender a teoria:",
+          "items": [
+            {
+              "videoId": "1c9iyoVIwDs",
+              "title": "4 Methods of Prompt Engineering",
+              "channel": "IBM Technology",
+              "duration": "8 min"
+            },
+            {
+              "videoId": "cgVppD6paYo",
+              "title": "Prompt Engineering for LLMs & LangChain in Action",
+              "channel": "IBM Technology",
+              "duration": "12 min"
+            },
+            {
+              "videoId": "KJtZARuO3JY",
+              "title": "Visualizing Transformers and Attention",
+              "channel": "3Blue1Brown",
+              "duration": "35 min"
+            }
+          ]
+        },
+        {
+          "type": "reflection",
+          "title": "O que muda na minha prática",
+          "body": "Depois desta parte, parei de usar a IA como um Google melhorado e comecei a usá-la como um colaborador que precisa de briefing. Antes de pedir qualquer coisa, agora me pergunto: quem é o 'eu' que ele precisa ser? Qual contexto ele precisa ter? Que dados preciso fornecer? Em que formato quero a resposta? É um hábito mental que leva tempo para construir, mas os resultados são imediatamente perceptíveis. Experimentei reescrever um pedido de análise de engajamento com esses 4 elementos e o resultado foi 10 vezes mais útil do que qualquer coisa que havia gerado antes."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "deep-learning-e-modelos-genai",
+      "title": "Deep Learning e Modelos de GenAI",
+      "weekLabel": "Semana 1 · Parte 3",
+      "status": "published",
+      "publishedAt": "2026-06-03",
+      "tagline": "Por dentro dos modelos que geram texto, imagem, áudio e código",
+      "thumbnail": "⚙️",
+      "duration": "13 min de leitura",
+      "tags": ["deep learning", "RAG", "alucinação", "capacidades", "modelos"],
+      "intro": "Depois de entender o que a IA Generativa é e como instruí-la, chegou a hora de olhar para o que ela realmente consegue fazer — e onde ela falha. Esta parte da semana foi a mais técnica, mas também a mais reveladora: entender alucinação, RAG e as capacidades multimodais muda completamente como você usa essa tecnologia.",
+      "sections": [
+        {
+          "type": "definition",
+          "title": "O problema que a indústria prefere não destacar: alucinação",
+          "body": "Modelos de linguagem alucinam. Eles inventam informações com a mesma confiança com que dizem verdades. Por quê? Porque foram treinados para maximizar a probabilidade do próximo token (palavra) — não para verificar se aquilo é verdade. Um modelo pode gerar um artigo com fatos fabricados, citar um estudo que não existe, criar código que parece correto mas contém bugs sutis. Overfitting é um dos mecanismos: quando o modelo aprende demais com os dados de treino e tem dificuldade com dados novos, tende a gerar conteúdo que é estatisticamente plausível mas factualmente incorreto. As implicações para quem trabalha com RH são sérias: uma IA que gera uma política interna com dados inventados, ou uma análise de desempenho com inferências sem base, pode levar a decisões prejudiciais a pessoas reais."
+        },
+        {
+          "type": "highlight",
+          "body": "O modelo não sabe o que é verdade. Ele sabe o que é estatisticamente provável. Nunca use o output sem revisar."
+        },
+        {
+          "type": "insight",
+          "title": "A solução mais eficaz: RAG — Retrieval-Augmented Generation",
+          "body": "RAG é a técnica mais usada hoje para reduzir alucinação. A lógica é simples: em vez de depender apenas do que o modelo aprendeu durante o treinamento (que tem uma data de corte e pode estar desatualizado), você conecta o modelo a uma base de dados confiável e atual. Antes de responder, ele busca informações nessa base — como um pesquisador que consulta fontes antes de falar. A IBM ilustrou com um exemplo perfeito: quando perguntaram a um LLM 'qual planeta tem mais luas no nosso sistema solar?', ele respondeu com confiança 'Júpiter'. A resposta estava errada — é Saturno, com 146 luas (e contando). Com RAG, o modelo consulta uma base atualizada da NASA antes de responder e acerta. Para o RH, RAG abre uma possibilidade enorme: conectar um modelo às políticas da empresa, ao histórico de avaliações, ao banco de dados de vagas e competências. Ele responde com base na realidade da sua organização, não em suposições genéricas."
+        },
+        {
+          "type": "concept",
+          "title": "As capacidades que já existem — e o que isso significa na prática",
+          "items": [
+            {
+              "term": "Geração de texto",
+              "description": "LLMs como GPT-4, PaLM e Llama geram texto coerente e contextualmente relevante: resumos, análises, traduções, código, roteiros, políticas, avaliações. A qualidade depende do prompt e do modelo usado."
+            },
+            {
+              "term": "Geração de imagem",
+              "description": "DALL-E 2, Midjourney, Stable Diffusion XL e Imagen geram imagens realistas ou artísticas a partir de descrições em texto. StyleGAN consegue criar rostos de pessoas que nunca existiram com qualidade fotográfica."
+            },
+            {
+              "term": "Geração de áudio e voz",
+              "description": "Modelos como WaveGAN, MuseNet e Tacotron 2 compõem músicas, clonam vozes e geram fala sintética com tom, ritmo e emoção. A linha entre voz real e sintética já é indistinguível em muitos casos."
+            },
+            {
+              "term": "Geração de código",
+              "description": "GitHub Copilot, IBM Watson Code Assistant e AlphaCode completam, corrigem e geram código. Útil para times de desenvolvimento — mas requer revisão humana, pois o código gerado pode ter bugs ou vulnerabilidades não óbvias."
+            },
+            {
+              "term": "Geração e augmentação de dados",
+              "description": "Modelos podem gerar dados sintéticos para treinar outros modelos — especialmente útil em domínios com dados escassos, como doenças raras. Na área de People Analytics, dados sintéticos podem ser usados para validar análises sem expor dados pessoais reais."
+            }
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "Os limites que o curso foi honesto em admitir",
+          "body": "IA Generativa tem limitações estruturais que não devem ser ignoradas. Primeiro, ela é fundamentalmente limitada pelos dados de treino: se os dados tiverem viés, a IA vai reproduzir esse viés. Se os dados tiverem data de corte (o GPT-3.5 vai até janeiro de 2022), ela não sabe de nada que aconteceu depois. Segundo, ela não tem criatividade genuína — ela recombina padrões do que já existiu. Não inventa algo completamente novo. Terceiro, ela não entende contexto emocional com confiabilidade: sarcasmo, humor, subtext cultural são áreas onde ainda falha. Quarto — e o mais relevante para RH — ela é opaca: é difícil saber exatamente por que chegou a uma resposta. Esse problema de explainability limita seu uso em decisões que precisam ser justificadas, como promoções, feedbacks ou avaliações de desempenho."
+        },
+        {
+          "type": "videos",
+          "title": "Assista: alucinação, RAG e as capacidades da IA",
+          "description": "Vídeos para entender os mecanismos por trás dos problemas e soluções discutidos nesta parte:",
+          "items": [
+            {
+              "videoId": "T-D1OfcDW1M",
+              "title": "What is Retrieval-Augmented Generation (RAG)?",
+              "channel": "IBM Technology",
+              "duration": "5 min"
+            },
+            {
+              "videoId": "IHZwWFHWa-w",
+              "title": "Gradient Descent, How Neural Networks Learn — Deep Learning Ch. 2",
+              "channel": "3Blue1Brown",
+              "duration": "21 min"
+            },
+            {
+              "videoId": "7xTGNNLPyMI",
+              "title": "Deep Dive into LLMs like ChatGPT",
+              "channel": "Andrej Karpathy",
+              "duration": "180 min"
+            }
+          ]
+        },
+        {
+          "type": "reflection",
+          "title": "A pergunta que ficou",
+          "body": "Se o modelo não sabe a diferença entre verdade e probabilidade, o que garante a qualidade do que ele produz? A resposta honesta do curso é: o humano. RAG reduz o problema, mas não elimina. Fine-tuning ajuda, mas não é infalível. A revisão humana continua sendo o controle de qualidade mais confiável — especialmente em decisões que afetam pessoas. Isso não diminui a utilidade da IA; muda o papel de quem a usa. O analista de People Analytics não para de existir. Ele para de ser o processador de dados e passa a ser o curador de outputs."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "responsabilidade-social",
+      "title": "Responsabilidade Social",
+      "weekLabel": "Semana 1 · Parte 4",
+      "status": "published",
+      "publishedAt": "2026-06-03",
+      "tagline": "Deepfakes, vieses, direito autoral e os limites legais da IA — o que ninguém quer discutir",
+      "thumbnail": "⚖️",
+      "duration": "11 min de leitura",
+      "tags": ["ética", "viés", "deepfakes", "legislação", "responsabilidade"],
+      "intro": "A parte mais desconfortável da semana — e talvez a mais importante para quem trabalha com pessoas. Quando a IA gera uma imagem falsa de um CEO dando uma instrução que nunca deu, quando um modelo de seleção rejeita sistematicamente candidatas mulheres, quando dados pessoais de funcionários alimentam modelos sem consentimento — de quem é a responsabilidade? Essa parte do curso não deixou essa pergunta sem resposta.",
+      "sections": [
+        {
+          "type": "insight",
+          "title": "O problema dos vieses que a IA herda — e amplifica",
+          "body": "Modelos de linguagem são treinados em dados produzidos por humanos. Humanos têm vieses. Logo, os modelos herdam esses vieses — e os reproduzem em escala. O exemplo mais citado: peça a um gerador de imagem para criar 'um CEO' sem especificar nada mais. Em muitos modelos, o resultado padrão é um homem branco de meia-idade. Isso não é coincidência — é reflexo de quais imagens predominam nos dados de treino. No contexto de RH, isso é um risco real: ferramentas de triagem de currículos que penalizam candidatas, modelos de análise de desempenho que replicam avaliações históricas enviesadas, assistentes de RH que reproduzem estereótipos de gênero ou raça. A Amazon teve que abandonar uma ferramenta de recrutamento por IA em 2018 exatamente por esse motivo — ela aprendia a penalizar currículos com a palavra 'mulheres' baseada nos padrões históricos de contratação da empresa."
+        },
+        {
+          "type": "definition",
+          "title": "Deepfakes: o poder de fabricar qualquer realidade",
+          "body": "Deepfakes são vídeos, imagens ou áudios manipulados por IA para parecerem reais. As mesmas GANs que criam arte digital podem ser usadas para colocar palavras na boca de qualquer pessoa. As aplicações maliciosas documentadas incluem: criação de notícias falsas com líderes políticos; assédio e extorsão com imagens íntimas fabricadas; fraudes financeiras onde um deepfake de voz do CEO instrui transferências bancárias; e phishing onde criminosos imitam a voz de um familiar para pedir dinheiro. A pesquisa mostra que fraudes potencializadas por IA são a principal causa de roubo de identidade. O Pentágono americano trabalha com DARPA para desenvolver tecnologia que detecte deepfakes. Na Europa, a Inglaterra está criminalizando deepfakes pornográficos. No Brasil, o Marco Civil da Internet e o Art. 66 da Lei de IT fornecem base legal para denúncias, mas não há legislação específica ainda."
+        },
+        {
+          "type": "stats",
+          "title": "O cenário regulatório: onde estamos agora",
+          "description": "A legislação sobre IA ainda engatinha globalmente. O que existe hoje:",
+          "items": [
+            { "number": "1ª", "label": "Legislação de IA do mundo: AI Act da União Europeia — ainda em processo de aprovação final" },
+            { "number": "2018", "label": "Ano em que a Amazon abandonou sua ferramenta de recrutamento por IA por viés de gênero comprovado" },
+            { "number": "0", "label": "Leis específicas sobre deepfakes no Brasil — usa-se a Lei de IT e o Marco Civil" },
+            { "number": "GDPR", "label": "Regulação europeia que pode ser usada para contestar uso não autorizado de dados pessoais em IA" }
+          ]
+        },
+        {
+          "type": "concept",
+          "title": "As 4 principais preocupações éticas que o RH precisa conhecer",
+          "items": [
+            {
+              "term": "Imprecisão e viés",
+              "description": "Modelos geram informação incorreta e reproduzem os vieses dos dados de treino. Exigem validação humana constante, especialmente em decisões que afetam pessoas: contratação, promoção, avaliação de desempenho."
+            },
+            {
+              "term": "Privacidade e segurança de dados",
+              "description": "Qualquer dado inserido em modelos de IA abertos pode virar dado de treino. Informações sensíveis de funcionários, dados de saúde, dados salariais — nunca devem ser inseridos em modelos sem garantias contratuais de não-uso para treinamento."
+            },
+            {
+              "term": "Violação de direito autoral",
+              "description": "A IA pode gerar conteúdo que inclui logotipos, imagens e textos protegidos. Usar esses outputs comercialmente sem verificação pode gerar ações legais. A questão de quem detém o copyright de um conteúdo gerado por IA ainda está sendo definida pelos tribunais."
+            },
+            {
+              "term": "Ambiguidade de autoria",
+              "description": "Se um analista usa IA para gerar um relatório, quem assina? Se o relatório contém um erro que gera uma decisão ruim, quem responde? Essas perguntas não têm resposta legal clara ainda — mas as organizações já estão sendo forçadas a definir políticas internas."
+            }
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "Retratos com IA e a fronteira entre arte e fraude",
+          "body": "Os mesmos modelos que criam retratos artísticos impressionantes — envelhecendo rostos, aplicando estilos de pintores famosos, gerando rostos de pessoas que nunca existiram — são os que alimentam deepfakes. A diferença está na intenção e no contexto. GANs analisam vastos datasets de rostos humanos para aprender características faciais, expressões e estilos. Essa tecnologia tem aplicações legítimas incríveis: preservação de patrimônio histórico, animação de personagens, pesquisa médica. Mas o mesmo mecanismo cria materiais que podem destruir reputações. O curso foi direto: deepfakes são antiéticos, mas em muitos países não são ilegais. A vítima precisa provar intenção de causar dano — uma barreira alta na prática. Para o RH, o risco imediato é o phishing sofisticado: um deepfake de voz do CEO pedindo a um colaborador que transfira fundos ou revele senhas."
+        },
+        {
+          "type": "highlight",
+          "body": "A IA não substitui o julgamento humano. Ela amplifica — para o bem e para o mal — o julgamento de quem a usa e dos dados com que foi treinada."
+        },
+        {
+          "type": "videos",
+          "title": "Assista: viés, ética e responsabilidade na IA",
+          "description": "Vídeos que aprofundam as questões éticas e legais — obrigatórios para quem usa ou planeja usar IA em processos que afetam pessoas:",
+          "items": [
+            {
+              "videoId": "ZsjDvyuxxgg",
+              "title": "Unraveling AI Bias: Principles & Practices",
+              "channel": "IBM Technology",
+              "duration": "15 min"
+            },
+            {
+              "videoId": "uirhantKzVg",
+              "title": "Avoiding AI Bias: Generative AI's Impact on Enterprises & Governance",
+              "channel": "IBM Technology",
+              "duration": "12 min"
+            },
+            {
+              "videoId": "r4kButlDLUc",
+              "title": "Risks of Large Language Models (LLM)",
+              "channel": "IBM Technology",
+              "duration": "8 min"
+            }
+          ]
+        },
+        {
+          "type": "reflection",
+          "title": "O que muda na forma como vou liderar a adoção de IA no RH",
+          "body": "Essa parte da semana me deu um senso de responsabilidade diferente. Não é suficiente adotar IA porque é eficiente — é preciso adotar com governança. Três princípios que vou carregar: primeiro, qualquer ferramenta de IA que afete decisões sobre pessoas precisa de revisão humana obrigatória antes da decisão final. Segundo, dados de funcionários nunca entram em modelos sem garantias contratuais explícitas de que não serão usados para treinamento. Terceiro, o público de RH — meu cliente interno — precisa entender o que a IA pode e não pode fazer, para não delegar julgamento a uma máquina que não tem julgamento. Esse é o trabalho de transformação que eu precisava entender antes de começar a automatizar qualquer coisa."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "slug": "semana-2-em-breve",
+      "title": "Semana 2",
+      "weekLabel": "Semana 2",
+      "status": "coming_soon",
+      "publishedAt": null,
+      "tagline": "Agentes de IA e como eles tomam decisões",
+      "thumbnail": "🤖",
+      "duration": null,
+      "tags": ["agentes", "autonomia", "decisão"],
+      "intro": null,
+      "sections": []
+    },
+    {
+      "id": 6,
+      "slug": "semana-3-em-breve",
+      "title": "Semana 3",
+      "weekLabel": "Semana 3",
+      "status": "coming_soon",
+      "publishedAt": null,
+      "tagline": "Fluxos, pipelines e orquestração na prática",
+      "thumbnail": "🔀",
+      "duration": null,
+      "tags": ["orquestração", "fluxos", "pipelines"],
+      "intro": null,
+      "sections": []
+    },
+    {
+      "id": 7,
+      "slug": "semana-4-em-breve",
+      "title": "Semana 4",
+      "weekLabel": "Semana 4",
+      "status": "coming_soon",
+      "publishedAt": null,
+      "tagline": "AI aplicada ao mundo de Pessoas e RH",
+      "thumbnail": "👥",
+      "duration": null,
+      "tags": ["RH", "People Analytics", "aplicação"],
+      "intro": null,
+      "sections": []
+    },
+    {
+      "id": 8,
+      "slug": "semana-5-em-breve",
+      "title": "Semana 5",
+      "weekLabel": "Semana 5",
+      "status": "coming_soon",
+      "publishedAt": null,
+      "tagline": "Reflexões finais e o plano real de ação",
+      "thumbnail": "🚀",
+      "duration": null,
+      "tags": ["reflexão", "ação", "transformação"],
+      "intro": null,
+      "sections": []
+    }
+  ]
+}

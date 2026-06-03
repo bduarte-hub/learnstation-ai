@@ -1,0 +1,796 @@
+/* ── Design tokens: Netflix layout × CI&T brand ───── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* CI&T Brand green */
+  --cit-green:      #00e87a;
+  --cit-green-dim:  #00c062;
+
+  /* Flow-Indigo (CI&T DS accent) */
+  --indigo:         #6366f1;
+  --indigo-dim:     #4f52c9;
+  --indigo-glow:    rgba(99,102,241,0.15);
+
+  /* Netflix-style surfaces — dark */
+  --bg:             #141414;
+  --bg-card:        #1c1c1e;
+  --bg-card-2:      #242428;
+  --bg-hover:       #2a2a2e;
+  --border:         #2e2e32;
+  --border-dim:     #222226;
+
+  /* Text */
+  --text:           #e8e8ee;
+  --text-muted:     #8a8a9a;
+  --text-dim:       #505062;
+
+  /* Accent: CI&T green primary, indigo secondary */
+  --accent:         var(--cit-green);
+  --accent-dim:     var(--cit-green-dim);
+  --accent-glow:    rgba(0,232,122,0.12);
+
+  /* Semantic */
+  --error:          #f43f5e;
+  --warning:        #f59e0b;
+
+  /* Shape — matches Flow DS */
+  --radius:         8px;
+  --radius-lg:      12px;
+  --radius-pill:    999px;
+
+  /* Font — Inter variable (Flow DS) */
+  --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Header ─────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(20,20,20,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-dim);
+  padding: 0.9rem 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brand-cit  { color: var(--cit-green); }
+.brand-dot  {
+  width: 5px; height: 5px;
+  background: var(--indigo);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.brand-flow { color: var(--text-muted); }
+
+.site-header nav a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.site-header nav a:hover { color: var(--text); }
+
+/* ── HERO — Netflix-style full-bleed ─────────────────── */
+.hero-banner {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4vw 4rem;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0a0f1e 0%, #111828 40%, #141414 100%);
+}
+
+/* Decorative glow blob */
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: -60px;
+  width: 600px; height: 500px;
+  background: radial-gradient(ellipse at 30% 40%,
+    rgba(0,232,122,0.08) 0%,
+    rgba(99,102,241,0.06) 45%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+/* Large decorative number / emoji in background */
+.hero-bg-symbol {
+  position: absolute;
+  right: 4vw; top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(180px, 22vw, 320px);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cit-green);
+  margin-bottom: 1rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 2px;
+  background: var(--cit-green);
+  border-radius: 1px;
+}
+
+.hero h1 {
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.hero-subtitle {
+  font-size: 1.0625rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Buttons — CI&T DS style */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--cit-green);
+  color: #0a0f0a;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.65rem 1.375rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+}
+.btn-primary:hover { background: var(--cit-green-dim); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.65rem 1.375rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.13); }
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+.hero-meta strong { color: var(--text); font-weight: 600; }
+
+.progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.progress-bar-container {
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  height: 3px;
+  width: 80px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cit-green) 0%, var(--indigo) 100%);
+  border-radius: var(--radius-pill);
+  transition: width 0.5s ease;
+}
+
+/* ── Row label ───────────────────────────────────────── */
+.row-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── Episodes section ────────────────────────────────── */
+.episodes-section {
+  padding: 2rem 4vw 5rem;
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Episode card ────────────────────────────────────── */
+.episode-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.episode-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cit-green);
+  box-shadow: 0 0 0 1px rgba(0,232,122,0.12), 0 20px 44px rgba(0,0,0,0.6);
+}
+.episode-card.locked {
+  opacity: 0.42;
+  cursor: default;
+  pointer-events: none;
+}
+
+.card-thumbnail {
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.25rem;
+  position: relative;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+/* Per-episode gradients, Netflix-dark palette with CI&T green accent */
+.episode-card:nth-child(1) .card-thumbnail { background: linear-gradient(135deg,#0a1628 0%,#0e2040 55%,#112855 100%); }
+.episode-card:nth-child(2) .card-thumbnail { background: linear-gradient(135deg,#0a1e14 0%,#0d3020 55%,#0a3f28 100%); }
+.episode-card:nth-child(3) .card-thumbnail { background: linear-gradient(135deg,#1a1028 0%,#261540 55%,#301855 100%); }
+.episode-card:nth-child(4) .card-thumbnail { background: linear-gradient(135deg,#281210 0%,#3d1a18 55%,#501e1c 100%); }
+.episode-card:nth-child(5) .card-thumbnail { background: linear-gradient(135deg,#0e2010 0%,#143020 55%,#184028 100%); }
+
+.card-week-badge {
+  position: absolute;
+  top: 0.75rem; left: 0.75rem;
+  background: rgba(20,20,20,0.8);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(6px);
+}
+
+.card-status-badge {
+  position: absolute;
+  top: 0.75rem; right: 0.75rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+.card-status-badge.available {
+  background: rgba(0,232,122,0.12);
+  color: #4dffa0;
+  border: 1px solid rgba(0,232,122,0.3);
+}
+.card-status-badge.coming {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-dim);
+  border: 1px solid var(--border-dim);
+}
+
+.card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.card-episode-num {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cit-green);
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.card-tagline {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.875rem;
+}
+
+/* Badge — Flow DS polymorphic */
+.tag {
+  background: rgba(99,102,241,0.08);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #9ea3fb;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border-dim);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cit-green);
+  transition: gap 0.2s;
+}
+.episode-card:hover .card-cta { gap: 0.75rem; }
+
+/* ── About strip ─────────────────────────────────────── */
+.about-strip {
+  margin: 0 4vw 4rem;
+  padding: 1.75rem 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.about-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo) 0%, var(--cit-green) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+.about-text h3 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.3rem; }
+.about-text p  { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ── Episode page ────────────────────────────────────── */
+.episode-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem 4vw 7rem;
+}
+
+.ep-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 2.75rem;
+  transition: color 0.15s;
+}
+.ep-back:hover { color: var(--text); }
+
+/* Episode header */
+.ep-header { margin-bottom: 2.75rem; }
+
+.ep-week {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cit-green);
+  margin-bottom: 0.75rem;
+}
+.ep-week::before {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 2px;
+  background: var(--cit-green);
+  border-radius: 1px;
+}
+
+.ep-title {
+  font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  margin-bottom: 0.875rem;
+  color: #fff;
+}
+
+.ep-tagline {
+  font-size: 1.0625rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.ep-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.ep-meta .dot::before { content: '·'; margin-right: 0.875rem; }
+
+.ep-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+/* Intro */
+.ep-intro {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+/* ── Content sections ────────────────────────────────── */
+.ep-section { margin-bottom: 2.75rem; }
+
+.ep-section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.875rem;
+  color: var(--text);
+}
+
+.ep-section-body {
+  font-size: 0.975rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+
+/* insight */
+.section-insight {
+  border-left: 3px solid var(--cit-green);
+  padding-left: 1.375rem;
+}
+
+/* definition — card surface */
+.section-definition {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.625rem;
+}
+
+/* highlight — glow quote */
+.section-highlight {
+  background: linear-gradient(135deg,rgba(0,232,122,0.07) 0%,rgba(99,102,241,0.05) 100%);
+  border: 1px solid rgba(0,232,122,0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.875rem 2rem;
+  text-align: center;
+}
+.section-highlight .ep-section-body {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.55;
+}
+.section-highlight .ep-section-title { display: none; }
+
+/* reflection */
+.section-reflection .ep-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* concept list */
+.concept-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 1rem;
+}
+.concept-item {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.concept-item::before {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cit-green);
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+.concept-term {
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+.concept-desc {
+  font-size: 0.855rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── Video section ───────────────────────────────────── */
+.section-videos .ep-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-videos .ep-section-title::before {
+  content: '▶';
+  font-size: 0.75rem;
+  color: var(--cit-green);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.video-card {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.18s, border-color 0.18s;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+.video-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--cit-green);
+}
+
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #111;
+  overflow: hidden;
+}
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.video-card:hover .video-thumb img { opacity: 1; }
+
+.video-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-play-btn span {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.65);
+  border: 2px solid rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  padding-left: 3px;
+  color: #fff;
+  transition: background 0.18s, border-color 0.18s;
+}
+.video-card:hover .video-play-btn span {
+  background: var(--cit-green);
+  border-color: var(--cit-green);
+  color: #0a0f0a;
+}
+
+.video-info {
+  padding: 0.875rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.video-channel {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--indigo);
+}
+.video-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+.video-duration {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+/* ── Stats bar ───────────────────────────────────────── */
+.section-stats { }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.stat-card {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.125rem 1.25rem;
+}
+.stat-number {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--cit-green);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Next episode teaser ─────────────────────────────── */
+.next-ep-teaser {
+  margin-top: 4rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.next-ep-teaser:hover { border-color: var(--cit-green); }
+
+.next-ep-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.35rem;
+}
+.next-ep-title {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+.next-ep-arrow {
+  font-size: 1.25rem;
+  color: var(--cit-green);
+  flex-shrink: 0;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border-dim);
+  padding: 1.75rem 4vw;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 640px) {
+  .episodes-grid   { grid-template-columns: 1fr; }
+  .video-grid      { grid-template-columns: 1fr; }
+  .stats-grid      { grid-template-columns: repeat(2, 1fr); }
+  .about-strip     { flex-direction: column; gap: 1rem; text-align: center; }
+  .next-ep-teaser  { flex-direction: column; }
+  .hero-banner     { min-height: 400px; padding: 0 4vw 3rem; }
+  .hero-actions    { flex-direction: column; align-items: flex-start; }
+  .hero-bg-symbol  { display: none; }
+}
