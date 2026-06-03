@@ -11,6 +11,188 @@
     "totalEpisodes": 8,
     "coverColor": "#00e87a"
   },
+  "areas": [
+    {
+      "id": "talent-acquisition",
+      "title": "Talent Acquisition",
+      "icon": "🎯",
+      "tools": ["Lever", "Digaí", "Skill Hunter"],
+      "metric": "Leadtime da vaga",
+      "scene": "São 347 currículos no ATS para uma vaga de engenheiro. Você tem 2 dias para apresentar o shortlist para o gestor. A triagem manual vai levar pelo menos 6 horas — sem garantia de que o melhor perfil não ficou para trás.",
+      "problem": "Três ferramentas que não conversam entre si. Triagem manual que consome o tempo que deveria ser gasto em entrevistas que importam. Tempo de preenchimento de vaga que faz o gestor perder a fé no processo.",
+      "aiRole": "A IA conecta o Lever com o Skill Hunter, lê o perfil da vaga e ranqueia automaticamente os candidatos por aderência — não por palavras-chave, mas por fit real de competências. Você chega na reunião com dados, não com pilha de papel.",
+      "experiments": [
+        {
+          "title": "Triagem inteligente com prompt de ranqueamento",
+          "difficulty": "Hoje",
+          "description": "Cole a descrição da vaga e os resumos de 10 candidatos. Peça para a IA ranquear e justificar.",
+          "prompt": "Você é um especialista em recrutamento técnico. A seguir está a descrição de uma vaga e os perfis de [N] candidatos. Ranqueie os candidatos de 1 a [N] por aderência à vaga, considerando: competências técnicas obrigatórias, experiência relevante e potencial de crescimento. Para cada candidato, escreva 2 linhas justificando a posição no ranking. Seja direto — não elogie, avalie.\n\nVAGA:\n[cole aqui a descrição da vaga]\n\nCANDIDATOS:\n[cole aqui os perfis]"
+        },
+        {
+          "title": "Job description em 3 minutos",
+          "difficulty": "Hoje",
+          "description": "Transforme um briefing informal do gestor em uma JD completa, com linguagem inclusiva.",
+          "prompt": "Você é especialista em employer branding e atração de talentos. Com base no briefing abaixo de um gestor, escreva uma job description completa para o LinkedIn. A descrição deve: ser inclusiva e neutra em gênero, destacar impacto real da função, descrever o ambiente de trabalho da CI&T, ter no máximo 400 palavras e terminar com uma chamada para ação motivadora.\n\nBRIEFING DO GESTOR:\n[cole o briefing aqui]"
+        },
+        {
+          "title": "Perguntas de entrevista por competência",
+          "difficulty": "Hoje",
+          "description": "Gere perguntas comportamentais calibradas para o perfil específico da vaga.",
+          "prompt": "Com base na descrição da vaga abaixo, crie 8 perguntas de entrevista comportamental no formato STAR (Situação, Tarefa, Ação, Resultado). 4 perguntas para avaliar competências técnicas e 4 para avaliar fit cultural e colaboração. Para cada pergunta, inclua o que você está avaliando e um sinal de resposta positiva.\n\nVAGA:\n[cole a descrição da vaga]"
+        }
+      ]
+    },
+    {
+      "id": "business-partner",
+      "title": "Business Partner",
+      "icon": "🤝",
+      "tools": ["Plataforma interna de avaliação de performance", "Dashboards desconectados"],
+      "metric": "Turnover baixo · Squads montados mais rápido · Talento no lugar certo",
+      "scene": "O gestor te liga avisando que o sênior mais crítico do squad acabou de pedir demissão. Você não tinha nenhum sinal. Os dados estavam lá — performance caindo nos últimos 2 ciclos, ausência nas pesquisas de pulso, sem movimentação há 18 meses. Mas estavam em 4 sistemas diferentes.",
+      "problem": "Decisões sobre performance, promoção, movimentação e desligamento baseadas em dados fragmentados. Sem visão integrada, o BP reage a crises em vez de preveni-las. A reunião de diretoria pede dados que demoram 2 dias para consolidar.",
+      "aiRole": "A IA cruza os dados da plataforma interna de performance com histórico de movimentação e sinais de engajamento. Gera um mapa de risco de voo por squad — antes que o pedido de demissão chegue. E quando chega a hora de decidir sobre promoção, a análise comparativa já está pronta.",
+      "experiments": [
+        {
+          "title": "Análise de risco de turnover por squad",
+          "difficulty": "Esta semana",
+          "description": "Exporte os dados de performance e engajamento do seu squad e peça uma análise de risco.",
+          "prompt": "Você é um especialista em People Analytics com foco em retenção. Analise os dados abaixo de um squad e identifique: (1) os 3 perfis com maior risco de saída nos próximos 90 dias e por quê, (2) os padrões em comum entre eles, (3) 2 ações preventivas específicas que o gestor pode tomar esta semana para cada perfil de risco. Use linguagem direta para um BP que vai levar essa análise para o gestor.\n\nDADOS DO SQUAD:\n[cole dados de performance, tempo no cargo, última movimentação, participação em pesquisas]"
+        },
+        {
+          "title": "Síntese de ciclo de performance para calibração",
+          "difficulty": "Esta semana",
+          "description": "Transforme dados brutos de avaliação em síntese executiva para a reunião de calibração.",
+          "prompt": "Você é um Business Partner preparando uma reunião de calibração de performance. Com base nos dados abaixo de [N] pessoas, produza: (1) um mapa de distribuição por faixa de performance, (2) as 3 principais tendências do ciclo, (3) os casos que merecem atenção especial com justificativa, (4) sugestões de movimentação para maximizar potencial. Formato: relatório executivo de 1 página para apresentar à liderança.\n\nDADOS:\n[cole os dados do ciclo]"
+        },
+        {
+          "title": "Plano de desenvolvimento individual gerado por IA",
+          "difficulty": "Hoje",
+          "description": "Gere um PDI inicial personalizado a partir do perfil e feedback de performance.",
+          "prompt": "Você é um coach executivo especializado em desenvolvimento de carreira em empresas de tecnologia. Com base no perfil e no feedback de performance abaixo, crie um Plano de Desenvolvimento Individual para os próximos 6 meses. O PDI deve ter: 2 competências prioritárias para desenvolver, 3 ações concretas por competência (com prazo e como medir), e 1 experiência de aprendizagem recomendada. Linguagem direta, sem jargão de RH.\n\nPERFIL:\n[cargo, tempo na empresa, área]\n\nFEEDBACK DE PERFORMANCE:\n[cole o feedback]"
+        }
+      ]
+    },
+    {
+      "id": "people-services",
+      "title": "People Services",
+      "icon": "⚙️",
+      "tools": ["Oracle HCM", "ADP"],
+      "metric": "Mais automação · Fluxos inteligentes e conectados",
+      "scene": "São 38 mensagens no WhatsApp e e-mail perguntando sobre o holerite de dezembro. Cada mensagem é diferente na forma, mas a resposta é a mesma para 35 delas. O analista vai passar 2 horas respondendo uma por uma — tempo que poderia estar em análise estratégica de benefícios.",
+      "problem": "Oracle e ADP guardam os dados. Mas o colaborador não consegue acessar o que precisa sem passar pelo analista. Fluxos que deveriam ser automáticos ainda dependem de intervenção humana. A equipe é operacional quando poderia ser estratégica.",
+      "aiRole": "Um agente conectado ao Oracle responde dúvidas de folha, benefícios e férias com dados reais — 24h, sem fila. O analista para de ser atendente e passa a ser arquiteto dos processos que o agente vai executar.",
+      "experiments": [
+        {
+          "title": "FAQ inteligente de RH",
+          "difficulty": "Hoje",
+          "description": "Monte uma base de perguntas e respostas das dúvidas mais frequentes e use IA para responder variações.",
+          "prompt": "Você é o assistente virtual de RH da CI&T. Responda a pergunta do colaborador abaixo com base nas políticas da empresa. Seja objetivo, amigável e direto. Se a resposta exigir uma ação do colaborador, liste os passos numerados. Se a dúvida não puder ser respondida sem consultar o sistema, diga isso claramente e oriente para quem acionar.\n\nPOLÍTICAS DE REFERÊNCIA:\n[cole o trecho relevante da política]\n\nPERGUNTA DO COLABORADOR:\n[cole a pergunta]"
+        },
+        {
+          "title": "Mapeamento de processos manuais para automação",
+          "difficulty": "Esta semana",
+          "description": "Liste os processos da sua área e identifique quais têm maior potencial de automação.",
+          "prompt": "Você é um especialista em automação de processos de RH com experiência em Oracle HCM e ADP. Analise os processos abaixo da área de People Services e, para cada um: (1) avalie o potencial de automação de 1 a 5, (2) identifique qual parte do processo pode ser automatizada hoje sem integração de sistemas, (3) qual parte exige integração técnica. Produza uma matriz de priorização com os 5 processos de maior retorno para começar.\n\nPROCESSOS MAPEADOS:\n[liste os processos]"
+        },
+        {
+          "title": "Comunicado de benefícios personalizado por perfil",
+          "difficulty": "Hoje",
+          "description": "Gere comunicados diferentes para públicos diferentes a partir de um briefing único.",
+          "prompt": "Você é especialista em comunicação de benefícios corporativos. Com base no briefing abaixo sobre uma mudança de benefício, escreva 3 versões do comunicado para: (1) colaboradores CLT de escritório, (2) colaboradores PJ ou alocados em clientes, (3) gestores que precisam comunicar para o time. Cada versão deve destacar o que é mais relevante para aquele público. Tom: claro, direto e positivo.\n\nBRIEFING:\n[descreva a mudança de benefício]"
+        }
+      ]
+    },
+    {
+      "id": "learning-engagement",
+      "title": "Learning & Engagement",
+      "icon": "📚",
+      "tools": ["TeamCulture", "LinkedIn Learning", "Unico Skills"],
+      "metric": "Formação estratégica para o futuro · Engajamento mapeado para decisão",
+      "scene": "A trilha de upskilling foi montada manualmente no LinkedIn Learning, levou 3 semanas para configurar e tem 12% de taxa de conclusão. O gestor pergunta o que as pessoas aprenderam esse trimestre. Você não tem como responder com dados — só com suposições.",
+      "problem": "Três plataformas, curadoria manual, sem sinal claro de qual conteúdo realmente gera upskilling. O engajamento é medido por cliques, não por impacto no trabalho. A formação estratégica que a empresa precisa para o futuro não é a que as pessoas estão consumindo hoje.",
+      "aiRole": "A IA lê o mapa de competências do Unico Skills, identifica os gaps por squad e recomenda trilhas do LinkedIn Learning calibradas para fechar esses gaps — não por popularidade, mas por relevância estratégica. O TeamCulture vira fonte de sinal de engajamento, não só de NPS.",
+      "experiments": [
+        {
+          "title": "Curadoria de trilha por gap de competência",
+          "difficulty": "Hoje",
+          "description": "Descreva o perfil do squad e o objetivo estratégico e receba uma trilha de aprendizagem curada.",
+          "prompt": "Você é um Learning Designer especializado em upskilling para times de tecnologia. Com base no perfil do squad e no objetivo estratégico abaixo, monte uma trilha de aprendizagem para os próximos 90 dias. A trilha deve: ter no máximo 8 horas de conteúdo total, incluir formatos variados (vídeo, artigo, prática), ser dividida em semanas, e especificar o que a pessoa deve conseguir fazer diferente ao final. Sugira conteúdos que existam no LinkedIn Learning quando possível.\n\nPERFIL DO SQUAD:\n[cargo, nível, área de atuação]\n\nOBJETIVO ESTRATÉGICO:\n[ex: o squad precisa trabalhar com AI Agents em 6 meses]"
+        },
+        {
+          "title": "Análise de engajamento para decisão estratégica",
+          "difficulty": "Esta semana",
+          "description": "Transforme dados de engajamento da plataforma em insights acionáveis para a liderança.",
+          "prompt": "Você é um especialista em People Analytics com foco em engajamento e aprendizagem. Com base nos dados de engajamento abaixo, produza um relatório executivo que responda: (1) quais squads têm maior risco de desengajamento e por quê, (2) que tipo de conteúdo ou iniciativa está gerando mais impacto real, (3) 3 recomendações prioritárias para o próximo trimestre. Use dados para justificar cada recomendação. Formato: máximo 1 página, para apresentar ao CHRO.\n\nDADOS DE ENGAJAMENTO:\n[cole os dados do TeamCulture ou da plataforma]"
+        },
+        {
+          "title": "Descrição de programa de desenvolvimento",
+          "difficulty": "Hoje",
+          "description": "Transforme um briefing de programa em uma comunicação que gera adesão real.",
+          "prompt": "Você é especialista em comunicação de programas de aprendizagem corporativa. Com base no briefing abaixo de um programa de desenvolvimento, escreva: (1) um título que gere curiosidade, (2) uma descrição de 150 palavras focada no que a pessoa vai ganhar — não no que vai aprender, (3) 3 depoimentos fictícios mas realistas de participantes que completaram o programa. Tom: motivador, concreto, sem clichê de RH.\n\nBRIEFING DO PROGRAMA:\n[descreva o programa]"
+        }
+      ]
+    },
+    {
+      "id": "internal-comms-esg",
+      "title": "Internal Comms & ESG",
+      "icon": "📣",
+      "tools": ["Bondy"],
+      "metric": "Mensagem estratégica alinhada chegando em todas as posições",
+      "scene": "A mensagem sobre a nova estratégia da empresa saiu no Bondy, no e-mail, no town hall e no grupo de gestores. Mas chegou de 5 jeitos diferentes. Cada área interpretou de um jeito. Uma semana depois, o time ainda não sabe o que mudou — e o que muda para eles.",
+      "problem": "Muitos canais, muitos emissores, sem um tom de voz unificado que expresse a cultura. A comunicação estratégica chega fragmentada — quando chega. O risco é mensagem que deveria gerar alinhamento gerando ruído.",
+      "aiRole": "A IA atua como guardião do tom de voz da cultura. Você define a mensagem central uma vez — ela adapta para cada canal, cada público e cada formato, mantendo consistência. O Bondy se torna um canal mais efetivo porque o conteúdo que entra já está calibrado.",
+      "experiments": [
+        {
+          "title": "Adaptação de mensagem para múltiplos canais",
+          "difficulty": "Hoje",
+          "description": "Escreva uma mensagem estratégica uma vez e receba versões calibradas para cada canal.",
+          "prompt": "Você é o especialista em comunicação interna da CI&T, uma empresa de tecnologia com cultura de alto desempenho, colaboração e inovação. Com base na mensagem central abaixo, escreva 4 versões adaptadas para: (1) post no Bondy — informal, engajador, máximo 100 palavras; (2) e-mail para todos os colaboradores — claro, direto, máximo 200 palavras; (3) comunicado para gestores levarem para o time — com contexto e orientação de como comunicar; (4) post para LinkedIn da empresa — inspirador, sem revelar dados internos. Mantenha o mesmo tom: humano, direto, sem corporativês.\n\nMENSAGEM CENTRAL:\n[descreva a mensagem que precisa chegar]"
+        },
+        {
+          "title": "Auditoria de consistência de tom de voz",
+          "difficulty": "Esta semana",
+          "description": "Avalie se as últimas comunicações refletem a cultura e o tom de voz que a empresa quer projetar.",
+          "prompt": "Você é um especialista em cultura organizacional e comunicação. Analise os textos de comunicação interna abaixo e avalie: (1) consistência de tom de voz em relação à cultura declarada da empresa, (2) pontos onde a comunicação é genérica ou corporativa demais, (3) sugestão de reescrita para 2 dos textos aplicando o tom de voz correto. Parâmetros de tom desejado: humano, direto, sem jargão, que trate o colaborador como adulto.\n\nCULTURA DECLARADA:\n[cole os valores e atributos culturais]\n\nTEXTOS PARA ANÁLISE:\n[cole os comunicados recentes]"
+        },
+        {
+          "title": "Calendário editorial de comunicação interna",
+          "difficulty": "Esta semana",
+          "description": "Gere um calendário mensal de comunicação alinhado com os marcos estratégicos da empresa.",
+          "prompt": "Você é estrategista de comunicação interna. Com base nos marcos estratégicos e datas importantes abaixo, monte um calendário editorial de comunicação interna para o próximo mês. Para cada comunicação, especifique: tema, objetivo, canal principal, público-alvo, formato sugerido e tom. Priorize qualidade sobre quantidade — máximo 3 comunicações por semana. Destaque as 2 mais críticas para o alinhamento estratégico.\n\nMARCOS DO MÊS:\n[liste eventos, lançamentos, datas importantes]\n\nCANAIS DISPONÍVEIS:\nBondy, e-mail, town hall, reunião de gestores"
+        }
+      ]
+    },
+    {
+      "id": "executive-mastery",
+      "title": "Executive Mastery",
+      "icon": "⭐",
+      "tools": ["Executive Assessment (produto interno)"],
+      "metric": "High performers habilitando a estratégia da empresa",
+      "scene": "O Executive Assessment tem os dados de performance dos líderes de maior impacto da empresa. Mas transformar esses dados em uma experiência de desenvolvimento personalizada para cada arquétipo ainda é um processo manual, lento e que não escala.",
+      "problem": "Alta liderança é o público mais exigente e com menos paciência para experiências genéricas. Um programa de desenvolvimento que não considera o arquétipo, o momento e o contexto de cada executivo é percebido como burocracia — não como valor.",
+      "aiRole": "A IA lê os dados do Executive Assessment e gera rotas de desenvolvimento personalizadas por arquétipo. Identifica padrões entre os high performers e os que estão em risco de underperformance. Permite que a experiência de 1:1 do coach seja informada por dados — não por intuição.",
+      "experiments": [
+        {
+          "title": "Mapeamento de arquétipos de liderança",
+          "difficulty": "Esta semana",
+          "description": "Use os dados do Executive Assessment para identificar arquétipos e padrões entre os executivos.",
+          "prompt": "Você é um especialista em desenvolvimento de liderança e assessment executivo. Com base nos dados abaixo de [N] executivos, identifique: (1) os arquétipos de liderança presentes no grupo (máximo 4 arquétipos), descrevendo as características de cada um; (2) o executivo que melhor representa cada arquétipo; (3) os padrões que distinguem os high performers dos demais; (4) 2 pontos de atenção para o grupo como um todo. Use linguagem executiva — sem jargão de psicologia.\n\nDADOS DO EXECUTIVE ASSESSMENT:\n[cole os dados de performance e comportamento]"
+        },
+        {
+          "title": "Rota de desenvolvimento por arquétipo",
+          "difficulty": "Esta semana",
+          "description": "Gere recomendações de desenvolvimento personalizadas para cada perfil executivo.",
+          "prompt": "Você é um coach executivo sênior. Com base no perfil e nos resultados do Executive Assessment abaixo, crie uma rota de desenvolvimento para os próximos 6 meses. A rota deve: identificar as 2 alavancas de performance mais importantes para este perfil, propor 3 experiências de desenvolvimento concretas (não cursos genéricos), sugerir 1 desafio de stretch assignment, e definir como medir o progresso. Tom: direto, como uma conversa entre pares de alto nível.\n\nPERFIL DO EXECUTIVO:\n[cargo, área, tempo na empresa]\n\nRESULTADOS DO ASSESSMENT:\n[cole os resultados]"
+        },
+        {
+          "title": "Síntese executiva para o CHRO",
+          "difficulty": "Hoje",
+          "description": "Transforme dados de assessment em um briefing estratégico sobre o pipeline de liderança.",
+          "prompt": "Você é Chief People Officer preparando um briefing para o board sobre o pipeline de liderança da empresa. Com base nos dados do Executive Assessment de [N] líderes, produza um briefing de 1 página que responda: (1) qual é a saúde geral do pipeline de liderança, (2) quem são os 3 nomes mais prontos para assumir responsabilidades maiores e por quê, (3) quais são os 2 maiores riscos no pipeline atual, (4) recomendação de investimento prioritário em desenvolvimento para o próximo semestre. Linguagem: executiva, baseada em dados, sem eufemismos.\n\nDADOS DO ASSESSMENT:\n[cole os dados]"
+        }
+      ]
+    }
+  ],
   "episodes": [
     {
       "id": 1,

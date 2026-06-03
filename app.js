@@ -23,9 +23,16 @@ function ytThumb(videoId) {
 fetch('content.json')
   .then(r => r.json())
   .then(data => {
-    const slug = new URLSearchParams(location.search).get('ep');
-    if (slug) renderEpisodePage(data, slug);
-    else      renderIndexPage(data);
+    const page = location.pathname.split('/').pop();
+    const params = new URLSearchParams(location.search);
+
+    if (page === 'areas.html') {
+      renderAreasPage(data, params.get('area'));
+    } else if (params.get('ep')) {
+      renderEpisodePage(data, params.get('ep'));
+    } else {
+      renderIndexPage(data);
+    }
   })
   .catch(() => {
     document.body.innerHTML =
@@ -175,6 +182,140 @@ function renderEpisodePage(data, slug) {
 
   const foot = $('footer-text');
   if (foot) foot.textContent = `${series.title} · ${series.author.name} · CI&T`;
+}
+
+/* ══ AREAS PAGE ═══════════════════════════════════════ */
+function renderAreasPage(data, activeId) {
+  const { series, areas } = data;
+  const page = $('areas-page');
+  if (!page || !areas) return;
+
+  const active = areas.find(a => a.id === activeId) || areas[0];
+
+  const footerEl = $('footer-text');
+  if (footerEl) footerEl.textContent = `${series.title} · ${series.author.name} · CI&T`;
+  document.title = `Para a sua área — ${series.title}`;
+
+  page.innerHTML = `
+    <div class="areas-hero">
+      <p class="hero-eyebrow">RH em prática</p>
+      <h1>O que isso significa para a sua área</h1>
+      <p>Cada área de RH tem problemas específicos que a IA Generativa pode resolver hoje — com as ferramentas que você já usa. Escolha a sua área e veja a cena que você vive toda semana, o papel da IA e prompts prontos para testar.</p>
+    </div>
+
+    <div class="area-tabs" id="area-tabs">
+      ${areas.map(a => `
+        <button class="area-tab ${a.id === active.id ? 'active' : ''}"
+                onclick="selectArea('${a.id}')">
+          <span class="tab-icon">${a.icon}</span>
+          ${a.title}
+        </button>
+      `).join('')}
+    </div>
+
+    <div class="area-panel" id="area-panel">
+      ${renderAreaPanel(active)}
+    </div>
+  `;
+
+  window._areasData = areas;
+}
+
+function selectArea(id) {
+  const areas = window._areasData;
+  if (!areas) return;
+  const area = areas.find(a => a.id === id);
+  if (!area) return;
+
+  document.querySelectorAll('.area-tab').forEach(t => {
+    t.classList.toggle('active', t.getAttribute('onclick').includes(id));
+  });
+
+  $('area-panel').innerHTML = renderAreaPanel(area);
+  history.replaceState(null, '', `?area=${id}`);
+}
+
+function renderAreaPanel(area) {
+  return `
+    <div class="area-panel-header">
+      <div class="area-panel-icon">${area.icon}</div>
+      <div class="area-panel-meta">
+        <h2 class="area-panel-title">${area.title}</h2>
+        <div class="area-tools">
+          ${area.tools.map(t => `<span class="tool-badge">${t}</span>`).join('')}
+        </div>
+        <p class="area-metric">${area.metric}</p>
+      </div>
+    </div>
+
+    <div class="area-scene">
+      <p class="area-scene-label">A cena que você conhece</p>
+      <p>${area.scene}</p>
+    </div>
+
+    <div class="area-two-col">
+      <div class="area-block">
+        <p class="area-block-label">O problema real</p>
+        <p>${area.problem}</p>
+      </div>
+      <div class="area-block ai-role">
+        <p class="area-block-label">O papel da IA</p>
+        <p>${area.aiRole}</p>
+      </div>
+    </div>
+
+    <p class="experiments-title">Experimentos — o que você pode testar hoje</p>
+    <div class="experiment-list">
+      ${area.experiments.map((exp, i) => `
+        <div class="experiment-card" id="exp-${area.id}-${i}">
+          <div class="experiment-header" onclick="toggleExperiment('exp-${area.id}-${i}')">
+            <div class="experiment-header-left">
+              <p class="experiment-title">${exp.title}</p>
+              <p class="experiment-desc">${exp.description}</p>
+            </div>
+            <span class="experiment-difficulty">${exp.difficulty}</span>
+            <span class="experiment-toggle">▾</span>
+          </div>
+          <div class="experiment-body">
+            <p class="prompt-label">📋 Prompt pronto para copiar</p>
+            <div class="prompt-box" id="prompt-${area.id}-${i}">${escapeHtml(exp.prompt)}</div>
+            <button class="copy-btn" id="copy-${area.id}-${i}"
+                    onclick="copyPrompt('${area.id}', ${i})">
+              Copiar prompt
+            </button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function toggleExperiment(id) {
+  const card = document.getElementById(id);
+  if (card) card.classList.toggle('open');
+}
+
+function copyPrompt(areaId, idx) {
+  const promptEl = document.getElementById(`prompt-${areaId}-${idx}`);
+  const btnEl    = document.getElementById(`copy-${areaId}-${idx}`);
+  if (!promptEl || !btnEl) return;
+
+  navigator.clipboard.writeText(promptEl.textContent).then(() => {
+    btnEl.textContent = '✓ Copiado!';
+    btnEl.classList.add('copied');
+    setTimeout(() => {
+      btnEl.textContent = 'Copiar prompt';
+      btnEl.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 /* ── Section renderers ──────────────────────────────── */
