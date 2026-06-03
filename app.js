@@ -156,11 +156,13 @@ function renderEpisodePage(data, slug) {
   const next    = nextIdx < episodes.length ? episodes[nextIdx] : null;
 
   /* Opener video — shown before intro if defined */
+  const openerMeta = ep.openerVideoMeta || {};
   const openerHTML = ep.openerVideo
     ? `<div class="ep-opener">
-         <p class="ep-opener-label">Assista antes de ler</p>
+         <p class="ep-opener-label">Ative a intuição antes de ler${openerMeta.channel ? ` · <span style="color:var(--text-muted);font-weight:500;text-transform:none;letter-spacing:0">${openerMeta.channel}</span>` : ''}</p>
          <div class="ep-opener-embed">
            <iframe src="https://www.youtube.com/embed/${ep.openerVideo}?rel=0&modestbranding=1"
+                   title="${openerMeta.title || 'Vídeo de abertura'}"
                    loading="lazy"
                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                    allowfullscreen></iframe>

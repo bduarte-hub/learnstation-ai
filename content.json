@@ -23,7 +23,8 @@
       "thumbnail": "🧠",
       "duration": "14 min de leitura",
       "tags": ["fundamentos", "GenAI", "LLMs", "modelos fundação"],
-      "openerVideo": "qYNweeDHiyU",
+      "openerVideo": "jr6NogR3GRk",
+      "openerVideoMeta": { "title": "What Can Generative AI Really Do?", "channel": "Coursera" },
       "intro": "Antes de falar em orquestração de agentes, eu precisava entender o que faz a máquina funcionar. A primeira parte da Semana 1 foi exatamente isso: mergulhar no que é IA Generativa, como ela aprende e o que a torna diferente de qualquer tecnologia que veio antes. Assista o vídeo acima para ativar a intuição — e depois o texto vai fazer muito mais sentido.",
       "sections": [
         {
@@ -93,32 +94,20 @@
         },
         {
           "type": "videos",
-          "title": "Assista: como LLMs e Deep Learning funcionam",
-          "description": "Vídeos selecionados para aprofundar os conceitos desta parte — do visual ao técnico:",
+          "title": "Para aprofundar",
+          "description": "Vídeos curtos de fontes reconhecidas para quem quer ir além:",
           "items": [
             {
-              "videoId": "qYNweeDHiyU",
-              "title": "AI, Machine Learning, Deep Learning and Generative AI Explained",
+              "videoId": "T-D1OfcDW1M",
+              "title": "What is Retrieval-Augmented Generation (RAG)?",
               "channel": "IBM Technology",
-              "duration": "9 min"
+              "duration": "5 min"
             },
             {
-              "videoId": "aircAruvnKk",
-              "title": "But what is a Neural Network? Deep Learning Chapter 1",
-              "channel": "3Blue1Brown",
-              "duration": "19 min"
-            },
-            {
-              "videoId": "5sLYAQS9sWQ",
-              "title": "How Large Language Models Work",
+              "videoId": "yh-3WU1FKrk",
+              "title": "What is Responsible AI? A Guide to AI Governance",
               "channel": "IBM Technology",
-              "duration": "10 min"
-            },
-            {
-              "videoId": "zjkBMFhNj_g",
-              "title": "Intro to Large Language Models (1h)",
-              "channel": "Andrej Karpathy",
-              "duration": "60 min"
+              "duration": "5 min"
             }
           ]
         },
@@ -140,7 +129,8 @@
       "thumbnail": "✍️",
       "duration": "12 min de leitura",
       "tags": ["prompt engineering", "LLMs", "comunicação", "prática"],
-      "openerVideo": "1c9iyoVIwDs",
+      "openerVideo": "jNNatjruXx8",
+      "openerVideoMeta": { "title": "Discover the Art of Prompting", "channel": "Google Career Certificates" },
       "intro": "Se a Parte 1 foi sobre entender o motor, a Parte 2 é sobre aprender a dirigir. Prompt Engineering é a arte — e a ciência — de instruir modelos de IA de forma que eles entreguem o que você realmente precisa. E foi aqui que os exemplos pararam de ser abstratos e começaram a parecer com o meu trabalho de toda semana.",
       "sections": [
         {
@@ -204,26 +194,20 @@
         },
         {
           "type": "videos",
-          "title": "Assista: Prompt Engineering na prática",
-          "description": "Do conceitual ao aplicado — com foco em quem quer usar prompts no trabalho:",
+          "title": "Para aprofundar",
+          "description": "Vídeos curtos de fontes reconhecidas — assista após praticar os prompts:",
           "items": [
             {
-              "videoId": "1c9iyoVIwDs",
-              "title": "4 Methods of Prompt Engineering",
-              "channel": "IBM Technology",
-              "duration": "8 min"
+              "videoId": "jr6NogR3GRk",
+              "title": "What Can Generative AI Really Do? 2025 Overview",
+              "channel": "Coursera",
+              "duration": "5 min"
             },
             {
-              "videoId": "cgVppD6paYo",
-              "title": "Prompt Engineering for LLMs & LangChain in Action",
+              "videoId": "IHsYWHfIe0Y",
+              "title": "Responsible AI: Governance, Ethics & Best Practices",
               "channel": "IBM Technology",
-              "duration": "12 min"
-            },
-            {
-              "videoId": "KJtZARuO3JY",
-              "title": "Visualizing Transformers and Attention",
-              "channel": "3Blue1Brown",
-              "duration": "35 min"
+              "duration": "4 min"
             }
           ]
         },
@@ -246,6 +230,7 @@
       "duration": "13 min de leitura",
       "tags": ["deep learning", "RAG", "alucinação", "capacidades", "modelos"],
       "openerVideo": "T-D1OfcDW1M",
+      "openerVideoMeta": { "title": "What is Retrieval-Augmented Generation (RAG)?", "channel": "IBM Technology" },
       "intro": "Depois de entender o que a IA Generativa é e como instruí-la, chegou a hora de olhar para o que ela realmente consegue fazer — e onde ela falha de forma previsível. Esta foi a parte mais técnica da semana, mas também a mais reveladora. Entender alucinação e RAG mudou completamente como eu penso sobre usar IA em processos que afetam decisões sobre pessoas.",
       "sections": [
         {
@@ -304,26 +289,20 @@
         },
         {
           "type": "videos",
-          "title": "Assista: alucinação, RAG e capacidades da IA",
-          "description": "Vídeos para entender os mecanismos por trás dos problemas e soluções desta parte:",
+          "title": "Para aprofundar",
+          "description": "Vídeos curtos de fontes reconhecidas para consolidar os conceitos desta parte:",
           "items": [
             {
-              "videoId": "T-D1OfcDW1M",
-              "title": "What is Retrieval-Augmented Generation (RAG)?",
-              "channel": "IBM Technology",
+              "videoId": "jr6NogR3GRk",
+              "title": "What Can Generative AI Really Do? 2025 Overview",
+              "channel": "Coursera",
               "duration": "5 min"
             },
             {
-              "videoId": "IHZwWFHWa-w",
-              "title": "Gradient Descent, How Neural Networks Learn",
-              "channel": "3Blue1Brown",
-              "duration": "21 min"
-            },
-            {
-              "videoId": "7xTGNNLPyMI",
-              "title": "Deep Dive into LLMs like ChatGPT",
-              "channel": "Andrej Karpathy",
-              "duration": "180 min"
+              "videoId": "yh-3WU1FKrk",
+              "title": "What is Responsible AI? A Guide to AI Governance",
+              "channel": "IBM Technology",
+              "duration": "5 min"
             }
           ]
         },
@@ -345,7 +324,8 @@
       "thumbnail": "⚖️",
       "duration": "11 min de leitura",
       "tags": ["ética", "viés", "deepfakes", "legislação", "responsabilidade"],
-      "openerVideo": "ZsjDvyuxxgg",
+      "openerVideo": "yh-3WU1FKrk",
+      "openerVideoMeta": { "title": "What is Responsible AI? A Guide to AI Governance", "channel": "IBM Technology" },
       "intro": "A parte mais desconfortável da semana — e talvez a mais importante para quem trabalha com pessoas. Quando a IA gera um comunicado que parece oficial mas não é, quando um modelo de seleção rejeita sistematicamente certos perfis, quando dados de colaboradores alimentam modelos sem consentimento — de quem é a responsabilidade? Essa parte do curso não deixou essa pergunta sem resposta.",
       "sections": [
         {
@@ -410,26 +390,20 @@
         },
         {
           "type": "videos",
-          "title": "Assista: viés, ética e responsabilidade na IA",
-          "description": "Obrigatórios para quem usa ou planeja usar IA em processos que afetam pessoas:",
+          "title": "Para aprofundar",
+          "description": "Vídeos curtos de fontes reconhecidas — essenciais para quem usa IA em decisões sobre pessoas:",
           "items": [
             {
-              "videoId": "ZsjDvyuxxgg",
-              "title": "Unraveling AI Bias: Principles & Practices",
+              "videoId": "IHsYWHfIe0Y",
+              "title": "Responsible AI: Governance, Ethics & Best Practices",
               "channel": "IBM Technology",
-              "duration": "15 min"
+              "duration": "4 min"
             },
             {
-              "videoId": "uirhantKzVg",
-              "title": "Avoiding AI Bias: Generative AI Impact on Enterprises",
+              "videoId": "T-D1OfcDW1M",
+              "title": "What is Retrieval-Augmented Generation (RAG)?",
               "channel": "IBM Technology",
-              "duration": "12 min"
-            },
-            {
-              "videoId": "r4kButlDLUc",
-              "title": "Risks of Large Language Models (LLM)",
-              "channel": "IBM Technology",
-              "duration": "8 min"
+              "duration": "5 min"
             }
           ]
         },
