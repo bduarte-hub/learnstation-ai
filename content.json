@@ -9,7 +9,7 @@
       "bio": "Responsável pelas verticais de Sistemas, People Analytics e Performance. Aprendendo sobre AI Orchestration para transformar a forma como o RH opera e como as pessoas trabalham."
     },
     "totalEpisodes": 8,
-    "coverColor": "#00e87a"
+    "coverColor": "#3b82f6"
   },
   "episodes": [
     {
@@ -39,6 +39,35 @@
           ]
         },
         {
+          "type": "comparison",
+          "title": "IA Discriminativa vs. IA Generativa",
+          "description": "A distinção que define o que você pode — e o que você não pode — pedir para a IA",
+          "colA": {
+            "label": "Tradicional",
+            "title": "IA Discriminativa",
+            "items": [
+              "Classifica e separa dados",
+              "Responde: isso é X ou Y?",
+              "Aprende com dados rotulados",
+              "Limitada a tarefas predefinidas",
+              "Excelente em padrões históricos"
+            ],
+            "example": "Filtro de spam, detecção de fraude em cartão, triagem de currículo por palavras-chave"
+          },
+          "colB": {
+            "label": "Revolução atual",
+            "title": "IA Generativa",
+            "items": [
+              "Cria conteúdo novo a partir de padrões",
+              "Responde a qualquer prompt com geração",
+              "Aprende com dados não rotulados",
+              "Adaptável a múltiplas tarefas",
+              "Expande a capacidade criativa humana"
+            ],
+            "example": "ChatGPT, DALL-E, Midjourney, GitHub Copilot, Claude"
+          }
+        },
+        {
           "type": "insight",
           "title": "A distinção que ninguém explica direito",
           "body": "Existe uma divisão fundamental que raramente aparece nas conversas do dia a dia. A IA que a maioria conhece é discriminativa — ela aprende a classificar, identificar, separar. É ela que filtra spam, detecta fraude em cartão e avalia currículos por palavras-chave. Ela olha para dados e responde: 'isso é X ou Y?'. A IA Generativa é outra coisa. Ela não classifica — ela cria. Aprende os padrões de tudo o que existe e usa esse aprendizado para gerar algo novo: texto, imagem, código, áudio, vídeo. Pensando em Talent Acquisition: a IA discriminativa diz se um currículo passa ou não passa num filtro. A Generativa lê 300 currículos, entende o contexto da vaga e escreve uma análise comparativa dos 5 melhores perfis — com justificativas. São capacidades completamente diferentes."
@@ -62,6 +91,42 @@
             {
               "term": "Modelos de Difusão",
               "description": "Adicionam ruído gradual aos dados de treino e aprendem a removê-lo. Produzem imagens de altíssima qualidade (DALL-E 2, Stable Diffusion, Imagen). Em RH: criação de conteúdo visual para comunicação interna, materiais de onboarding, campanhas de employer branding — sem depender de banco de imagens ou agência."
+            }
+          ]
+        },
+        {
+          "type": "timeline",
+          "title": "A evolução que chegou até aqui",
+          "items": [
+            {
+              "year": "Anos 1950",
+              "title": "Machine Learning proposto",
+              "desc": "Cientistas exploram algoritmos capazes de aprender padrões em dados — a semente da IA moderna.",
+              "milestone": false
+            },
+            {
+              "year": "Anos 1990",
+              "title": "Ascensão das Redes Neurais",
+              "desc": "Avanços em redes neurais artificiais impulsionam as primeiras gerações de IA generativa.",
+              "milestone": false
+            },
+            {
+              "year": "2014",
+              "title": "GANs mudam tudo",
+              "desc": "Ian Goodfellow introduz as Generative Adversarial Networks — o marco que transformou a IA Generativa em realidade.",
+              "milestone": true
+            },
+            {
+              "year": "2017",
+              "title": "Transformers — o salto definitivo",
+              "desc": "A arquitetura Transformer resolve o problema de contexto longo e cria a base para GPT, Claude e Gemini.",
+              "milestone": true
+            },
+            {
+              "year": "2018–hoje",
+              "title": "Era dos Modelos Fundação",
+              "desc": "GPT-3, GPT-4, PaLM, Llama, Claude — modelos treinados em escala industrial e adaptáveis para qualquer domínio.",
+              "milestone": true
             }
           ]
         },
@@ -161,6 +226,33 @@
           ]
         },
         {
+          "type": "process",
+          "title": "O processo iterativo de Prompt Engineering",
+          "description": "O primeiro prompt raramente é o melhor. Prompt Engineering é um ciclo, não um ato único.",
+          "steps": [
+            {
+              "title": "Defina o objetivo",
+              "desc": "O que exatamente você precisa? Qual decisão esse output vai embasar? Quem vai ler? Sem clareza aqui, nenhum prompt vai funcionar."
+            },
+            {
+              "title": "Escreva o prompt inicial",
+              "desc": "Use os 4 elementos: instrução + contexto + dados + indicador de saída. Seja específico, mas não perfeito — o objetivo é ter algo para testar."
+            },
+            {
+              "title": "Teste e analise a resposta",
+              "desc": "O output fez o que você precisava? Faltou contexto? Veio no formato errado? Tinha informação inventada? Anote os gaps."
+            },
+            {
+              "title": "Identifique o que faltou",
+              "desc": "Compare o output com o que você realmente precisava. O problema foi a instrução? O contexto? Os dados? O indicador de saída?"
+            },
+            {
+              "title": "Refine e repita",
+              "desc": "Ajuste o elemento problemático e gere novamente. Em 2-3 iterações, a qualidade do output muda drasticamente."
+            }
+          ]
+        },
+        {
           "type": "insight",
           "title": "O mesmo pedido, resultados completamente diferentes — um exemplo real de RH",
           "body": "Prompt fraco: 'Faça uma análise de clima da minha equipe.' O modelo vai gerar algo que parece de um manual de RH de 2015. Prompt com os 4 elementos: 'Você é um especialista em clima organizacional e engajamento em empresas de tecnologia. A seguir estão os resultados de uma pesquisa de pulso com 45 respondentes de um squad de desenvolvimento da CI&T, coletados em maio de 2026. As dimensões avaliadas foram colaboração (média 3,2/5), clareza de objetivos (média 2,8/5) e reconhecimento (média 2,4/5). Com base nesses dados: identifique os 2 principais riscos de turnover nos próximos 90 dias, explique o mecanismo pelo qual cada risco pode se materializar, e sugira 3 ações que o gestor do squad pode implementar sem orçamento adicional. Formato: relatório executivo direto, sem jargão, máximo 400 palavras.' A segunda instrução não é mais complicada — é mais precisa. E precisão é tudo."
@@ -191,6 +283,13 @@
           "type": "definition",
           "title": "Ferramentas de Prompt Engineering que você pode usar agora",
           "body": "IBM Watsonx.ai tem um Prompt Lab com exemplos pré-construídos para casos como sumarização, classificação e extração — casos diretos de People Analytics e L&D. PromptPerfect otimiza automaticamente um prompt para diferentes modelos (GPT, Claude, Llama) — útil para quem está explorando qual modelo funciona melhor para processos de RH. LangChain é uma biblioteca Python para construir pipelines de prompts encadeados — relevante para quem quer conectar a IA às ferramentas que já usa, como o Lever, o Oracle ou o TeamCulture. E existe até um marketplace de prompts (PromptBase) onde é possível comprar instruções já validadas para casos específicos. Imagine um prompt calibrado especificamente para análise de desempenho em empresas de tecnologia — já testado, já refinado."
+        },
+        {
+          "type": "alert",
+          "level": "info",
+          "icon": "💡",
+          "label": "Na prática de RH",
+          "body": "A maioria dos profissionais de RH já sabe fazer briefing — é exatamente isso que Prompt Engineering é. Você não precisa aprender a programar. Precisa aprender a ser preciso sobre o que quer, em que formato, para qual público, com qual dado. A ponte já existe. O que muda é o interlocutor."
         },
         {
           "type": "videos",
@@ -243,6 +342,27 @@
           "body": "O modelo não sabe o que é verdade. Ele sabe o que é estatisticamente provável. Essa distinção muda tudo em RH."
         },
         {
+          "type": "diagram",
+          "title": "Como o RAG funciona — fluxo visual",
+          "description": "Em vez de responder só com o que memorizou, o modelo consulta uma base de dados confiável antes de gerar a resposta.",
+          "rows": [
+            [
+              { "icon": "💬", "label": "Pergunta do usuário", "desc": "Qualquer query em linguagem natural", "type": "primary" }
+            ],
+            [
+              { "icon": "🔍", "label": "Retriever", "desc": "Busca documentos relevantes na base interna", "type": "secondary" },
+              { "icon": "📂", "label": "Base de dados", "desc": "Políticas, manuais, dados da empresa", "type": "secondary" }
+            ],
+            [
+              { "icon": "🤖", "label": "LLM + contexto", "desc": "Instrução: responda baseando-se apenas nos documentos recuperados", "type": "primary" }
+            ],
+            [
+              { "icon": "✅", "label": "Resposta com fonte", "desc": "Baseada em dados reais. Capaz de dizer 'não sei'.", "type": "output" }
+            ]
+          ],
+          "note": "<strong>O benefício-chave:</strong> o modelo aprende a dizer 'eu não sei' quando a resposta não está na base — em vez de inventar algo plausível. Para RH, isso é a diferença entre um assistente confiável e um que cria risco jurídico."
+        },
+        {
           "type": "checkpoint",
           "questions": [
             {
@@ -281,6 +401,13 @@
               "description": "Modelos geram dados sintéticos para treinar outros modelos, útil quando dados reais são escassos ou sensíveis. Para People Analytics: validar análises sem expor dados pessoais reais de colaboradores — relevante dado o marco regulatório de LGPD que se aplica a todos os processos de RH."
             }
           ]
+        },
+        {
+          "type": "alert",
+          "level": "warning",
+          "icon": "⚠️",
+          "label": "Limitação crítica para decisões sobre pessoas",
+          "body": "A IA não distingue verdade de probabilidade estatística. Nunca use output de IA sem revisão humana em decisões que afetam pessoas: promoção, desligamento, feedback de performance, movimentação salarial. A IA pode auxiliar o raciocínio — o julgamento precisa ser seu."
         },
         {
           "type": "insight",
@@ -334,6 +461,43 @@
           "body": "Modelos de linguagem são treinados em dados produzidos por humanos. Humanos têm vieses históricos. Logo, os modelos os herdam — e os reproduzem em escala industrial. O exemplo mais citado: peça a um gerador de imagem para criar 'um CEO' sem especificação adicional. Em muitos modelos, o resultado padrão é um homem branco de meia-idade. Isso não é coincidência — é reflexo de quais imagens predominam nos dados de treino. Para Talent Acquisition, o risco é concreto: um modelo de triagem que aprende com histórico de contratações da empresa vai reproduzir exatamente os vieses que já existem nesse histórico. Se a empresa historicamente contratou mais homens para papéis técnicos, o modelo vai continuar priorizando homens para papéis técnicos — em escala, em velocidade, sem que ninguém perceba. A Amazon desligou uma ferramenta de recrutamento em 2018 exatamente por isso: ela penalizava currículos com a palavra 'mulheres' porque os dados históricos de contratação da empresa eram majoritariamente masculinos."
         },
         {
+          "type": "biases",
+          "title": "Os vieses que a IA herda dos dados",
+          "description": "Modelos treinados em dados históricos reproduzem e amplificam os padrões que encontram — incluindo os preconceitos.",
+          "items": [
+            {
+              "icon": "👤",
+              "title": "Viés de gênero",
+              "desc": "Ferramentas de triagem treinadas em históricos de contratação tendem a penalizar perfis femininos em setores historicamente masculinos."
+            },
+            {
+              "icon": "🌍",
+              "title": "Viés racial e cultural",
+              "desc": "Modelos treinados predominantemente em dados ocidentais de língua inglesa têm desempenho inferior para outros contextos e culturas."
+            },
+            {
+              "icon": "🏛️",
+              "title": "Viés político",
+              "desc": "Dados de treinamento carregam visões de mundo. Modelos podem reforçar narrativas dominantes e suprimir perspectivas minoritárias."
+            },
+            {
+              "icon": "📅",
+              "title": "Viés histórico",
+              "desc": "O passado está sobrerrepresentado nos dados. A IA aprende que 'o que sempre foi' tende a continuar sendo — limitando inovação."
+            },
+            {
+              "icon": "📊",
+              "title": "Viés de confirmação",
+              "desc": "Modelos tendem a gerar respostas que confirmam o que o prompt sugere, amplificando premissas incorretas do usuário."
+            },
+            {
+              "icon": "🌐",
+              "title": "Viés de representação",
+              "desc": "Grupos sub-representados nos dados de treino têm menor qualidade de resultado — incluindo dados de performance de colaboradores de minorias."
+            }
+          ]
+        },
+        {
           "type": "definition",
           "title": "Deepfakes: o poder de fabricar qualquer realidade — e o impacto no RH",
           "body": "Deepfakes são vídeos, imagens ou áudios manipulados por IA para parecerem reais. As mesmas GANs que criam arte digital podem colocar palavras na boca de qualquer pessoa com qualidade indistinguível. As aplicações maliciosas já documentadas incluem: fraudes financeiras onde um deepfake de voz do CEO instrui transferências bancárias urgentes; phishing onde criminosos imitam gestores ou colegas; criação de comunicados internos falsos que parecem oficiais; e manipulação de processos seletivos com identidades fabricadas. Para Internal Comms & ESG, isso levanta uma questão direta: como garantir que uma comunicação estratégica importante seja percebida como autêntica num mundo onde qualquer voz ou imagem pode ser sintética? Para Talent Acquisition: como validar a identidade de candidatos em processos cada vez mais digitais? A autenticidade vai se tornar um ativo organizacional tanto quanto a competência."
@@ -385,6 +549,25 @@
             {
               "question": "Dos 4 riscos éticos (viés, privacidade, direito autoral, ambiguidade de autoria) — qual é o mais urgente para a sua área de atuação em RH, e por quê?",
               "answer": "Não há resposta única — a reflexão é o objetivo. Algumas âncoras: <strong>Talent Acquisition</strong> → viés de seleção e privacidade de dados de candidatos. <strong>Business Partner / Exec Mastery</strong> → ambiguidade de autoria em decisões de performance e desligamento. <strong>People Services</strong> → privacidade de dados sensíveis (folha, saúde) no Oracle/ADP. <strong>Internal Comms</strong> → autenticidade e direito autoral em conteúdo gerado. A LGPD se aplica a todos."
+            }
+          ]
+        },
+        {
+          "type": "process",
+          "title": "Como adotar IA com governança em RH",
+          "description": "Três princípios práticos para quem vai liderar a adoção responsável.",
+          "steps": [
+            {
+              "title": "Auditoria antes de escalar",
+              "desc": "Antes de colocar qualquer modelo para rodar em processos de RH, audite os dados de treino. Eles refletem a diversidade que você quer construir — ou a que você quer superar?"
+            },
+            {
+              "title": "Humano no loop em decisões críticas",
+              "desc": "Definir quais decisões nunca serão tomadas só pela IA. Promoções, desligamentos, feedbacks de performance e movimentações salariais exigem julgamento humano — a IA pode auxiliar, não decidir."
+            },
+            {
+              "title": "Transparência com colaboradores",
+              "desc": "Comunicar claramente quando e como a IA é usada em processos que afetam as pessoas. LGPD exige, a confiança também. Colaboradores têm direito de saber."
             }
           ]
         },

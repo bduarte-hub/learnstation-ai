@@ -87,7 +87,7 @@ function renderIndexPage(data) {
 
   const grid = $('episodes-grid');
   if (grid) {
-    episodes.forEach(ep => {
+    episodes.forEach((ep, idx) => {
       const locked = ep.status !== 'published';
       const card   = el('div', `episode-card${locked ? ' locked' : ''}`);
       if (!locked) {
@@ -95,22 +95,29 @@ function renderIndexPage(data) {
           location.href = `episode.html?ep=${ep.slug}`;
         });
       }
+
+      const thumbClass = `ep-thumb-${idx + 1}`;
+      const comingDate = ep.expectedAt ? `Disponível em ${formatDate(ep.expectedAt)}` : 'Em breve';
+
       card.innerHTML = `
-        <div class="card-thumbnail">
+        <div class="card-thumbnail ${thumbClass}">
           <span>${ep.thumbnail}</span>
           <span class="card-week-badge">${ep.weekLabel}</span>
-          <span class="card-status-badge ${ep.status === 'published' ? 'available' : 'coming'}">
-            ${ep.status === 'published' ? 'Disponível' : 'Em breve'}
+          <span class="card-status-badge ${locked ? 'coming' : 'available'}">
+            ${locked ? 'Em breve' : 'Disponível'}
           </span>
         </div>
         <div class="card-body">
           <p class="card-episode-num">Episódio ${ep.id}</p>
           <h2 class="card-title">${ep.title}</h2>
           <p class="card-tagline">${ep.tagline}</p>
-          <div class="card-tags">
-            ${ep.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-          </div>
-          ${!locked ? '<div class="card-cta">Ler episódio <span>→</span></div>' : ''}
+          ${locked
+            ? `<p class="card-coming-date">${comingDate}</p>`
+            : `<div class="card-tags">
+                ${ep.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+               </div>
+               <div class="card-cta">Ler episódio <span>→</span></div>`
+          }
         </div>
       `;
       grid.appendChild(card);
@@ -129,8 +136,8 @@ function renderIndexPage(data) {
   }
 
   const foot = $('footer-text');
-  if (foot) foot.textContent = `${series.title} · ${series.author.name} · CI&T`;
-  document.title = series.title;
+  if (foot) foot.textContent = `LearnStation.AI · ${series.author.name} · CI&T`;
+  document.title = `LearnStation.AI — ${series.title}`;
 }
 
 /* ══ EPISODE PAGE ═════════════════════════════════════ */
@@ -149,13 +156,13 @@ function renderEpisodePage(data, slug) {
     return;
   }
 
-  document.title = `${ep.weekLabel}: ${ep.title} — ${series.title}`;
+  document.title = `${ep.title} — LearnStation.AI`;
   initReadProgress();
 
   const nextIdx = episodes.indexOf(ep) + 1;
   const next    = nextIdx < episodes.length ? episodes[nextIdx] : null;
 
-  /* Opener video — shown before intro if defined */
+  /* Opener video */
   const openerMeta = ep.openerVideoMeta || {};
   const openerHTML = ep.openerVideo
     ? `<div class="ep-opener">
@@ -167,6 +174,14 @@ function renderEpisodePage(data, slug) {
                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                    allowfullscreen></iframe>
          </div>
+       </div>`
+    : '';
+
+  /* Learning objectives */
+  const objectivesHTML = ep.objectives && ep.objectives.length
+    ? `<div class="ep-objectives">
+         <p class="ep-objectives-label">O que você vai aprender</p>
+         ${ep.objectives.map(o => `<span class="ep-obj-item">${o}</span>`).join('')}
        </div>`
     : '';
 
@@ -183,7 +198,6 @@ function renderEpisodePage(data, slug) {
        </a>`
     : '';
 
-  /* Sandbox CTA — always present at end of every published episode */
   const sandboxHTML = `
     <div class="sandbox-cta">
       <div class="sandbox-cta-text">
@@ -214,6 +228,7 @@ function renderEpisodePage(data, slug) {
       </div>
     </header>
     ${openerHTML}
+    ${objectivesHTML}
     <p class="ep-intro">${ep.intro}</p>
     <article>${sectionsHTML}</article>
     ${nextHTML}
@@ -221,7 +236,7 @@ function renderEpisodePage(data, slug) {
   `;
 
   const foot = $('footer-text');
-  if (foot) foot.textContent = `${series.title} · ${series.author.name} · CI&T`;
+  if (foot) foot.textContent = `LearnStation.AI · ${series.author.name} · CI&T`;
 }
 
 /* ── Section renderers ──────────────────────────────── */
@@ -303,6 +318,123 @@ function renderSection(s) {
                 <p>${q.answer}</p>
               </div>
             </div>`).join('')}
+        </div>
+      </div>`;
+
+    case 'comparison':
+      return `<div class="ep-section section-comparison">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        ${s.description ? `<p class="ep-section-body" style="margin-bottom:0">${s.description}</p>` : ''}
+        <div class="comparison-grid">
+          <div class="comparison-col col-a">
+            <p class="comparison-col-label">${s.colA.label}</p>
+            <p class="comparison-col-title">${s.colA.title}</p>
+            <ul>${s.colA.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            ${s.colA.example ? `<div class="comparison-col-example">Ex: ${s.colA.example}</div>` : ''}
+          </div>
+          <div class="comparison-col col-b">
+            <p class="comparison-col-label">${s.colB.label}</p>
+            <p class="comparison-col-title">${s.colB.title}</p>
+            <ul>${s.colB.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            ${s.colB.example ? `<div class="comparison-col-example">Ex: ${s.colB.example}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+
+    case 'process':
+      return `<div class="ep-section section-process">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        ${s.description ? `<p class="ep-section-body" style="margin-bottom:0">${s.description}</p>` : ''}
+        <div class="process-steps">
+          ${s.steps.map((step, i) => `
+            <div class="process-step">
+              <div class="process-step-left">
+                <div class="process-step-num">${i + 1}</div>
+                <div class="process-step-line"></div>
+              </div>
+              <div class="process-step-body">
+                <p class="process-step-title">${step.title}</p>
+                <p class="process-step-desc">${step.desc}</p>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
+    case 'alert':
+      return `<div class="ep-section section-alert">
+        <div class="alert-box alert-${s.level || 'danger'}">
+          <div class="alert-icon">${s.icon || '⚠️'}</div>
+          <div>
+            <p class="alert-content-label">${s.label || 'Atenção'}</p>
+            <p class="alert-content-body">${s.body}</p>
+          </div>
+        </div>
+      </div>`;
+
+    case 'diagram':
+      return `<div class="ep-section section-diagram">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        ${s.description ? `<p class="ep-section-body" style="margin-bottom:0">${s.description}</p>` : ''}
+        <div class="diagram-flow">
+          ${s.rows.map(row => `
+            <div class="diagram-row">
+              ${row.map((node, ni) => `
+                ${ni > 0 ? `<span class="diagram-arrow">→</span>` : ''}
+                <div class="diagram-node ${node.type ? 'node-' + node.type : ''}">
+                  ${node.icon ? `<div class="diagram-node-icon">${node.icon}</div>` : ''}
+                  <div class="diagram-node-label">${node.label}</div>
+                  ${node.desc ? `<div class="diagram-node-desc">${node.desc}</div>` : ''}
+                </div>`).join('')}
+            </div>`).join('')}
+        </div>
+        ${s.note ? `<div class="diagram-note">${s.note}</div>` : ''}
+      </div>`;
+
+    case 'timeline':
+      return `<div class="ep-section section-timeline">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        <div class="timeline">
+          ${s.items.map(item => `
+            <div class="timeline-item${item.milestone ? ' milestone' : ''}">
+              <div class="timeline-dot"></div>
+              <p class="timeline-year">${item.year}</p>
+              <p class="timeline-title">${item.title}</p>
+              <p class="timeline-desc">${item.desc}</p>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
+    case 'biases':
+      return `<div class="ep-section">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        ${s.description ? `<p class="ep-section-body" style="margin-bottom:0">${s.description}</p>` : ''}
+        <div class="bias-grid">
+          ${s.items.map(b => `
+            <div class="bias-card">
+              <div class="bias-card-icon">${b.icon}</div>
+              <p class="bias-card-title">${b.title}</p>
+              <p class="bias-card-desc">${b.desc}</p>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
+    case 'temperature':
+      return `<div class="ep-section">
+        ${s.title ? `<h2 class="ep-section-title">${s.title}</h2>` : ''}
+        ${s.description ? `<p class="ep-section-body">${s.description}</p>` : ''}
+        <div class="temp-visual">
+          <div class="temp-bar-labels"><span>Baixa (0)</span><span>Alta (1)</span></div>
+          <div class="temp-bar-track"></div>
+          <div class="temp-extremes">
+            <div class="temp-extreme temp-low">
+              <p class="temp-extreme-label">Temperatura baixa</p>
+              <ul>${s.low.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+            <div class="temp-extreme temp-high">
+              <p class="temp-extreme-label">Temperatura alta</p>
+              <ul>${s.high.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+          </div>
         </div>
       </div>`;
 
