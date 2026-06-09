@@ -130,32 +130,9 @@ function renderIndexPage(data) {
   const heroBanner = $('hero-banner');
   if (heroBanner) {
     heroBanner.innerHTML = `
-      <div class="hero-bg-symbol">${featured.thumbnail}</div>
-      <div class="hero-content">
-        <p class="hero-eyebrow">${UI[LANG].seriesOngoing.replace('{total}', series.totalEpisodes)}</p>
-        <h1>${t(series.title)}</h1>
-        <p class="hero-subtitle">${t(series.description)}</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="episode.html?ep=${featured.slug}">
-            ${UI[LANG].startEp1}
-          </a>
-          <button class="btn-ghost" onclick="document.getElementById('all-episodes').scrollIntoView({behavior:'smooth'})">
-            ${UI[LANG].viewAllEps}
-          </button>
-        </div>
-        <div class="hero-meta">
-          <span><strong>${published}</strong> ${UI[LANG].publishedCount.replace('{published}','').replace('{total}', series.totalEpisodes).trim()}</span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill" style="width:${pct}%"></div>
-            </div>
-            <span>${pct}%</span>
-          </div>
-        </div>
-      </div>
-    `;
-    heroBanner.innerHTML = `
-      <div class="hero-bg-symbol">${featured.thumbnail}</div>
+      <video class="hero-bg-video" autoplay loop muted playsinline aria-hidden="true">
+        <source src="assets/herogifai_web.mp4" type="video/mp4">
+      </video>
       <div class="hero-content">
         <p class="hero-eyebrow">${UI[LANG].seriesOngoing.replace('{total}', series.totalEpisodes)}</p>
         <h1>${t(series.title)}</h1>
@@ -184,47 +161,79 @@ function renderIndexPage(data) {
   const grid = $('episodes-grid');
   if (grid) {
     grid.innerHTML = '';
-    episodes.forEach((ep, idx) => {
-      const locked = ep.status !== 'published';
-      const card   = el('div', `episode-card${locked ? ' locked' : ''}`);
-      if (!locked) {
-        card.addEventListener('click', () => {
-          location.href = `episode.html?ep=${ep.slug}`;
-        });
-      }
-      const thumbClass = `ep-thumb-${idx + 1}`;
-      const comingDate = ep.expectedAt
-        ? `${UI[LANG].availableOn.replace('{date}', formatDate(ep.expectedAt))}`
-        : UI[LANG].comingSoon;
 
-      card.innerHTML = `
-        <div class="card-thumbnail ${thumbClass}">
-          <span>${ep.thumbnail}</span>
-          <span class="card-week-badge">${t(ep.weekLabel)}</span>
-          <span class="card-status-badge ${locked ? 'coming' : 'available'}">
-            ${locked ? UI[LANG].comingSoon : UI[LANG].available}
-          </span>
+    // Group episodes by week key (e.g. "Semana 1", "Semana 2")
+    const weekGroups = [];
+    const weekMap = {};
+    episodes.forEach((ep, idx) => {
+      const weekKey = t(ep.weekLabel).split('·')[0].trim(); // "Semana 1"
+      if (!weekMap[weekKey]) {
+        weekMap[weekKey] = { label: weekKey, episodes: [], indices: [] };
+        weekGroups.push(weekMap[weekKey]);
+      }
+      weekMap[weekKey].episodes.push(ep);
+      weekMap[weekKey].indices.push(idx);
+    });
+
+    weekGroups.forEach((group, groupIdx) => {
+      // Week separator
+      const separator = el('div', 'week-separator');
+      const hasPublished = group.episodes.some(e => e.status === 'published');
+      separator.innerHTML = `
+        <div class="week-sep-inner">
+          <span class="week-sep-label${hasPublished ? ' week-sep-active' : ''}">${group.label}</span>
+          ${!hasPublished ? `<span class="week-sep-soon">${UI[LANG].comingSoon}</span>` : ''}
         </div>
-        <div class="card-body">
-          <p class="card-episode-num">${UI[LANG].episodeNum.replace('{n}', ep.id)}</p>
-          <h2 class="card-title">${t(ep.title)}</h2>
-          <p class="card-tagline">${t(ep.tagline)}</p>
-          ${locked
-            ? `<p class="card-coming-date">${comingDate}</p>`
-            : `<div class="card-tags">
-                ${tArr(ep.tags).map(tag => `<span class="tag">${tag}</span>`).join('')}
-               </div>
-               <div class="card-cta">${UI[LANG].readEpisode} <span>→</span></div>`
-          }
-        </div>
+        <div class="week-sep-line"></div>
       `;
-      grid.appendChild(card);
+      grid.appendChild(separator);
+
+      // Cards row for this week
+      const row = el('div', 'week-row');
+      group.episodes.forEach((ep, i) => {
+        const idx = group.indices[i];
+        const locked = ep.status !== 'published';
+        const card   = el('div', `episode-card${locked ? ' locked' : ''}`);
+        if (!locked) {
+          card.addEventListener('click', () => {
+            location.href = `episode.html?ep=${ep.slug}`;
+          });
+        }
+        const thumbClass = `ep-thumb-${idx + 1}`;
+        const comingDate = ep.expectedAt
+          ? `${UI[LANG].availableOn.replace('{date}', formatDate(ep.expectedAt))}`
+          : UI[LANG].comingSoon;
+
+        card.innerHTML = `
+          <div class="card-thumbnail ${thumbClass}">
+            ${!locked ? `<span class="card-new-badge">${UI[LANG].available}</span>` : ''}
+            <span class="card-thumb-icon">${ep.thumbnail}</span>
+            <span class="card-thumb-num">${ep.id}</span>
+          </div>
+          <div class="card-body">
+            <p class="card-episode-num">${UI[LANG].episodeNum.replace('{n}', ep.id)}</p>
+            <h2 class="card-title">${t(ep.title)}</h2>
+            <p class="card-tagline">${t(ep.tagline)}</p>
+            ${locked
+              ? `<p class="card-coming-date">${comingDate}</p>`
+              : `<div class="card-tags">
+                  ${tArr(ep.tags).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                 </div>
+                 <div class="card-cta">${UI[LANG].readEpisode} <span>→</span></div>`
+            }
+          </div>
+        `;
+        row.appendChild(card);
+      });
+      grid.appendChild(row);
     });
   }
 
   const about = $('about-strip');
   if (about) {
     about.innerHTML = `
+      <img class="about-ciandt-s12" src="assets/s12.svg" alt="" aria-hidden="true">
+      <img class="about-ciandt-s24" src="assets/s24.svg" alt="" aria-hidden="true">
       <img class="about-photo" src="vic.png" alt="${series.author.name}">
       <div class="about-text">
         <h3 class="about-name">Vic Marchiori</h3>
