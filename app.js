@@ -584,26 +584,31 @@ function renderVicAudio() {
   strip.className = 'vic-audio-strip';
   strip.id = 'vic-audio-strip';
   strip.innerHTML = `
-    <img class="vic-audio-photo" src="vic.png" alt="Vic">
-    <div class="vic-audio-info">
-      <p class="vic-audio-label">Mensagem do Vic</p>
-      <p class="vic-audio-name">Vic Marchiori</p>
-      <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
-    </div>
-    <div class="vic-audio-controls">
-      <canvas class="vic-canvas" id="vic-canvas" width="120" height="36" aria-hidden="true"></canvas>
-      <div class="vic-progress-wrap">
-        <div class="vic-progress-track" id="vic-track">
-          <div class="vic-progress-fill" id="vic-fill"></div>
-        </div>
-        <div class="vic-progress-times">
-          <span id="vic-cur">0:00</span>
-          <span id="vic-dur">—</span>
-        </div>
+    <div class="vic-audio-main">
+      <img class="vic-audio-photo" src="vic.png" alt="Vic">
+      <div class="vic-audio-info">
+        <p class="vic-audio-label">Mensagem do Vic</p>
+        <p class="vic-audio-name">Vic Marchiori</p>
+        <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
       </div>
-      <button class="vic-play-btn" id="vic-play" aria-label="Ouvir mensagem da Vic">
-        <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>
-      </button>
+      <div class="vic-audio-controls">
+        <canvas class="vic-canvas" id="vic-canvas" aria-hidden="true"></canvas>
+        <div class="vic-progress-wrap">
+          <div class="vic-progress-track" id="vic-track">
+            <div class="vic-progress-fill" id="vic-fill"></div>
+          </div>
+          <div class="vic-progress-times">
+            <span id="vic-cur">0:00</span>
+            <span id="vic-dur">—</span>
+          </div>
+        </div>
+        <button class="vic-play-btn" id="vic-play" aria-label="Ouvir mensagem do Vic">
+          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="vic-captions" id="vic-captions">
+      <p class="vic-caption-text" id="vic-caption"></p>
     </div>
   `;
   hero.insertAdjacentElement('afterend', strip);
@@ -617,16 +622,35 @@ function renderVicAudio() {
     .catch(() => { strip.style.display = 'none'; });
 }
 
+// Caption cues — [start_sec, end_sec, text] — calibrated to 59.6s audio
+const VIC_CUES = [
+  [0,     2.8,  "Oi, pessoal! Vic por aqui."],
+  [2.8,   7.8,  "Sejam muito bem-vindos. Que bom que você reservou um tempo para estar aqui e aprender mais sobre inteligência artificial."],
+  [7.8,   15.5, "A gente está vivendo, mais uma vez, um momento único de transformação do nosso mundo."],
+  [15.5,  23.5, "E eu acredito que mudanças como essa se tornam muito mais poderosas quando acontecem de forma coletiva, com troca, curiosidade e vontade de aprender juntos."],
+  [23.5,  33.0, "Atualmente, estou participando do programa AI Orchestrator, uma jornada de cinco semanas de imersão nesse universo."],
+  [33.0,  41.5, "E criei este espaço justamente para compartilhar com vocês os principais aprendizados, reflexões e descobertas ao longo desse processo."],
+  [41.5,  49.5, "Espero que este conteúdo seja útil, provoque novas ideias e inspire experimentações no nosso dia a dia."],
+  [49.5,  55.5, "E, enquanto você explora o site, quero ouvir também as suas percepções, dúvidas e insights."],
+  [55.5,  59.6, "Aproveite a leitura e vamos construir essa jornada juntos."],
+];
+
 function wireAudio(strip, src) {
   const audio   = new Audio(src);
   audio.crossOrigin = 'anonymous';
-  const playBtn = document.getElementById('vic-play');
-  const fill    = document.getElementById('vic-fill');
-  const cur     = document.getElementById('vic-cur');
-  const dur     = document.getElementById('vic-dur');
-  const track   = document.getElementById('vic-track');
-  const canvas  = document.getElementById('vic-canvas');
-  const ctx     = canvas.getContext('2d');
+  const playBtn  = document.getElementById('vic-play');
+  const fill     = document.getElementById('vic-fill');
+  const cur      = document.getElementById('vic-cur');
+  const dur      = document.getElementById('vic-dur');
+  const track    = document.getElementById('vic-track');
+  const canvas   = document.getElementById('vic-canvas');
+  const ctx      = canvas.getContext('2d');
+  const caption  = document.getElementById('vic-caption');
+  const captionWrap = document.getElementById('vic-captions');
+
+  // Size canvas
+  canvas.width  = 140;
+  canvas.height = 40;
 
   const PLAY_ICON  = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>';
   const PAUSE_ICON = '<svg viewBox="0 0 16 16"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
@@ -653,30 +677,26 @@ function wireAudio(strip, src) {
     analyser.connect(audioCtx.destination);
   }
 
-  function drawBars(active) {
-    const W = canvas.width;
-    const H = canvas.height;
+  // Retina setup once
+  (function setupCanvas() {
     const dpr = window.devicePixelRatio || 1;
-    // resize canvas for retina once
-    if (canvas.getAttribute('data-dpr') !== String(dpr)) {
-      canvas.width  = W * dpr;
-      canvas.height = H * dpr;
-      canvas.style.width  = W + 'px';
-      canvas.style.height = H + 'px';
-      ctx.scale(dpr, dpr);
-      canvas.setAttribute('data-dpr', dpr);
-    }
+    const W = canvas.width, H = canvas.height;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+  })();
 
-    const cW = W, cH = H;
+  function drawBars(active) {
+    const cW = parseFloat(canvas.style.width)  || 140;
+    const cH = parseFloat(canvas.style.height) || 40;
     ctx.clearRect(0, 0, cW, cH);
 
-    // colour from CSS var — fallback to coral
-    const accent = getComputedStyle(document.documentElement)
-      .getPropertyValue('--blue').trim() || '#e0605e';
-
-    const barW   = (cW / BAR_COUNT) * 0.55;
-    const gap    = (cW / BAR_COUNT) * 0.45;
-    const minH   = 2;
+    const barW = (cW / BAR_COUNT) * 0.52;
+    const gap  = (cW / BAR_COUNT) * 0.48;
+    const minH = 2;
+    const now  = Date.now();
 
     let freqData;
     if (active && analyser) {
@@ -687,31 +707,54 @@ function wireAudio(strip, src) {
     for (let i = 0; i < BAR_COUNT; i++) {
       let target;
       if (active && freqData) {
-        // map bar index to frequency bin, bias toward mids (voice range)
-        const bin = Math.floor((i / BAR_COUNT) * (freqData.length * 0.6));
-        target = (freqData[bin] / 255) * cH;
-        target = Math.max(minH, target);
+        const bin = Math.floor((i / BAR_COUNT) * (freqData.length * 0.65));
+        target = Math.max(minH, (freqData[bin] / 255) * cH * 0.92);
       } else {
-        // idle: gentle sine wave
-        target = minH + (Math.sin(Date.now() / 600 + i * 0.5) * 0.5 + 0.5) * 4;
+        // idle: slow sinusoidal ripple
+        target = minH + (Math.sin(now / 900 + i * 0.45) * 0.5 + 0.5) * 5;
       }
 
-      // exponential smoothing
-      smoothed[i] += (target - smoothed[i]) * (active ? 0.35 : 0.1);
-
-      const x = i * (barW + gap);
+      smoothed[i] += (target - smoothed[i]) * (active ? 0.3 : 0.08);
       const h = Math.max(minH, smoothed[i]);
+      const x = i * (barW + gap);
       const y = (cH - h) / 2;
 
-      ctx.fillStyle = accent;
-      ctx.globalAlpha = active ? 0.85 : 0.25;
+      // neon gradient: coral → teal, intensity scales with bar height
+      const intensity = h / cH;
+      const grad = ctx.createLinearGradient(0, y, 0, y + h);
+      grad.addColorStop(0,   `rgba(240,145,143,${0.4 + intensity * 0.5})`);
+      grad.addColorStop(0.5, `rgba(224, 96, 94,${0.6 + intensity * 0.4})`);
+      grad.addColorStop(1,   `rgba( 59,158,255,${0.3 + intensity * 0.5})`);
+
+      ctx.fillStyle = grad;
+      ctx.shadowColor = active
+        ? `rgba(224,96,94,${0.4 * intensity})`
+        : 'transparent';
+      ctx.shadowBlur = active ? 6 * intensity : 0;
+
       ctx.beginPath();
-      ctx.roundRect
-        ? ctx.roundRect(x, y, barW, h, 2)
-        : ctx.rect(x, y, barW, h);
+      if (ctx.roundRect) ctx.roundRect(x, y, barW, h, 2);
+      else ctx.rect(x, y, barW, h);
       ctx.fill();
     }
-    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+  }
+
+  // ── Caption sync ──
+  let lastCueIdx = -1;
+  function updateCaption(t) {
+    const idx = VIC_CUES.findIndex(c => t >= c[0] && t < c[1]);
+    if (idx === lastCueIdx) return;
+    lastCueIdx = idx;
+    if (idx === -1) {
+      caption.classList.remove('visible');
+      return;
+    }
+    caption.textContent = VIC_CUES[idx][2];
+    caption.classList.remove('visible');
+    // force reflow for re-animation
+    void caption.offsetWidth;
+    caption.classList.add('visible');
   }
 
   function startLoop() {
@@ -745,6 +788,7 @@ function wireAudio(strip, src) {
     const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
     fill.style.width = pct + '%';
     cur.textContent  = fmt(audio.currentTime);
+    updateCaption(audio.currentTime);
   });
 
   audio.addEventListener('ended', () => {
@@ -752,6 +796,8 @@ function wireAudio(strip, src) {
     strip.classList.remove('playing');
     fill.style.width = '0%';
     cur.textContent  = '0:00';
+    caption.classList.remove('visible');
+    lastCueIdx = -1;
     stopLoop();
   });
 
