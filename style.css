@@ -1989,6 +1989,164 @@ footer::after {
   .bias-grid       { grid-template-columns: 1fr 1fr; }
 }
 
+/* ── Vic audio intro ────────────────────────────────── */
+.vic-audio-strip {
+  margin: 0 4vw;
+  padding: 1.375rem 1.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(-28px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+/* glow sutil atrás */
+.vic-audio-strip::before {
+  content: '';
+  position: absolute;
+  left: -40px; top: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(ellipse, rgba(224,96,94,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.vic-audio-photo {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--border-bright);
+  box-shadow: 0 0 0 3px rgba(224,96,94,0.12);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.vic-audio-info {
+  flex: 1;
+  min-width: 0;
+  z-index: 1;
+}
+.vic-audio-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-bright);
+  margin-bottom: 0.15rem;
+}
+.vic-audio-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.vic-audio-title {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+/* player controls */
+.vic-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1;
+  flex-shrink: 0;
+}
+.vic-play-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+  box-shadow: 0 4px 14px rgba(224,96,94,0.3);
+}
+.vic-play-btn:hover {
+  background: var(--blue-dim);
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(224,96,94,0.4);
+}
+.vic-play-btn svg {
+  width: 14px; height: 14px;
+  fill: #fff;
+  margin-left: 2px; /* optical center for play icon */
+  flex-shrink: 0;
+}
+.vic-play-btn.playing svg { margin-left: 0; }
+.vic-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+@media (max-width: 480px) { .vic-progress-wrap { display: none; } }
+.vic-progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 99px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.vic-progress-fill {
+  position: absolute;
+  left: 0; top: 0; height: 100%;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--teal) 100%);
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+.vic-progress-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+/* waveform bars — visible while playing */
+.vic-waveform {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.vic-waveform span {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--blue-bright);
+  opacity: 0.35;
+  transition: height 0.1s;
+}
+.vic-audio-strip.playing .vic-waveform span {
+  opacity: 0.7;
+  animation: vic-wave 0.9s ease-in-out infinite alternate;
+}
+.vic-waveform span:nth-child(1) { height: 6px;  animation-delay: 0s; }
+.vic-waveform span:nth-child(2) { height: 14px; animation-delay: 0.1s; }
+.vic-waveform span:nth-child(3) { height: 20px; animation-delay: 0.05s; }
+.vic-waveform span:nth-child(4) { height: 12px; animation-delay: 0.15s; }
+.vic-waveform span:nth-child(5) { height: 18px; animation-delay: 0.08s; }
+.vic-waveform span:nth-child(6) { height: 8px;  animation-delay: 0.2s; }
+@keyframes vic-wave {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1); }
+}
+@media (max-width: 640px) {
+  .vic-audio-strip { transform: translateY(-20px); padding: 1rem 1.125rem; gap: 0.875rem; }
+}
+
 /* ── Language switcher ──────────────────────────────── */
 #lang-switcher {
   display: flex;

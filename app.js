@@ -158,6 +158,8 @@ function renderIndexPage(data) {
     `;
   }
 
+  renderVicAudio();
+
   const grid = $('episodes-grid');
   if (grid) {
     grid.innerHTML = '';
@@ -564,6 +566,113 @@ function renderSection(s) {
 function toggleCheckpoint(id) {
   const el = document.getElementById(id);
   if (el) el.classList.toggle('open');
+}
+
+/* ══ VIC AUDIO INTRO ═════════════════════════════════════
+   Renders a compact audio player strip below the hero.
+   Looks for `assets/vic-intro.mp3` — if the file doesn't
+   exist yet the strip is hidden until it's uploaded.
+═══════════════════════════════════════════════════════════ */
+function renderVicAudio() {
+  const AUDIO_SRC = 'assets/vic-intro.mp3';
+
+  // Insert strip container right after hero-banner
+  const hero = $('hero-banner');
+  if (!hero) return;
+
+  const strip = document.createElement('div');
+  strip.className = 'vic-audio-strip';
+  strip.id = 'vic-audio-strip';
+  strip.innerHTML = `
+    <img class="vic-audio-photo" src="vic.png" alt="Vic">
+    <div class="vic-audio-info">
+      <p class="vic-audio-label">Mensagem da Vic</p>
+      <p class="vic-audio-name">Vic Marchiori</p>
+      <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
+    </div>
+    <div class="vic-audio-controls">
+      <div class="vic-waveform" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+      <div class="vic-progress-wrap">
+        <div class="vic-progress-track" id="vic-track">
+          <div class="vic-progress-fill" id="vic-fill"></div>
+        </div>
+        <div class="vic-progress-times">
+          <span id="vic-cur">0:00</span>
+          <span id="vic-dur">—</span>
+        </div>
+      </div>
+      <button class="vic-play-btn" id="vic-play" aria-label="Ouvir mensagem da Vic">
+        <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>
+      </button>
+    </div>
+  `;
+  hero.insertAdjacentElement('afterend', strip);
+
+  // Check if audio file exists before wiring up
+  fetch(AUDIO_SRC, { method: 'HEAD' })
+    .then(r => {
+      if (!r.ok) { strip.style.display = 'none'; return; }
+      wireAudio(strip, AUDIO_SRC);
+    })
+    .catch(() => { strip.style.display = 'none'; });
+}
+
+function wireAudio(strip, src) {
+  const audio   = new Audio(src);
+  const playBtn = document.getElementById('vic-play');
+  const fill    = document.getElementById('vic-fill');
+  const cur     = document.getElementById('vic-cur');
+  const dur     = document.getElementById('vic-dur');
+  const track   = document.getElementById('vic-track');
+
+  const fmt = s => {
+    const m = Math.floor(s / 60);
+    const ss = String(Math.floor(s % 60)).padStart(2, '0');
+    return `${m}:${ss}`;
+  };
+
+  // Play / pause icon SVGs
+  const PLAY_ICON  = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>';
+  const PAUSE_ICON = '<svg viewBox="0 0 16 16"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
+
+  audio.addEventListener('loadedmetadata', () => {
+    dur.textContent = fmt(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+    fill.style.width = pct + '%';
+    cur.textContent  = fmt(audio.currentTime);
+  });
+
+  audio.addEventListener('ended', () => {
+    playBtn.innerHTML = PLAY_ICON;
+    strip.classList.remove('playing');
+    fill.style.width = '0%';
+    cur.textContent  = '0:00';
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.innerHTML = PAUSE_ICON;
+      strip.classList.add('playing');
+    } else {
+      audio.pause();
+      playBtn.innerHTML = PLAY_ICON;
+      strip.classList.remove('playing');
+    }
+  });
+
+  // Click on progress bar to seek
+  track.addEventListener('click', e => {
+    if (!audio.duration) return;
+    const rect = track.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  });
 }
 
 /* ══ FEEDBACK MODE ═══════════════════════════════════════
