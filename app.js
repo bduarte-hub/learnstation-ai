@@ -591,10 +591,7 @@ function renderVicAudio() {
       <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
     </div>
     <div class="vic-audio-controls">
-      <div class="vic-waveform" aria-hidden="true">
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-      </div>
+      <canvas class="vic-canvas" id="vic-canvas" width="120" height="36" aria-hidden="true"></canvas>
       <div class="vic-progress-wrap">
         <div class="vic-progress-track" id="vic-track">
           <div class="vic-progress-fill" id="vic-fill"></div>
@@ -622,22 +619,124 @@ function renderVicAudio() {
 
 function wireAudio(strip, src) {
   const audio   = new Audio(src);
+  audio.crossOrigin = 'anonymous';
   const playBtn = document.getElementById('vic-play');
   const fill    = document.getElementById('vic-fill');
   const cur     = document.getElementById('vic-cur');
   const dur     = document.getElementById('vic-dur');
   const track   = document.getElementById('vic-track');
+  const canvas  = document.getElementById('vic-canvas');
+  const ctx     = canvas.getContext('2d');
 
-  const fmt = s => {
-    const m = Math.floor(s / 60);
-    const ss = String(Math.floor(s % 60)).padStart(2, '0');
-    return `${m}:${ss}`;
-  };
-
-  // Play / pause icon SVGs
   const PLAY_ICON  = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>';
   const PAUSE_ICON = '<svg viewBox="0 0 16 16"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
 
+  const fmt = s => {
+    const m = Math.floor(s / 60);
+    return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  };
+
+  // ── Web Audio analyser ──
+  let audioCtx, analyser, source, rafId;
+  const BAR_COUNT = 28;
+  // smooth buffer so bars don't snap — store previous heights
+  const smoothed = new Float32Array(BAR_COUNT).fill(0);
+
+  function initAnalyser() {
+    if (audioCtx) return;
+    audioCtx  = new (window.AudioContext || window.webkitAudioContext)();
+    analyser  = audioCtx.createAnalyser();
+    analyser.fftSize = 64;
+    analyser.smoothingTimeConstant = 0.8;
+    source = audioCtx.createMediaElementSource(audio);
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+  }
+
+  function drawBars(active) {
+    const W = canvas.width;
+    const H = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    // resize canvas for retina once
+    if (canvas.getAttribute('data-dpr') !== String(dpr)) {
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+      canvas.setAttribute('data-dpr', dpr);
+    }
+
+    const cW = W, cH = H;
+    ctx.clearRect(0, 0, cW, cH);
+
+    // colour from CSS var — fallback to coral
+    const accent = getComputedStyle(document.documentElement)
+      .getPropertyValue('--blue').trim() || '#e0605e';
+
+    const barW   = (cW / BAR_COUNT) * 0.55;
+    const gap    = (cW / BAR_COUNT) * 0.45;
+    const minH   = 2;
+
+    let freqData;
+    if (active && analyser) {
+      freqData = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(freqData);
+    }
+
+    for (let i = 0; i < BAR_COUNT; i++) {
+      let target;
+      if (active && freqData) {
+        // map bar index to frequency bin, bias toward mids (voice range)
+        const bin = Math.floor((i / BAR_COUNT) * (freqData.length * 0.6));
+        target = (freqData[bin] / 255) * cH;
+        target = Math.max(minH, target);
+      } else {
+        // idle: gentle sine wave
+        target = minH + (Math.sin(Date.now() / 600 + i * 0.5) * 0.5 + 0.5) * 4;
+      }
+
+      // exponential smoothing
+      smoothed[i] += (target - smoothed[i]) * (active ? 0.35 : 0.1);
+
+      const x = i * (barW + gap);
+      const h = Math.max(minH, smoothed[i]);
+      const y = (cH - h) / 2;
+
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = active ? 0.85 : 0.25;
+      ctx.beginPath();
+      ctx.roundRect
+        ? ctx.roundRect(x, y, barW, h, 2)
+        : ctx.rect(x, y, barW, h);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function startLoop() {
+    function loop() {
+      drawBars(true);
+      rafId = requestAnimationFrame(loop);
+    }
+    loop();
+  }
+  function stopLoop() {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+    // fade bars to idle over ~30 frames
+    let frames = 0;
+    function fade() {
+      drawBars(false);
+      if (++frames < 60) requestAnimationFrame(fade);
+    }
+    fade();
+  }
+
+  // draw idle state immediately so canvas isn't blank
+  drawBars(false);
+
+  // ── Audio events ──
   audio.addEventListener('loadedmetadata', () => {
     dur.textContent = fmt(audio.duration);
   });
@@ -653,21 +752,25 @@ function wireAudio(strip, src) {
     strip.classList.remove('playing');
     fill.style.width = '0%';
     cur.textContent  = '0:00';
+    stopLoop();
   });
 
   playBtn.addEventListener('click', () => {
     if (audio.paused) {
+      initAnalyser();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       audio.play();
       playBtn.innerHTML = PAUSE_ICON;
       strip.classList.add('playing');
+      startLoop();
     } else {
       audio.pause();
       playBtn.innerHTML = PLAY_ICON;
       strip.classList.remove('playing');
+      stopLoop();
     }
   });
 
-  // Click on progress bar to seek
   track.addEventListener('click', e => {
     if (!audio.duration) return;
     const rect = track.getBoundingClientRect();

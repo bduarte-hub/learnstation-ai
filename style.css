@@ -2113,36 +2113,14 @@ footer::after {
   color: var(--text-dim);
   font-variant-numeric: tabular-nums;
 }
-/* waveform bars — visible while playing */
-.vic-waveform {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 24px;
+/* canvas visualizer */
+.vic-canvas {
+  width: 120px;
+  height: 36px;
   flex-shrink: 0;
-}
-.vic-waveform span {
   display: block;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--blue-bright);
-  opacity: 0.35;
-  transition: height 0.1s;
 }
-.vic-audio-strip.playing .vic-waveform span {
-  opacity: 0.7;
-  animation: vic-wave 0.9s ease-in-out infinite alternate;
-}
-.vic-waveform span:nth-child(1) { height: 6px;  animation-delay: 0s; }
-.vic-waveform span:nth-child(2) { height: 14px; animation-delay: 0.1s; }
-.vic-waveform span:nth-child(3) { height: 20px; animation-delay: 0.05s; }
-.vic-waveform span:nth-child(4) { height: 12px; animation-delay: 0.15s; }
-.vic-waveform span:nth-child(5) { height: 18px; animation-delay: 0.08s; }
-.vic-waveform span:nth-child(6) { height: 8px;  animation-delay: 0.2s; }
-@keyframes vic-wave {
-  from { transform: scaleY(0.4); }
-  to   { transform: scaleY(1); }
-}
+@media (max-width: 380px) { .vic-canvas { display: none; } }
 @media (max-width: 640px) {
   .vic-audio-strip { transform: translateY(-20px); padding: 1rem 1.125rem; gap: 0.875rem; }
 }
