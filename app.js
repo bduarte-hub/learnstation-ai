@@ -586,7 +586,7 @@ function renderVicAudio() {
   strip.innerHTML = `
     <img class="vic-audio-photo" src="vic.png" alt="Vic">
     <div class="vic-audio-info">
-      <p class="vic-audio-label">Mensagem da Vic</p>
+      <p class="vic-audio-label">Mensagem do Vic</p>
       <p class="vic-audio-name">Vic Marchiori</p>
       <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
     </div>
