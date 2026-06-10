@@ -1,0 +1,94 @@
+Welcome to Hallucinations of Text and Image Generating LLMs. After watching this video, you'll be able to
+explain the phenomenon of hallucination in text and image generation by LLMs and its negative implications
+for individuals and society. You'll also learn about
+the various techniques employed to reduce the
+risk of hallucination. In text and image generation, hallucinations occur when
+generative AI models produce content
+that lacks a basis. Sometimes, large
+language models or LLMs generate text that is factually inaccurate or lacks coherence. For example, a
+language model might generate a news
+article that contains fabricated information or a poem that uses words in a
+meaningless manner. It might even create images containing objects or
+scenes that do not exist. For example, an image
+generation model might generate a picture of a cat with wings or a landscape with
+floating mountains. Now, let's understand why text or image generating
+LLMs hallucinate. LLMs are trained on massive datasets of
+texts and images, which are likely to contain
+errors and inconsistencies. Since LLMs are trained to
+maximize the likelihood, there's a greater chance
+that they generate text or images similar to the
+data they were trained on, even if that data is
+inaccurate or unrealistic. Finally, LLMs are complex systems with
+various parameters, and it's difficult to
+ensure that they will always generate accurate
+and realistic content. Even small changes in these parameters can
+lead to hallucinations because of overfitting or uncertainty in the
+correctness of the content. Let's understand this in detail. Overfitting occurs
+when a model becomes excessively proficient at learning from the training data, but struggles to apply this
+knowledge to new data, potentially causing
+the model to generate novel content that was not a part of the training dataset. Generative AI models are
+frequently trained with the objective of optimizing
+the content they generate. This can result in the model
+producing content that may be statistically plausible
+but factually incorrect. Hallucinations in text and image generation can also
+have negative implications. For example, hallucinations
+can spread misinformation, which can be used to create harmful and offensive content. This can make it
+difficult to trust the output of
+generative AI models, limiting their usefulness
+in real-world applications. Hallucinations can
+harm the image of an individual or cause
+chaos in society as it can lead to the creation of fake news articles or images that can be used to bully or harass
+someone or spread propaganda. There's no single solution
+to the problem of hallucination in text
+and image generation. However, by combining
+different approaches, it is possible to significantly
+reduce the risk of hallucination and
+improve the reliability of generative AI models. Let's discuss these
+techniques individually. Training LLMs on
+curated datasets. The Allen Institute
+for AI has developed a carefully curated
+dataset known as common sense open-ended
+plausible answers, or COPA, which serves the purpose of training
+LLMs to engage in common reasoning and preventing the generation of factually
+inaccurate statements. Developing new training methods. Researchers at Google AI have pioneered a novel
+training approach named contrastive learning that
+can be employed to instruct LLMs in generating output that is more accurate
+and coherent. Using post-processing
+techniques, the Facebook AI Research
+or FAIR team has introduced a post
+processing method known as factcheck.net, which serves the
+purpose of detecting inaccuracies and
+generated texts. Crafting prompts through
+prompt engineering. Prompt engineering is
+the process of crafting effective prompts that are used as inputs for
+generative AI models. Precision in constructing
+these prompts can minimize the likelihood of the model generating hallucinating output, regulating the
+diversity of output. Temperature sampling is a
+method employed to regulate the diversity of output produced
+by generative AI models. When the temperature is raised, the model is more likely to produce a wider range of output, but this also increases the risk of generating
+hallucinatory information. Conversely, lowering
+the temperature reduces the likelihood
+of hallucination, but limits the
+diversity of output. Combining the output of
+generative AI model. Ensemble generation is a
+technique where output from multiple generative AI models is combined to produce
+the final result. This can help reduce the
+risks of hallucination, as the final output
+is less likely to contain hallucinations
+from all the models. In this video, you
+explored the phenomenon of hallucinations in text and
+image generation by LLMs. Hallucinations occur when
+generative AI models produce content
+that lacks a basis, which can lead to
+the generation of factually incorrect or
+incoherent text and images. These hallucinations have
+significant implications, including the spread
+of misinformation and potential harm to
+individuals and society. To mitigate these
+negative implications, various techniques are employed, including training
+on curated datasets, novel training methods, post-processing techniques,
+prompt engineering, and regulating the
+diversity of output. The goal is to improve
+the reliability of generative AI models and reduce the risk
+of hallucination, enhancing their usefulness
+in real-world applications.

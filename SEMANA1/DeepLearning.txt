@@ -1,0 +1,79 @@
+[MUSIC] Welcome to Deep Learning and
+Large Language Models. After watching this video,
+you'll be able to explain the core concepts of generative AI,
+such as deep learning, and describe how large language models
+can perform human-like tasks. How does deep learning occur? Depth is created with layers, the more
+layers of information you process, the deeper your understanding
+of life around you. This is how the human brain works, and this is the driving principle
+behind deep learning techniques. An artificial neural network, or
+ANN, makes deep learning possible. ANNs comprise several computing
+units called neurons, which are organized in three connected
+layers the input layer, one or many hidden layers, and the output layer. When a vast data set is introduced to the
+network, the neurons in the input layer capture the data, the neurons in
+the hidden layers then study the data. Each neuron in the hidden layer
+contains inherent bias parameters. The connection between two neurons
+establishes weight parameters. Parameters can be defined as internal
+values of a network that get optimized as neurons repeatedly train
+on vast data sets. The higher the number of bias and
+weight parameters, the stronger is the computational
+power of the network, which leads to increased
+predictive accuracy. Sometimes deep learning algorithms are
+trained on supervised or labeled data sets, where each input data
+point has a known output. Such supervised learning helps create
+tools that filter emails, check credit scores, detect fraud, and enable image and
+voice recognition systems. While better labeling can lead to
+better quality trained algorithms, it introduces some constraints. Supervised learning algorithms
+are restricted to deliver a predefined response and labeled data is
+time-consuming and costly to obtain. More often than not, deep learning
+algorithms are trained on unsupervised or unlabeled data, where the training data consists of input
+data without explicit target outputs. Clustering and dimensionality reduction are common
+applications of unsupervised learning. In clustering, the algorithms group
+similar instances together based on their inherent properties. Whereas in dimensionality reduction,
+the algorithms capture the most important features of the data while discarding
+redundant or less informative ones. Therefore, unsupervised learning
+algorithms are freer to discover patterns and hierarchies within the data set, thereby producing more efficient,
+accurate results. This is why a deep learning algorithm's
+ability to produce high-quality responses largely depends on the quality of the vast
+data set they are asked to explore and query. There is one other factor that can also
+differentiate the level of responses produced by deep learning algorithms. The neural network architecture deployed
+in deep learning influences the responses produced by algorithms. There are three types of deep
+learning architectures that are discriminatingly used: convolutional
+neural networks, or CNNs, recurrent neural networks, or RNNs,
+and transformer-based models. Convolutional neural networks contain
+a series of layers, each of which conducts a convolution or mathematical
+operation on a previous layer. When applied to grid-based data, such as
+images, CNNs can quickly extract useful information from images to recognize
+patterns, classify images, and segment pictures. CNNs are useful in image processing,
+video recognition, and natural language processing. In contrast, recurrent neural networks are
+more efficient at processing sequential data such as text or speech. They possess a memory component that
+enables them to capture dependencies and contextual information over time. RNNs are useful in machine translation,
+sentiment analysis, and speech recognition. Transformer-based models
+do not use convolutions or recurrence to process data. Instead, they have a two-stack
+structure where an encoder and decoder process an exceptionally high
+number of parameters to understand language patterns at a greater depth. The deep learning algorithms in
+a transformer can analyze and capture the context and meaning of
+words in a hierarchical sequence and predict the next word
+in the output sequence. The result is the creation of a large
+language model that can perform natural language processing, or NLP,
+tasks such as content generation, predictive analysis, language translation,
+and process automation. These large language models, or LLMs, form the base mechanism for
+generative AI applications. Examples of LLMs include OpenAI's
+Generative Pre-trained Transformers, GPT-3 and GPT-4, Google's PALM 2,
+and Meta's Llama. For instance, GPT-4 is a language
+processing AI trained on a massive corpus of text data from the Internet,
+including books, articles, and websites. The model has over 170 trillion
+parameters, this helps it perform natural language processing tasks,
+such as creating content, setting up dialogue systems,
+and translating languages. People leverage these capabilities
+to write high-caliber essays and case papers, or perform machine
+translation and summarization. Organizations use these capabilities to
+power chatbots and virtual agents, and even translate international
+business communication or their web content into local languages. As deep learning architecture and
+technology evolves, LLMs will also deliberate harder
+to deliver more accurate and acceptable outcomes, helping generative AI
+models perform increasingly complex tasks. In this video, you learned about
+the core concepts of generative AI and understood how large language
+models perform human-like tasks. LLMs leverage the power of transformer
+networks to pretrain deep learning algorithms on vast data sets. These algorithms capture patterns and hierarchies within data sets to generate
+accurate human-like responses. This technology makes
+generative AI scalable. [MUSIC]

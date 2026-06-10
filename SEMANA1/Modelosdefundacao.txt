@@ -1,0 +1,117 @@
+Welcome to foundation models. After watching this video, you'll be able to define
+the term foundation model, explain key characteristics
+of foundation models, identify the capabilities
+of foundation models, and explore examples
+of foundation models. Stanford University Center for Research on Foundation
+Models defines a foundation model as a new successful paradigm
+for building AI systems. Train one model on
+a huge amount of data and adapt it to
+many applications. We call such a model
+a foundation model. Let's explore this
+definition more closely. The first part of this
+definition says train one model on a huge amount
+of data. How does this work? A foundation model is a
+large general purpose self supervised model that is pre-trained on vast
+amounts of unlabeled data, establishing billions
+of parameters. Pre-training is a
+technique during which unsupervised
+algorithms are repeatedly given
+the liberty to make connections between diverse
+pieces of information. This allows foundation models to develop multimodal,
+multi-domain capabilities. Such that they can
+accept input prompts and multiple modalities
+such as text, image, audio, or video formats and perform
+complex and creative tasks, such as answering questions, summarizing documents,
+writing essays, solving equations,
+extracting information from images, even
+developing code. This broad skill set makes these models relevant
+to multiple domains. This is in contrast the
+smaller generative AI models, which are trained on
+restricted domain data and requested to
+perform limited tasks. For instance, OpenAI's
+Dall-E family of models are considered foundation
+models because they can perform many
+image related tasks. In contrast, AlexNet
+is not classified as a foundational model as it only performs image
+classification tasks. Therefore, we can
+clarify that while all foundation models have
+generative AI capabilities, not all generative AI models
+are foundation models. When foundation
+models are trained on vast natural language
+processing databases, they are called Large
+Language Models or LLMs. LLMs develop
+independent reasoning allowing them to respond
+to queries uniquely, for example, OpenAI's, GPT and class of models
+including GPT-3, which is pre-trained on 175
+plus billion parameters and GPT-4, which is pre-trained
+on an estimated 180 plus trillion parameters. Other examples of large language
+models include Google's Pathway Language
+Model pre-trained on 540 billion parameters, Meta's Large Language
+Model Meta AI pre trained on 65
+billion parameters. Google's Bert pre-trained on
+340 million plus parameters. Meta's Galactica, an LLM for scientists pre-trained
+on 48 million papers, lectures, textbooks,
+and websites. Technology innovation
+institutes Falcon 7B pre-trained on 1.5 trillion tokens and Microsoft's
+Orca pre-trained at 13 billion parameters and small enough to
+run off a laptop. It's likely that these
+parameters may change as generative AI tools evolve
+in their scope and size. Another aspect of models evolving is their
+ability to adapt. The definition also
+suggests that we can adapt a foundation model
+to many applications. This is possible because of
+the broad based training of foundation models, which allows them to learn new things and adapt
+to new situations. Small businesses can leverage this capability to
+create customized, more efficient, generative AI models at an affordable cost. This is why foundation models are also called base models. They help make AI systems more accessible
+to businesses and individuals who do not have the resources to train
+their models from scratch. In this way, foundation
+models enable enterprises to shrink time to
+value from months to weeks. Take for example the
+evolution of chatbots. OpenAI's GPT-3 and GPT-4 are foundation models that
+power the ChatGPT chatbot. Google's PaLM powers the
+Google barred chatbot. These are today's
+unreasonably clever chatbots. However, if we think back to how early chatbots functioned, we realize that they
+were trained on smaller datasets which confine their generative
+capabilities. While they could predict
+responses based on keywords, they could only provide a
+predetermined response. In contrast, chatbots today are pre-trained multiple times
+on extensive datasets. They are therefore able to increase their word
+prediction accuracy and respond in a more helpful
+and creative manner. Try this will you? If you type a single
+sentence prompt and chatGPT, you'll likely get more
+than a basic response depending on what your
+prompt requested. The chatbot may write
+a comparative essay, create an infographic, design a checklist or
+script a short story. OpenAI's GPT-3 is also
+the foundation model for Dall-E. An image generation tool that responds
+to text prompts. For a single text prompt, Dall-E generates four high resolution
+images in multiple styles, including photo realistic
+images and paintings. Another clarification
+to note here, while all large language
+models are foundation models, not all foundation models
+are large language models. Some foundation models use diffusion architecture
+capabilities to improve the scale and scope of their image generation
+capabilities. For instance, Dall-E uses
+transformer architecture. But the latest version
+of Dall-E uses sound diffusion to
+generate images from text. Stability, AI stable diffusion uses diffusion
+architecture to generate high resolution images in realistic cartooning
+and abstract styles based on the user's description. Google's imaging uses a
+cascaded diffusion model built on an LLM to generate
+images from text prompts. As foundation models evolve in their strengths
+and applications, we have seen some limitations. Firstly, the desired
+output may be biased if the data on which the foundation model is trained is biased. Secondly, LLMs can
+hallucinate responses. That means they generate false
+information because they misinterpret the context of data parameters
+within a dataset. Therefore, you must
+verify the accuracy of the output produced by a
+generative AI chatbot. With a little caution,
+you can enjoy the many benefits
+foundation models offer. In this video, you explored the concepts of
+foundation models. These models are pre-trained
+on billions of parameters, which allows them to develop
+independent reasoning and execute a large
+variety of complex tasks. Given their multimodal,
+multi-domain capabilities, they can serve as
+the foundation or base for generative
+AI applications.

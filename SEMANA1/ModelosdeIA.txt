@@ -1,0 +1,111 @@
+Welcome to Generative AI Models. After watching this video, you'll be able to identify the core generative AI
+models that serve as the building blocks
+of generative AI and list their
+distinctive features. In the world of generative AI, these four models have
+made a significant impact. Variational autoencoders, generative adversarial networks, transformer-based models,
+and diffusion models. Each model employs
+a different type of deep learning architecture and applies probabilistic
+techniques. Let's gain insight
+into how they work. Variational autoencoders
+or VAEs are the most popular of all generative
+AI models for two reasons. A, they work with a diverse
+range of training data, such as images, text, and audio. And B, they rapidly reduce the dimensionality
+of your image, text, or audio to create a
+newer improved version. First, the encoder, which is a self-sufficient
+neural network, studies the probability
+distribution of the input data. In simple terms,
+this means that it isolates the most
+useful data variables. This allows the
+encoder to create a compressed representation of the data sample and store
+it in the latent space. You can think of
+this latent space as a mathematical space within
+the model's architecture, where large dimensional data is represented in a
+compressed format. Next, the decoder
+or reverse encoder, which is also a
+self-sufficient neural network, decompresses the
+compressed representation in the latent space to
+generate the desired output. Basically, the algorithms are trained using a maximum
+likelihood principle, which means they try to
+minimize the difference between the original input data and
+the reconstructed output. Although VAEs are trained
+in a static environment, their latent space is
+characterized as continuous. Therefore, they can
+generate new samples by randomly sampling from the probability
+distribution of data. Because they can produce
+realistic and varied images with little training data, VAEs are used in
+image synthesis, data compression, and
+anomaly detection tasks. For example, the
+entertainment industry uses VAEs to create game maps
+and animate avatars. The finance industry uses VAEs to forecast the volatility
+surfaces of stocks. The healthcare
+sector uses VAEs to detect diseases using
+electrocardiogram signals. Generative Adversarial Networks (GANs)
+is another type of generative AI model that uses imagery and textual input data. In this model, two convolutional neural networks or CNNs, compete with each other
+in an adversarial game. One CNN plays the role
+of a generator and is trained on a vast dataset
+to produce data samples. The other CNN plays the
+role of a discriminator and tries to distinguish
+between real and fake samples. Based on the
+discriminator's responses, the generator seeks to produce more realistic
+data samples. GANs can generate new
+realistic-looking images, perform a style
+transfer or image to image translation and
+even create deep fakes. The finance industry
+uses GANs to train models for loan pricing or
+generating time series. Tools such as SpaceGAN work
+with geospatial data and videos StyleGAN2 is known for creating video
+game characters. Unlike variational autoencoders, GANs can be challenging
+to train as they require a large amount of data and
+heavy computational power. They can potentially create false material which
+is an ethical concern. Transformer-based models were introduced a few years ago when recurrent neural networks or RNN started facing a problem
+called vanishing gradients. Due to this problem, RNNs were struggling to process
+long sequences of text. To get around this challenge, transformers were built with attention mechanisms
+that could focus on the most valuable
+parts of the text while filtering out the
+unnecessary elements. This allowed transformers to model long-term
+dependencies in text. For instance, when you
+enter a simple prompt, the two-stack transformer
+architecture uses an encoder-decoder mechanism to generate coherent and
+contextually relevant text. As transformer models can
+query extensive databases, they are able to create large
+language models and perform natural language
+processing tasks such as picture creation, music synthesis, and
+even video synthesis. This marks a significant
+breakthrough in our approach to content
+creation and offers many opportunities for
+innovation as has been seen with GPT 3.5 and its subsequent
+versions, BERT and T5. Diffusion models are a
+more recent addition to the world of
+generative AI models. They address the
+systematic decay of data that occurs due to noise
+in the latent space. By applying the
+principles of diffusion, these models try to
+prevent information loss. Just as in the
+diffusion process, where molecules move from high-density to
+low-density areas, diffusion models
+move noise to and from a data sample using
+a two-step process. Step 1 is forward diffusion, in which algorithms gradually add random noise
+to training data. Step 2 is reverse diffusion, in which algorithms turn
+the noise around to recover the data and
+generate the desired output. Open AI's Dall-E2, Stability AI's Stable
+Diffusion XL, and Google's Imagen are mature
+diffusion models that generate high-quality
+graphical content. Similar to variational
+autoencoders, diffusion models also try
+to optimize data by first projecting it onto
+the latent space and then recovering it back
+to the initial state. However, a diffusion
+model is trained using a dynamic flow and therefore
+takes longer to train. Then why are these
+models considered the best option for creating
+generative AI models? Because they train hundreds, maybe even an unlimited number
+of layers and have shown remarkable results in image synthesis and
+video generation. Experiments with generative
+AI models continue unabated as unsupervised algorithms throw up one surprise after another. In this video, you learned about the four core
+generative AI models that serve as the building
+blocks of generative AI. Variational autoencoders
+rapidly reduce the dimensionality of samples. Generative adversarial
+networks use competing networks to
+produce realistic samples. Transformer-based models use attention mechanisms to model long-term text dependencies. Diffusion models address
+information decay by removing noise in
+the latent space.

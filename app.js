@@ -565,3 +565,379 @@ function toggleCheckpoint(id) {
   const el = document.getElementById(id);
   if (el) el.classList.toggle('open');
 }
+
+/* ══ FEEDBACK MODE ═══════════════════════════════════════
+   Double-click / double-tap anywhere → comment dialog.
+   Comments stored in localStorage keyed by page + element.
+   Floating button (bottom-right) opens the review panel.
+═══════════════════════════════════════════════════════════ */
+(function initFeedbackMode() {
+  const STORE_KEY = 'learnstation_feedback';
+
+  /* ── Storage helpers ── */
+  function loadAll() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveAll(items) {
+    localStorage.setItem(STORE_KEY, JSON.stringify(items));
+  }
+  function addComment(comment) {
+    const items = loadAll();
+    items.unshift(comment);
+    saveAll(items);
+  }
+  function deleteComment(id) {
+    saveAll(loadAll().filter(c => c.id !== id));
+  }
+
+  /* ── Rich location capture ── */
+  function captureLocation(target) {
+    // Scroll position as percentage
+    const scrollPct = Math.round(
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1)) * 100
+    );
+
+    // Nearest heading walking up the DOM
+    let heading = '';
+    let el = target;
+    for (let i = 0; i < 10 && el && el !== document.body; i++) {
+      const h = el.closest
+        ? (el.matches('h1,h2,h3') ? el : el.querySelector('h1,h2,h3'))
+        : null;
+      if (h) { heading = h.textContent.trim().slice(0, 100); break; }
+      el = el.parentElement;
+    }
+    if (!heading) {
+      // fallback: find the last heading above the click Y position
+      const allH = [...document.querySelectorAll('h1,h2,h3')];
+      const rect = target.getBoundingClientRect ? target.getBoundingClientRect() : { top: 0 };
+      const above = allH.filter(h => h.getBoundingClientRect().top <= rect.top + 1);
+      if (above.length) heading = above[above.length - 1].textContent.trim().slice(0, 100);
+    }
+    if (!heading) heading = document.title.split('—')[0].trim();
+
+    // Section label (data-od-id or nearest section)
+    let sectionId = '';
+    let sEl = target;
+    for (let i = 0; i < 12 && sEl && sEl !== document.body; i++) {
+      if (sEl.dataset && sEl.dataset.odId) { sectionId = sEl.dataset.odId; break; }
+      if (sEl.tagName === 'SECTION') { sectionId = sEl.className.split(' ')[0] || 'section'; break; }
+      sEl = sEl.parentElement;
+    }
+
+    // Snippet of clicked text
+    const snippet = (target.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+
+    return { heading, sectionId, scrollPct, snippet };
+  }
+
+  function labelFor(target) {
+    return captureLocation(target).heading;
+  }
+
+  /* ── Inject styles ── */
+  const style = document.createElement('style');
+  style.textContent = `
+    /* Feedback toast hint */
+    .fb-hint {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(8px);
+      background: #1e293b; color: #e2e8f0; font-size: .78rem; letter-spacing: .04em;
+      padding: 7px 16px; border-radius: 999px; opacity: 0; pointer-events: none;
+      transition: opacity .25s, transform .25s; z-index: 9000; white-space: nowrap;
+    }
+    .fb-hint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Floating review button */
+    .fb-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9001;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #3b82f6; color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(59,130,246,.45);
+      transition: transform .15s, background .15s;
+      font-size: 20px;
+    }
+    .fb-fab:hover { background: #2563eb; transform: scale(1.08); }
+    .fb-fab .fb-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: #ef4444; color: #fff; font-size: 10px; font-weight: 700;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--bg-primary, #0d1117);
+    }
+
+    /* Comment dialog */
+    .fb-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9100; padding: 16px;
+      animation: fb-fade-in .18s ease;
+    }
+    .fb-dialog {
+      background: #1e293b; border-radius: 16px; width: 100%; max-width: 480px;
+      padding: 28px 28px 24px; box-shadow: 0 24px 56px rgba(0,0,0,.5);
+      animation: fb-slide-up .2s ease;
+    }
+    .fb-dialog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .fb-dialog-title { font-size: 1rem; font-weight: 700; color: #f1f5f9; }
+    .fb-dialog-context { font-size: .74rem; color: #64748b; margin-top: 3px; }
+    .fb-dialog-close { background: none; border: none; color: #64748b; font-size: 20px; cursor: pointer; padding: 0 0 0 8px; line-height: 1; }
+    .fb-dialog-close:hover { color: #f1f5f9; }
+    .fb-dialog textarea {
+      width: 100%; min-height: 100px; background: #0f172a; color: #e2e8f0;
+      border: 1px solid #334155; border-radius: 10px; padding: 12px 14px;
+      font: 15px/1.55 inherit; resize: vertical;
+    }
+    .fb-dialog textarea:focus { outline: none; border-color: #3b82f6; }
+    .fb-dialog-actions { display: flex; gap: 10px; margin-top: 14px; justify-content: flex-end; }
+    .fb-btn-cancel { background: transparent; border: 1px solid #334155; color: #94a3b8; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: .875rem; }
+    .fb-btn-cancel:hover { border-color: #64748b; color: #e2e8f0; }
+    .fb-btn-save { background: #3b82f6; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: .875rem; font-weight: 600; }
+    .fb-btn-save:hover { background: #2563eb; }
+    .fb-btn-save:disabled { opacity: .45; cursor: default; }
+
+    /* Review panel */
+    .fb-panel-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      display: flex; align-items: flex-end; justify-content: flex-end;
+      z-index: 9100; padding: 16px;
+      animation: fb-fade-in .18s ease;
+    }
+    .fb-panel {
+      background: #1e293b; border-radius: 16px; width: 100%; max-width: 440px;
+      max-height: 82vh; display: flex; flex-direction: column;
+      box-shadow: 0 24px 56px rgba(0,0,0,.5);
+      animation: fb-slide-up .2s ease;
+    }
+    .fb-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px 16px; border-bottom: 1px solid #334155;
+      flex-shrink: 0;
+    }
+    .fb-panel-head h3 { font-size: 1rem; font-weight: 700; color: #f1f5f9; margin: 0; }
+    .fb-panel-actions { display: flex; gap: 8px; align-items: center; }
+    .fb-panel-export {
+      background: #334155; border: none; color: #94a3b8; font-size: .75rem;
+      padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: 500;
+    }
+    .fb-panel-export:hover { background: #475569; color: #e2e8f0; }
+    .fb-panel-close { background: none; border: none; color: #64748b; font-size: 20px; cursor: pointer; }
+    .fb-panel-close:hover { color: #f1f5f9; }
+    .fb-panel-body { overflow-y: auto; padding: 16px 24px; flex: 1; }
+    .fb-panel-empty { color: #64748b; font-size: .875rem; text-align: center; padding: 32px 0; }
+    .fb-comment-item {
+      border-bottom: 1px solid #1e293b; padding: 14px 0;
+      display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start;
+    }
+    .fb-comment-item:first-child { padding-top: 0; }
+    .fb-comment-item:last-child { border-bottom: none; }
+    .fb-comment-context { font-size: .7rem; color: #3b82f6; margin-bottom: 4px; }
+    .fb-comment-text { font-size: .875rem; color: #e2e8f0; line-height: 1.5; }
+    .fb-comment-meta { font-size: .68rem; color: #475569; margin-top: 4px; }
+    .fb-comment-del { background: none; border: none; color: #475569; cursor: pointer; font-size: 14px; padding: 0; margin-top: 2px; }
+    .fb-comment-del:hover { color: #ef4444; }
+
+    @keyframes fb-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fb-slide-up { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  `;
+  document.head.appendChild(style);
+
+  /* ── Floating action button ── */
+  const fab = document.createElement('button');
+  fab.className = 'fb-fab';
+  fab.title = 'Ver feedbacks';
+  fab.innerHTML = '💬<span class="fb-badge" id="fb-badge" style="display:none"></span>';
+  document.body.appendChild(fab);
+
+  function updateBadge() {
+    const n = loadAll().length;
+    const badge = document.getElementById('fb-badge');
+    if (!badge) return;
+    badge.textContent = n > 9 ? '9+' : n;
+    badge.style.display = n ? 'flex' : 'none';
+  }
+  updateBadge();
+
+  /* ── Hint toast ── */
+  const hint = document.createElement('div');
+  hint.className = 'fb-hint';
+  hint.textContent = 'Duplo clique para comentar';
+  document.body.appendChild(hint);
+  let hintTimer;
+  function showHint() {
+    clearTimeout(hintTimer);
+    hint.classList.add('show');
+    hintTimer = setTimeout(() => hint.classList.remove('show'), 2200);
+  }
+
+  /* ── Comment dialog ── */
+  function openCommentDialog(context, pageId, location_) {
+    const overlay = document.createElement('div');
+    overlay.className = 'fb-overlay';
+    overlay.innerHTML = `
+      <div class="fb-dialog" role="dialog" aria-modal="true" aria-labelledby="fb-dialog-title">
+        <div class="fb-dialog-header">
+          <div>
+            <div class="fb-dialog-title" id="fb-dialog-title">💬 Deixar feedback</div>
+            <div class="fb-dialog-context">${context}${location_ && location_.scrollPct != null ? ` · ${location_.scrollPct}% da página` : ''}</div>
+          </div>
+          <button class="fb-dialog-close" aria-label="Fechar">×</button>
+        </div>
+        <textarea id="fb-textarea" placeholder="Escreva seu comentário sobre este conteúdo…" autofocus></textarea>
+        <div class="fb-dialog-actions">
+          <button class="fb-btn-cancel">Cancelar</button>
+          <button class="fb-btn-save" disabled>Salvar</button>
+        </div>
+      </div>`;
+
+    const ta  = overlay.querySelector('#fb-textarea');
+    const save = overlay.querySelector('.fb-btn-save');
+    const cancel = overlay.querySelector('.fb-btn-cancel');
+    const close  = overlay.querySelector('.fb-dialog-close');
+
+    ta.addEventListener('input', () => { save.disabled = !ta.value.trim(); });
+
+    function dismiss() { overlay.remove(); }
+    cancel.onclick = close.onclick = dismiss;
+    overlay.addEventListener('click', e => { if (e.target === overlay) dismiss(); });
+    document.addEventListener('keydown', function esc(e) {
+      if (e.key === 'Escape') { dismiss(); document.removeEventListener('keydown', esc); }
+    });
+
+    save.onclick = () => {
+      const text = ta.value.trim();
+      if (!text) return;
+      addComment({
+        id: Date.now() + Math.random().toString(36).slice(2),
+        pageId,
+        context,
+        location: location_,
+        text,
+        url: window.location.href,
+        at: new Date().toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
+      });
+      updateBadge();
+      dismiss();
+      showSavedToast();
+    };
+
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => ta.focus());
+  }
+
+  function showSavedToast() {
+    const t = document.createElement('div');
+    t.className = 'fb-hint show';
+    t.style.bottom = '80px';
+    t.textContent = '✓ Feedback salvo';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  }
+
+  /* ── Review panel ── */
+  function openPanel() {
+    const comments = loadAll();
+    const overlay = document.createElement('div');
+    overlay.className = 'fb-panel-overlay';
+
+    const itemsHTML = comments.length
+      ? comments.map(c => `
+          <div class="fb-comment-item">
+            <div>
+              <div class="fb-comment-context">${c.context}</div>
+              <div class="fb-comment-text">${c.text.replace(/</g,'&lt;')}</div>
+              <div class="fb-comment-meta">${c.at}${c.pageId ? ' · ' + c.pageId : ''}</div>
+            </div>
+            <button class="fb-comment-del" data-id="${c.id}" title="Apagar">🗑</button>
+          </div>`).join('')
+      : `<p class="fb-panel-empty">Nenhum feedback ainda.<br>Dê um duplo clique em qualquer parte da página.</p>`;
+
+    overlay.innerHTML = `
+      <div class="fb-panel" role="dialog" aria-modal="true" aria-label="Feedbacks salvos">
+        <div class="fb-panel-head">
+          <h3>💬 Feedbacks (${comments.length})</h3>
+          <div class="fb-panel-actions">
+            ${comments.length ? `<button class="fb-panel-share">🔗 Compartilhar</button>` : ''}
+            ${comments.length ? `<button class="fb-panel-export">Exportar TXT</button>` : ''}
+            <button class="fb-panel-close" aria-label="Fechar">×</button>
+          </div>
+        </div>
+        <div class="fb-panel-body">${itemsHTML}</div>
+      </div>`;
+
+    overlay.querySelector('.fb-panel-close').onclick = () => overlay.remove();
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+    document.addEventListener('keydown', function esc(e) {
+      if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
+    });
+
+    overlay.querySelectorAll('.fb-comment-del').forEach(btn => {
+      btn.onclick = () => {
+        deleteComment(btn.dataset.id);
+        updateBadge();
+        overlay.remove();
+        openPanel();
+      };
+    });
+
+    const exportBtn = overlay.querySelector('.fb-panel-export');
+    if (exportBtn) {
+      exportBtn.onclick = () => {
+        const txt = loadAll().map((c, i) =>
+          `[${i + 1}] Episódio: ${c.pageId || 'home'}\nSeção: ${c.context}\n${c.location ? `Posição: ${c.location.scrollPct}% da página\n` : ''}Comentário: ${c.text}\nData: ${c.at}\n`
+        ).join('\n---\n\n');
+        const a = document.createElement('a');
+        a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt);
+        a.download = 'feedbacks-learnstation.txt';
+        a.click();
+      };
+    }
+
+    const shareBtn = overlay.querySelector('.fb-panel-share');
+    if (shareBtn) {
+      shareBtn.onclick = () => {
+        const data  = btoa(unescape(encodeURIComponent(JSON.stringify(loadAll()))));
+        const url   = window.location.origin + '/feedback.html#' + data;
+        navigator.clipboard.writeText(url).then(() => {
+          shareBtn.textContent = '✓ Link copiado!';
+          setTimeout(() => { shareBtn.textContent = '🔗 Compartilhar'; }, 2500);
+        }).catch(() => {
+          prompt('Copie este link e envie para o Bruno:', url);
+        });
+      };
+    }
+
+    document.body.appendChild(overlay);
+  }
+
+  fab.addEventListener('click', openPanel);
+
+  /* ── Double-click / double-tap listener ── */
+  let lastTap = 0;
+  document.addEventListener('dblclick', e => {
+    if (e.target.closest('.fb-overlay, .fb-panel-overlay, .fb-fab')) return;
+    const loc     = captureLocation(e.target);
+    const pageId  = new URLSearchParams(location.search).get('ep') || 'home';
+    openCommentDialog(loc.heading, pageId, loc);
+  });
+
+  // Mobile double-tap
+  document.addEventListener('touchend', e => {
+    if (e.target.closest('.fb-overlay, .fb-panel-overlay, .fb-fab')) return;
+    const now = Date.now();
+    if (now - lastTap < 320) {
+      e.preventDefault();
+      const loc    = captureLocation(e.target);
+      const pageId = new URLSearchParams(location.search).get('ep') || 'home';
+      openCommentDialog(loc.heading, pageId, loc);
+    }
+    lastTap = now;
+  }, { passive: false });
+
+  // Show hint on first scroll if no comments yet
+  window.addEventListener('scroll', function onceHint() {
+    if (loadAll().length === 0) showHint();
+    window.removeEventListener('scroll', onceHint);
+  }, { once: true });
+})();
