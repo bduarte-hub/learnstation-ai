@@ -585,14 +585,22 @@ function renderVicAudio() {
   strip.id = 'vic-audio-strip';
   strip.innerHTML = `
     <div class="vic-audio-main">
-      <img class="vic-audio-photo" src="vic.png" alt="Vic">
-      <div class="vic-audio-info">
-        <p class="vic-audio-label">Mensagem do Vic</p>
-        <p class="vic-audio-name">Vic Marchiori</p>
-        <p class="vic-audio-title">Global Sr People Innovation Manager · CI&amp;T</p>
+      <div class="vic-photo-wrap" id="vic-photo-wrap">
+        <div class="vic-ring vic-ring-1"></div>
+        <div class="vic-ring vic-ring-2"></div>
+        <div class="vic-ring vic-ring-3"></div>
+        <img class="vic-audio-photo" src="vic.png" alt="Vic">
       </div>
-      <div class="vic-audio-controls">
-        <canvas class="vic-canvas" id="vic-canvas" aria-hidden="true"></canvas>
+      <div class="vic-audio-body">
+        <div class="vic-audio-top">
+          <div class="vic-audio-info">
+            <p class="vic-audio-label">Mensagem do Vic</p>
+            <p class="vic-audio-name">Vic Marchiori <span class="vic-audio-title">· Global Sr People Innovation Manager</span></p>
+          </div>
+          <button class="vic-play-btn" id="vic-play" aria-label="Ouvir mensagem do Vic">
+            <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>
+          </button>
+        </div>
         <div class="vic-progress-wrap">
           <div class="vic-progress-track" id="vic-track">
             <div class="vic-progress-fill" id="vic-fill"></div>
@@ -602,14 +610,9 @@ function renderVicAudio() {
             <span id="vic-dur">—</span>
           </div>
         </div>
-        <button class="vic-play-btn" id="vic-play" aria-label="Ouvir mensagem do Vic">
-          <svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>
-        </button>
       </div>
     </div>
-    <div class="vic-captions" id="vic-captions">
-      <p class="vic-caption-text" id="vic-caption"></p>
-    </div>
+    <p class="vic-caption-text" id="vic-caption"></p>
   `;
   hero.insertAdjacentElement('afterend', strip);
 
@@ -636,21 +639,15 @@ const VIC_CUES = [
 ];
 
 function wireAudio(strip, src) {
-  const audio   = new Audio(src);
+  const audio    = new Audio(src);
   audio.crossOrigin = 'anonymous';
   const playBtn  = document.getElementById('vic-play');
   const fill     = document.getElementById('vic-fill');
   const cur      = document.getElementById('vic-cur');
   const dur      = document.getElementById('vic-dur');
   const track    = document.getElementById('vic-track');
-  const canvas   = document.getElementById('vic-canvas');
-  const ctx      = canvas.getContext('2d');
   const caption  = document.getElementById('vic-caption');
-  const captionWrap = document.getElementById('vic-captions');
-
-  // Size canvas
-  canvas.width  = 140;
-  canvas.height = 40;
+  const rings    = strip.querySelectorAll('.vic-ring');
 
   const PLAY_ICON  = '<svg viewBox="0 0 16 16"><path d="M4 2l10 6-10 6z"/></svg>';
   const PAUSE_ICON = '<svg viewBox="0 0 16 16"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
@@ -662,9 +659,7 @@ function wireAudio(strip, src) {
 
   // ── Web Audio analyser ──
   let audioCtx, analyser, source, rafId;
-  const BAR_COUNT = 28;
-  // smooth buffer so bars don't snap — store previous heights
-  const smoothed = new Float32Array(BAR_COUNT).fill(0);
+  // (no bar smoothing needed — rings driven by energy scalar)
 
   function initAnalyser() {
     if (audioCtx) return;
@@ -677,67 +672,29 @@ function wireAudio(strip, src) {
     analyser.connect(audioCtx.destination);
   }
 
-  // Retina setup once
-  (function setupCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.width, H = canvas.height;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width  = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.scale(dpr, dpr);
-  })();
+  // ── Ring animation driven by audio energy ──
+  let energy = 0;
 
-  function drawBars(active) {
-    const cW = parseFloat(canvas.style.width)  || 140;
-    const cH = parseFloat(canvas.style.height) || 40;
-    ctx.clearRect(0, 0, cW, cH);
-
-    const barW = (cW / BAR_COUNT) * 0.52;
-    const gap  = (cW / BAR_COUNT) * 0.48;
-    const minH = 2;
-    const now  = Date.now();
-
-    let freqData;
+  function animateRings(active) {
     if (active && analyser) {
-      freqData = new Uint8Array(analyser.frequencyBinCount);
-      analyser.getByteFrequencyData(freqData);
+      const freq = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(freq);
+      // average mid-range bins (voice frequencies)
+      const slice = freq.slice(2, 18);
+      const avg   = slice.reduce((a, b) => a + b, 0) / slice.length;
+      energy += ((avg / 255) - energy) * 0.18; // smooth
+    } else {
+      energy += (0 - energy) * 0.06; // decay to zero
     }
 
-    for (let i = 0; i < BAR_COUNT; i++) {
-      let target;
-      if (active && freqData) {
-        const bin = Math.floor((i / BAR_COUNT) * (freqData.length * 0.65));
-        target = Math.max(minH, (freqData[bin] / 255) * cH * 0.92);
-      } else {
-        // idle: slow sinusoidal ripple
-        target = minH + (Math.sin(now / 900 + i * 0.45) * 0.5 + 0.5) * 5;
-      }
-
-      smoothed[i] += (target - smoothed[i]) * (active ? 0.3 : 0.08);
-      const h = Math.max(minH, smoothed[i]);
-      const x = i * (barW + gap);
-      const y = (cH - h) / 2;
-
-      // neon gradient: coral → teal, intensity scales with bar height
-      const intensity = h / cH;
-      const grad = ctx.createLinearGradient(0, y, 0, y + h);
-      grad.addColorStop(0,   `rgba(240,145,143,${0.4 + intensity * 0.5})`);
-      grad.addColorStop(0.5, `rgba(224, 96, 94,${0.6 + intensity * 0.4})`);
-      grad.addColorStop(1,   `rgba( 59,158,255,${0.3 + intensity * 0.5})`);
-
-      ctx.fillStyle = grad;
-      ctx.shadowColor = active
-        ? `rgba(224,96,94,${0.4 * intensity})`
-        : 'transparent';
-      ctx.shadowBlur = active ? 6 * intensity : 0;
-
-      ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(x, y, barW, h, 2);
-      else ctx.rect(x, y, barW, h);
-      ctx.fill();
-    }
-    ctx.shadowBlur = 0;
+    rings.forEach((ring, i) => {
+      const base  = 1 + energy * (0.22 - i * 0.04);
+      const delay = i * 80;
+      ring.style.transform = `scale(${base})`;
+      ring.style.opacity   = active
+        ? String(0.55 - i * 0.15 + energy * 0.3)
+        : String(0.12 - i * 0.03);
+    });
   }
 
   // ── Caption sync ──
@@ -759,7 +716,7 @@ function wireAudio(strip, src) {
 
   function startLoop() {
     function loop() {
-      drawBars(true);
+      animateRings(true);
       rafId = requestAnimationFrame(loop);
     }
     loop();
@@ -767,17 +724,14 @@ function wireAudio(strip, src) {
   function stopLoop() {
     cancelAnimationFrame(rafId);
     rafId = null;
-    // fade bars to idle over ~30 frames
-    let frames = 0;
-    function fade() {
-      drawBars(false);
-      if (++frames < 60) requestAnimationFrame(fade);
+    // decay rings back to idle
+    function decay() {
+      animateRings(false);
+      if (energy > 0.005) rafId = requestAnimationFrame(decay);
+      else rafId = null;
     }
-    fade();
+    decay();
   }
-
-  // draw idle state immediately so canvas isn't blank
-  drawBars(false);
 
   // ── Audio events ──
   audio.addEventListener('loadedmetadata', () => {
