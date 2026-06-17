@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegação — Orquestrando o Futuro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .nav-page { max-width: 720px; margin: 0 auto; padding: 3rem 4vw 6rem; }
+    .nav-eyebrow {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cit-green);
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .nav-eyebrow::before { content: ''; display: inline-block; width: 14px; height: 2px; background: var(--cit-green); border-radius: 1px; }
+    .nav-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 900; letter-spacing: -0.04em; color: #fff; margin-bottom: 0.5rem; }
+    .nav-subtitle { font-size: 0.9375rem; color: var(--text-muted); margin-bottom: 3rem; line-height: 1.6; }
+
+    .nav-group { margin-bottom: 2.5rem; }
+    .nav-group-label {
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-dim);
+      margin-bottom: 0.875rem; padding-bottom: 0.625rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .nav-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .nav-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.875rem 1.125rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.15s, transform 0.12s;
+      gap: 1rem;
+    }
+    .nav-link:hover { border-color: var(--cit-green); transform: translateX(3px); }
+    .nav-link-left { display: flex; align-items: center; gap: 0.875rem; }
+    .nav-link-icon { font-size: 1.1rem; width: 28px; text-align: center; flex-shrink: 0; }
+    .nav-link-title { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .nav-link-desc { font-size: 0.775rem; color: var(--text-muted); margin-top: 0.1rem; }
+    .nav-link-arrow { color: var(--cit-green); font-size: 0.875rem; flex-shrink: 0; }
+
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-pill); flex-shrink: 0;
+    }
+    .badge-green  { background: rgba(0,232,122,0.1);  color: var(--cit-green); border: 1px solid rgba(0,232,122,0.2); }
+    .badge-yellow { background: rgba(245,158,11,0.1); color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+    .badge-indigo { background: rgba(99,102,241,0.1); color: #9ea3fb; border: 1px solid rgba(99,102,241,0.2); }
+    .badge-dim    { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-dim); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-logo">
+      <span class="logo-mark">
+        <span class="brand-cit">CI&amp;T</span>
+        <span class="brand-dot"></span>
+        <span class="brand-flow">Flow</span>
+      </span>
+      Orquestrando o Futuro
+    </div>
+  </header>
+
+  <div class="nav-page">
+    <p class="nav-eyebrow">Mapa do site</p>
+    <h1 class="nav-title">Todas as páginas</h1>
+    <p class="nav-subtitle">Navegação completa — acesse qualquer parte do site diretamente.</p>
+
+    <div class="nav-group">
+      <p class="nav-group-label">Fluxo principal</p>
+      <div class="nav-links">
+        <a class="nav-link" href="onboarding.html">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">👋</span>
+            <div>
+              <p class="nav-link-title">Onboarding</p>
+              <p class="nav-link-desc">Nome, área e sentimento — ponto de entrada para novos visitantes</p>
+            </div>
+          </div>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="assessment.html">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">🎯</span>
+            <div>
+              <p class="nav-link-title">Assessment de nivelamento</p>
+              <p class="nav-link-desc">4 perguntas situacionais → define básico, intermediário ou avançado</p>
+            </div>
+          </div>
+          <span class="nav-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <p class="nav-group-label">Trilhas personalizadas</p>
+      <div class="nav-links">
+        <a class="nav-link" href="trilha.html?nivel=basico">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">🟢</span>
+            <div>
+              <p class="nav-link-title">Trilha Base</p>
+              <p class="nav-link-desc">Fundamentos de GenAI, Claude 101, governança de dados — obrigatório para todos</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-green">Base</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="trilha.html?nivel=intermediario">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">🟡</span>
+            <div>
+              <p class="nav-link-title">Trilha Intermediário</p>
+              <p class="nav-link-desc">Projetos no Claude, Agent Skills, primeiros passos de orquestração</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-yellow">Intermediário</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="trilha.html?nivel=avancado">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">🔴</span>
+            <div>
+              <p class="nav-link-title">Trilha Avançado</p>
+              <p class="nav-link-desc">AI Orchestrator path completo, VSM de processos — para AI Champions</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-indigo">Avançado</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <p class="nav-group-label">Série — Episódios publicados</p>
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">📺</span>
+            <div>
+              <p class="nav-link-title">Grade de episódios</p>
+              <p class="nav-link-desc">Todos os episódios — 4 publicados, 4 em breve</p>
+            </div>
+          </div>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="episode.html?ep=ai-basics">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">🧠</span>
+            <div>
+              <p class="nav-link-title">Ep. 1 — AI Basics</p>
+              <p class="nav-link-desc">Semana 1 · Parte 1 · Do que a IA discrimina ao que ela cria</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-green">Publicado</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="episode.html?ep=engenharia-de-prompt">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">✍️</span>
+            <div>
+              <p class="nav-link-title">Ep. 2 — Engenharia de Prompt</p>
+              <p class="nav-link-desc">Semana 1 · Parte 2 · A qualidade do que você pede determina o resultado</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-green">Publicado</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="episode.html?ep=deep-learning-e-modelos-genai">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">⚙️</span>
+            <div>
+              <p class="nav-link-title">Ep. 3 — Deep Learning e Modelos GenAI</p>
+              <p class="nav-link-desc">Semana 1 · Parte 3 · Por dentro dos modelos que geram texto e imagem</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-green">Publicado</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+        <a class="nav-link" href="episode.html?ep=responsabilidade-social">
+          <div class="nav-link-left">
+            <span class="nav-link-icon">⚖️</span>
+            <div>
+              <p class="nav-link-title">Ep. 4 — Responsabilidade Social</p>
+              <p class="nav-link-desc">Semana 1 · Parte 4 · Deepfakes, vieses, direito autoral e limites legais</p>
+            </div>
+          </div>
+          <span class="nav-badge badge-green">Publicado</span>
+          <span class="nav-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Orquestrando o Futuro · Vic · CI&amp;T</p>
+  </footer>
+</body>
+</html>

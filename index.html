@@ -1,51 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orquestrando o Futuro</title>
-  <meta name="description" content="Um diário de bordo de 5 semanas explorando AI Orchestration — destilado de um programa corporativo e traduzido para quem quer entender.">
-  <meta property="og:title" content="Orquestrando o Futuro">
-  <meta property="og:description" content="Uma jornada de 5 semanas em AI Orchestration por um líder sênior da CI&T.">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Uma jornada de aprendizagem em IA Agêntica para times de RH da CI&T.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+  <!-- Tabler Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="site-logo">
-      <span class="logo-mark">
-        <span class="brand-cit">CI&amp;T</span>
-        <span class="brand-dot"></span>
-        <span class="brand-flow">Flow</span>
-      </span>
-      Orquestrando o Futuro
+  <!-- ── Full-page views (onboarding / assessment) ── -->
+  <div id="view-onboarding" class="view view-fullpage"></div>
+  <div id="view-assessment" class="view view-fullpage"></div>
+
+  <!-- ── App shell (portal + episode) ── -->
+  <div id="app-shell" class="app-shell" style="display:none">
+
+    <!-- Sidebar 76px -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#00e87a"/>
+          <path d="M7 14h5l2-5 3 10 2-5h2" stroke="#0a0f0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <button class="sidebar-btn active" id="nav-portal" data-view="portal" title="Minha jornada">
+          <i class="ti ti-layout-cards"></i>
+        </button>
+        <button class="sidebar-btn" id="nav-episodes" data-view="episodes" title="Episódios">
+          <i class="ti ti-book-2"></i>
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="sidebar-btn" id="nav-restart" title="Reiniciar jornada">
+          <i class="ti ti-refresh"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-area">
+      <!-- Header -->
+      <header class="app-header" id="app-header">
+        <div class="app-header-left">
+          <div class="header-breadcrumb" id="header-breadcrumb">
+            <span class="header-brand">CI&amp;T · Flow</span>
+            <i class="ti ti-chevron-right header-sep"></i>
+            <span class="header-page" id="header-page">Orquestrando o Futuro</span>
+          </div>
+        </div>
+        <div class="app-header-right">
+          <div class="user-chip" id="user-chip">
+            <div class="user-avatar" id="user-avatar">
+              <i class="ti ti-user"></i>
+            </div>
+            <span class="user-name" id="user-name"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Views inside shell -->
+      <div id="view-portal"   class="view shell-view"></div>
+      <div id="view-episodes" class="view shell-view"></div>
+      <div id="view-episode"  class="view shell-view"></div>
     </div>
-    <nav>
-      <a href="index.html">Episódios</a>
-    </nav>
-  </header>
 
-  <!-- Hero -->
-  <div class="hero-banner" id="hero-banner"></div>
-
-  <!-- Episodes -->
-  <section class="episodes-section" id="all-episodes">
-    <div class="row-header">
-      <p class="section-label">Todos os episódios</p>
-    </div>
-    <div class="episodes-grid" id="episodes-grid"></div>
-  </section>
-
-  <!-- About -->
-  <div class="about-strip" id="about-strip"></div>
-
-  <footer>
-    <p id="footer-text"></p>
-  </footer>
+  </div>
 
   <script src="app.js"></script>
 </body>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment — Orquestrando o Futuro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .assess-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 4vw;
+      background: linear-gradient(160deg, #0a0f1e 0%, #111828 40%, #141414 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .assess-wrap::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -80px;
+      width: 700px; height: 600px;
+      background: radial-gradient(ellipse at 70% 30%,
+        rgba(99,102,241,0.08) 0%,
+        rgba(0,232,122,0.05) 50%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    .assess-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      max-width: 620px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .assess-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .assess-logo .brand-cit  { color: var(--cit-green); }
+    .assess-logo .brand-dot  { width: 5px; height: 5px; background: var(--indigo); border-radius: 50%; }
+    .assess-logo .brand-flow { color: var(--text-muted); }
+    .assess-logo .sep        { color: var(--border); margin: 0 0.25rem; }
+    .assess-logo .series-name { color: var(--text-muted); font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 0.8125rem; }
+
+    /* Progress */
+    .assess-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      margin-bottom: 2.25rem;
+    }
+    .assess-progress-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .assess-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cit-green) 0%, var(--indigo) 100%);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .assess-progress-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .assess-eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--indigo);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .assess-eyebrow::before {
+      content: '◆';
+      font-size: 0.5rem;
+    }
+
+    .assess-question {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .assess-context {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .assess-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .assess-option {
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.12s;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .assess-option:hover { border-color: rgba(99,102,241,0.4); background: var(--bg-hover); transform: translateX(2px); }
+    .assess-option.selected {
+      border-color: var(--indigo);
+      background: rgba(99,102,241,0.08);
+    }
+    .assess-option-letter {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .assess-option.selected .assess-option-letter {
+      background: var(--indigo);
+      border-color: var(--indigo);
+      color: #fff;
+    }
+    .assess-option-text {
+      font-size: 0.9375rem;
+      color: var(--text);
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .assess-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem 0;
+      transition: color 0.15s;
+    }
+    .btn-back:hover { color: var(--text); }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cit-green);
+      color: #0a0f0a;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.75rem 1.625rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.12s, opacity 0.15s;
+    }
+    .btn-next:hover:not(:disabled) { background: var(--cit-green-dim); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* Result screen */
+    .assess-result { display: none; }
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .result-badge.basico   { background: rgba(0,232,122,0.12); color: var(--cit-green); border: 1px solid rgba(0,232,122,0.3); }
+    .result-badge.intermediario { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .result-badge.avancado { background: rgba(99,102,241,0.12); color: #9ea3fb; border: 1px solid rgba(99,102,241,0.3); }
+
+    .result-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .result-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .result-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cit-green);
+      color: #0a0f0a;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      padding: 0.875rem 2rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      transition: background 0.15s, transform 0.12s;
+      text-decoration: none;
+    }
+    .result-cta:hover { background: var(--cit-green-dim); transform: translateY(-1px); }
+
+    @media (max-width: 600px) {
+      .assess-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="assess-wrap">
+  <div class="assess-card" id="assess-card">
+
+    <div class="assess-logo">
+      <span class="brand-cit">CI&amp;T</span>
+      <span class="brand-dot"></span>
+      <span class="brand-flow">Flow</span>
+      <span class="sep">·</span>
+      <span class="series-name">Orquestrando o Futuro</span>
+    </div>
+
+    <!-- Questions -->
+    <div id="assess-questions">
+      <div class="assess-progress">
+        <div class="assess-progress-bar">
+          <div class="assess-progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <span class="assess-progress-label" id="progress-label">Pergunta 1 de 4</span>
+      </div>
+
+      <p class="assess-eyebrow">Nivelamento</p>
+      <h2 class="assess-question" id="q-text"></h2>
+      <p class="assess-context"  id="q-context"></p>
+      <div class="assess-options" id="q-options"></div>
+
+      <div class="assess-nav">
+        <button class="btn-back" id="btn-prev" onclick="prevQ()">← Anterior</button>
+        <button class="btn-next" id="btn-adv" disabled onclick="nextQ()">Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="assess-result" id="assess-result">
+      <div class="result-badge" id="result-badge"></div>
+      <h2 class="result-title" id="result-title"></h2>
+      <p class="result-desc"  id="result-desc"></p>
+      <a class="result-cta"   id="result-cta" href="#">Ver minha trilha personalizada →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── Assessment questions ──────────────────────────────────────── */
+  /*
+   * Scoring: cada resposta vale pontos (0 = básico, 1 = intermediário, 2 = avançado)
+   * Soma final:  0–2 → básico | 3–5 → intermediário | 6–8 → avançado
+   */
+  const QUESTIONS = [
+    {
+      text: "Quando você pensa em usar IA no trabalho, qual das opções abaixo mais se aproxima do que você faz hoje?",
+      context: "Não existe resposta certa — queremos entender seu ponto de partida.",
+      options: [
+        { label: "Nunca usei ou usei muito raramente, não sei bem por onde começar.", score: 0 },
+        { label: "Uso ChatGPT ou outra ferramenta para tarefas pontuais — resumir textos, rascunhar e-mails, gerar ideias.", score: 1 },
+        { label: "Tenho uma rotina com IA: uso diferentes ferramentas, sei construir bons prompts e experimento casos novos.", score: 2 },
+        { label: "Já montei fluxos ou automações com IA — conecto ferramentas, crio instruções personalizadas e penso em escala.", score: 3 }
+      ]
+    },
+    {
+      text: "Imagine que você precisa fazer uma análise com 200 currículos. Como você descreveria seu nível de conforto para usar IA nessa tarefa?",
+      context: "Pense em como você abordaria o problema hoje — não como gostaria de abordar no futuro.",
+      options: [
+        { label: "Não me sinto confortável — não sei como a IA poderia me ajudar nisso.", score: 0 },
+        { label: "Tentaria usar o ChatGPT para resumir alguns, mas não teria um processo estruturado.", score: 1 },
+        { label: "Saberia montar um prompt completo com contexto, critérios e formato de saída — e revisaria o resultado.", score: 2 },
+        { label: "Pensaria logo em criar um agente ou fluxo que processa os CVs automaticamente com critérios da vaga.", score: 3 }
+      ]
+    },
+    {
+      text: "O que são 'agentes de IA'?",
+      context: "Escolha a alternativa que melhor descreve seu entendimento atual.",
+      options: [
+        { label: "Não sei — ouço falar mas não tenho clareza sobre o que são.", score: 0 },
+        { label: "São assistentes de IA como o ChatGPT ou Claude que respondem perguntas.", score: 0 },
+        { label: "São sistemas de IA que executam tarefas de forma autônoma, usando ferramentas e tomando decisões em múltiplos passos.", score: 2 },
+        { label: "São pipelines que orquestram múltiplos modelos e ferramentas para resolver tarefas complexas com supervisão mínima.", score: 3 }
+      ]
+    },
+    {
+      text: "Qual dessas frases mais se parece com a forma como você pensa sobre IA no RH?",
+      context: "Escolha a que mais ressoa com seu momento atual.",
+      options: [
+        { label: "Ainda estou entendendo o básico — quero saber o que é e o que pode fazer antes de experimentar.", score: 0 },
+        { label: "Já entendo o que é, mas quero aprender a usar melhor no meu trabalho específico.", score: 1 },
+        { label: "Já uso bem — quero agora aprender a construir fluxos e automações para os processos da minha área.", score: 2 },
+        { label: "Quero ser referência em AI em RH — liderar experimentos, treinar o time e construir soluções escaláveis.", score: 3 }
+      ]
+    }
+  ];
+
+  let current = 0;
+  const answers = new Array(QUESTIONS.length).fill(null);
+  const user = JSON.parse(sessionStorage.getItem('of_user') || '{}');
+
+  function renderQ(idx) {
+    const q = QUESTIONS[idx];
+    const pct = Math.round((idx / QUESTIONS.length) * 100);
+
+    document.getElementById('progress-fill').style.width  = pct + '%';
+    document.getElementById('progress-label').textContent = `Pergunta ${idx + 1} de ${QUESTIONS.length}`;
+    document.getElementById('q-text').textContent    = q.text;
+    document.getElementById('q-context').textContent = q.context;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const container = document.getElementById('q-options');
+    container.innerHTML = q.options.map((o, i) => `
+      <div class="assess-option${answers[idx] === i ? ' selected' : ''}"
+           onclick="selectAnswer(${i})">
+        <span class="assess-option-letter">${letters[i]}<\/span>
+        <span class="assess-option-text">${o.label}<\/span>
+      <\/div>
+    `).join('');
+
+    document.getElementById('btn-adv').disabled = answers[idx] === null;
+    document.getElementById('btn-adv').textContent =
+      idx < QUESTIONS.length - 1 ? 'Próxima →' : 'Ver resultado →';
+    document.getElementById('btn-prev').style.visibility = idx === 0 ? 'hidden' : 'visible';
+  }
+
+  function selectAnswer(i) {
+    answers[current] = i;
+    document.querySelectorAll('.assess-option').forEach((el, idx) => {
+      el.classList.toggle('selected', idx === i);
+    });
+    document.getElementById('btn-adv').disabled = false;
+  }
+
+  function nextQ() {
+    if (answers[current] === null) return;
+    if (current < QUESTIONS.length - 1) {
+      current++;
+      renderQ(current);
+    } else {
+      showResult();
+    }
+  }
+
+  function prevQ() {
+    if (current > 0) { current--; renderQ(current); }
+  }
+
+  function calcLevel() {
+    const total = answers.reduce((sum, a, i) => {
+      return sum + (a !== null ? QUESTIONS[i].options[a].score : 0);
+    }, 0);
+    if (total <= 2) return 'basico';
+    if (total <= 5) return 'intermediario';
+    return 'avancado';
+  }
+
+  const RESULTS = {
+    basico: {
+      badge: '🟢 Nível Base',
+      cls: 'basico',
+      title: 'Você está no lugar certo para começar.',
+      desc: 'Sua trilha cobre os fundamentos de IA Generativa, uso seguro de dados no contexto de RH, e os primeiros passos práticos com o Claude. Nada técnico demais — tudo conectado à sua área.'
+    },
+    intermediario: {
+      badge: '🟡 Nível Intermediário',
+      cls: 'intermediario',
+      title: 'Você já tem base — hora de ganhar profundidade.',
+      desc: 'Sua trilha foca em uso avançado de prompts, criação de projetos no Claude com contexto fixo, e os primeiros passos de automação. Conteúdo prático com casos da sua área.'
+    },
+    avancado: {
+      badge: '🔴 Nível Avançado',
+      cls: 'avancado',
+      title: 'Você está pronto para orquestrar.',
+      desc: 'Sua trilha vai direto para orquestração de agentes, construção de fluxos multi-step e VSM de processos de RH. O objetivo é você sair como AI Champion da sua área.'
+    }
+  };
+
+  function showResult() {
+    const level = calcLevel();
+    const r = RESULTS[level];
+    const name = user.name ? user.name.split(' ')[0] : '';
+
+    document.getElementById('progress-fill').style.width = '100%';
+    document.getElementById('progress-label').textContent = 'Concluído';
+
+    document.getElementById('assess-questions').style.display = 'none';
+    const resultEl = document.getElementById('assess-result');
+    resultEl.style.display = 'block';
+
+    const badge = document.getElementById('result-badge');
+    badge.textContent = r.badge;
+    badge.className = 'result-badge ' + r.cls;
+
+    document.getElementById('result-title').textContent =
+      name ? name + ', ' + r.title.charAt(0).toLowerCase() + r.title.slice(1) : r.title;
+    document.getElementById('result-desc').textContent = r.desc;
+
+    const cta = document.getElementById('result-cta');
+    cta.href = `trilha.html?nivel=${level}`;
+
+    // Persist for trilha page
+    sessionStorage.setItem('of_nivel', level);
+  }
+
+  // Init
+  renderQ(0);
+  if (user.name) {
+    // Personalize first question slightly
+    document.title = `Assessment — ${user.name} — Orquestrando o Futuro`;
+  }
+</script>
+</body>
+</html>

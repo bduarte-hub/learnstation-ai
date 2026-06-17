@@ -3,37 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Episódio — Orquestrando o Futuro</title>
-  <meta name="description" content="">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>Orquestrando o Futuro</title>
+  <script>
+    // Redirect to SPA shell, preserving the ?ep= slug
+    const slug = new URLSearchParams(location.search).get('ep');
+    if (slug) {
+      location.replace('index.html?ep=' + encodeURIComponent(slug));
+    } else {
+      location.replace('index.html');
+    }
+  </script>
 </head>
-<body>
-
-  <header class="site-header">
-    <div class="site-logo">
-      <span class="logo-mark">
-        <span class="brand-cit">CI&amp;T</span>
-        <span class="brand-dot"></span>
-        <span class="brand-flow">Flow</span>
-      </span>
-      Orquestrando o Futuro
-    </div>
-    <nav>
-      <a href="index.html">Episódios</a>
-    </nav>
-  </header>
-
-  <main class="episode-page" id="episode-page">
-    <p style="color: var(--text-muted); padding: 4rem 0;">Carregando episódio...</p>
-  </main>
-
-  <footer>
-    <p id="footer-text"></p>
-  </footer>
-
-  <script src="app.js"></script>
-</body>
+<body></body>
 </html>

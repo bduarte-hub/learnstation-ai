@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bem-vindo — Orquestrando o Futuro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .onboarding-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 4vw;
+      background: linear-gradient(160deg, #0a0f1e 0%, #111828 40%, #141414 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .onboarding-wrap::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -80px;
+      width: 700px; height: 600px;
+      background: radial-gradient(ellipse at 30% 40%,
+        rgba(0,232,122,0.07) 0%,
+        rgba(99,102,241,0.05) 45%,
+        transparent 70%);
+      pointer-events: none;
+    }
+    .onboarding-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      max-width: 560px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .onboarding-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .onboarding-logo .brand-cit  { color: var(--cit-green); }
+    .onboarding-logo .brand-dot  {
+      width: 5px; height: 5px;
+      background: var(--indigo);
+      border-radius: 50%;
+    }
+    .onboarding-logo .brand-flow { color: var(--text-muted); }
+    .onboarding-logo .sep { color: var(--border); margin: 0 0.25rem; }
+    .onboarding-logo .series-name { color: var(--text-muted); font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 0.8125rem; }
+
+    .step-indicator {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 2.5rem;
+    }
+    .step-dot {
+      height: 3px;
+      border-radius: 2px;
+      flex: 1;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .step-dot.active { background: var(--cit-green); }
+
+    .onboarding-eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cit-green);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .onboarding-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 14px; height: 2px;
+      background: var(--cit-green);
+      border-radius: 1px;
+    }
+
+    .onboarding-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 0.625rem;
+    }
+    .onboarding-subtitle {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    /* Steps */
+    .onboarding-step { display: none; }
+    .onboarding-step.active { display: block; }
+
+    /* Input */
+    .field-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.625rem;
+    }
+    .field-input {
+      width: 100%;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.875rem 1rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field-input::placeholder { color: var(--text-dim); }
+    .field-input:focus {
+      border-color: var(--cit-green);
+      box-shadow: 0 0 0 3px rgba(0,232,122,0.1);
+    }
+
+    /* Option cards — area & mood */
+    .option-grid {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .option-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .option-grid.cols-1 { grid-template-columns: 1fr; }
+
+    .option-card {
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.125rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .option-card:hover { border-color: rgba(0,232,122,0.4); background: var(--bg-hover); }
+    .option-card.selected {
+      border-color: var(--cit-green);
+      background: rgba(0,232,122,0.06);
+    }
+    .option-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .option-text {}
+    .option-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 0.2rem;
+    }
+    .option-desc {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem 0;
+      transition: color 0.15s;
+    }
+    .btn-back:hover { color: var(--text); }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--cit-green);
+      color: #0a0f0a;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.75rem 1.625rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.12s, opacity 0.15s;
+    }
+    .btn-next:hover:not(:disabled) { background: var(--cit-green-dim); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    @media (max-width: 600px) {
+      .onboarding-card { padding: 2rem 1.5rem; }
+      .option-grid.cols-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="onboarding-wrap">
+  <div class="onboarding-card">
+
+    <div class="onboarding-logo">
+      <span class="brand-cit">CI&amp;T</span>
+      <span class="brand-dot"></span>
+      <span class="brand-flow">Flow</span>
+      <span class="sep">·</span>
+      <span class="series-name">Orquestrando o Futuro</span>
+    </div>
+
+    <div class="step-indicator" id="step-indicator">
+      <div class="step-dot active" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+    </div>
+
+    <!-- Step 0: Nome -->
+    <div class="onboarding-step active" id="step-0">
+      <p class="onboarding-eyebrow">Bem-vindo</p>
+      <h1 class="onboarding-title">Antes de começar, me conta um pouco sobre você</h1>
+      <p class="onboarding-subtitle">Essas informações ajudam a personalizar sua experiência de aprendizagem.</p>
+      <label class="field-label" for="input-name">Qual é o seu nome?</label>
+      <input class="field-input" id="input-name" type="text" placeholder="Digite seu nome..." autocomplete="off" />
+      <div class="nav-row">
+        <span></span>
+        <button class="btn-next" id="btn-step0" disabled onclick="goStep(1)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- Step 1: Área -->
+    <div class="onboarding-step" id="step-1">
+      <p class="onboarding-eyebrow">Sua área</p>
+      <h1 class="onboarding-title">Em qual área você atua?</h1>
+      <p class="onboarding-subtitle">Vamos conectar os conceitos de IA com os desafios do seu dia a dia.</p>
+      <div class="option-grid cols-2" id="area-options">
+        <div class="option-card" data-value="talent-acquisition" onclick="selectOption(this,'area')">
+          <span class="option-icon">🎯</span>
+          <div class="option-text">
+            <p class="option-name">Talent Acquisition</p>
+            <p class="option-desc">R&S, triagem, shortlist, candidatos</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="business-partner" onclick="selectOption(this,'area')">
+          <span class="option-icon">🤝</span>
+          <div class="option-text">
+            <p class="option-name">Business Partner</p>
+            <p class="option-desc">Performance, retenção, movimentação</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="people-services" onclick="selectOption(this,'area')">
+          <span class="option-icon">⚙️</span>
+          <div class="option-text">
+            <p class="option-name">People Services</p>
+            <p class="option-desc">Payroll, benefícios, Oracle/ADP</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="learning" onclick="selectOption(this,'area')">
+          <span class="option-icon">📚</span>
+          <div class="option-text">
+            <p class="option-name">Learning &amp; Engagement</p>
+            <p class="option-desc">L&D, trilhas, engajamento, plataformas</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="comms" onclick="selectOption(this,'area')">
+          <span class="option-icon">📢</span>
+          <div class="option-text">
+            <p class="option-name">Comms &amp; ESG</p>
+            <p class="option-desc">Comunicação interna, cultura, Bondy</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="executive" onclick="selectOption(this,'area')">
+          <span class="option-icon">🏆</span>
+          <div class="option-text">
+            <p class="option-name">Executive Mastery</p>
+            <p class="option-desc">Líderes de alto impacto, Executive Assessment</p>
+          </div>
+        </div>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(0)">← Voltar</button>
+        <button class="btn-next" id="btn-step1" disabled onclick="goStep(2)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Sentimento -->
+    <div class="onboarding-step" id="step-2">
+      <p class="onboarding-eyebrow">Momento atual</p>
+      <h1 class="onboarding-title" id="mood-title">Como você está chegando nessa jornada?</h1>
+      <p class="onboarding-subtitle">Sem resposta certa ou errada — só queremos entender como receber você da melhor forma.</p>
+      <div class="option-grid cols-1" id="mood-options">
+        <div class="option-card" data-value="animado" onclick="selectOption(this,'mood')">
+          <span class="option-icon">🚀</span>
+          <div class="option-text">
+            <p class="option-name">Animado e curioso</p>
+            <p class="option-desc">Quero entender tudo e já começo a imaginar como aplicar no meu trabalho.</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="cauteloso" onclick="selectOption(this,'mood')">
+          <span class="option-icon">🧭</span>
+          <div class="option-text">
+            <p class="option-name">Cauteloso e explorando</p>
+            <p class="option-desc">Ainda tenho dúvidas sobre o que a IA realmente pode fazer — quero entender antes de opinar.</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="receoso" onclick="selectOption(this,'mood')">
+          <span class="option-icon">😬</span>
+          <div class="option-text">
+            <p class="option-name">Um pouco receoso</p>
+            <p class="option-desc">Tenho minhas dúvidas sobre impacto no meu papel. Preciso entender melhor.</p>
+          </div>
+        </div>
+        <div class="option-card" data-value="pragmatico" onclick="selectOption(this,'mood')">
+          <span class="option-icon">⚡</span>
+          <div class="option-text">
+            <p class="option-name">Pragmático e focado</p>
+            <p class="option-desc">Não preciso de teoria — quero o que funciona na prática, agora.</p>
+          </div>
+        </div>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(1)">← Voltar</button>
+        <button class="btn-next" id="btn-step2" disabled onclick="finishOnboarding()">Começar →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const state = { name: '', area: '', mood: '' };
+
+  // Name input watcher
+  const nameInput = document.getElementById('input-name');
+  nameInput.addEventListener('input', () => {
+    state.name = nameInput.value.trim();
+    document.getElementById('btn-step0').disabled = !state.name;
+  });
+  nameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && state.name) goStep(1);
+  });
+
+  function selectOption(el, group) {
+    const container = el.closest('.option-grid');
+    container.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    state[group] = el.dataset.value;
+    if (group === 'area') document.getElementById('btn-step1').disabled = false;
+    if (group === 'mood') document.getElementById('btn-step2').disabled = false;
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.onboarding-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+    document.querySelectorAll('.step-dot').forEach((d, i) => {
+      d.classList.toggle('active', i <= n);
+    });
+    if (n === 2 && state.name) {
+      document.getElementById('mood-title').textContent =
+        state.name + ', como você está chegando nessa jornada?';
+    }
+  }
+
+  function finishOnboarding() {
+    sessionStorage.setItem('of_user', JSON.stringify(state));
+    window.location.href = 'assessment.html';
+  }
+</script>
+</body>
+</html>

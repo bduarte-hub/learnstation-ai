@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orquestrando o Futuro</title>
+  <script>
+    // Redirect to SPA shell, preserving the ?nivel= param
+    const nivel = new URLSearchParams(location.search).get('nivel');
+    if (nivel) {
+      location.replace('index.html?view=trilha&nivel=' + encodeURIComponent(nivel));
+    } else {
+      location.replace('index.html?view=trilha');
+    }
+  </script>
+</head>
+<body></body>
+</html>
