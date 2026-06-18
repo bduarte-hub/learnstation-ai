@@ -121,7 +121,7 @@ function renderOnboarding() {
               <path d="M2 8h4l2-4 3 8 2-4h1" stroke="#0a1a0a" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="ob-logo-text">CI&amp;T · Flow</span>
+          <span class="ob-logo-text">CI&amp;T · LearnStation.AI</span>
           <span class="ob-logo-sub">/ Orquestrando o Futuro</span>
         </div>
         <div class="ob-progress">
