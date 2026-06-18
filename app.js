@@ -132,7 +132,7 @@ function renderOnboarding() {
 
         <div class="ob-step on" id="os0">
           <p class="ob-eyebrow">Boas-vindas</p>
-          <h1 class="ob-h1">Pronto para explorar o que a IA pode fazer pelo seu trabalho?</h1>
+          <h1 class="ob-h1">Quer descobrir o que a IA pode fazer pelo seu trabalho?</h1>
           <p class="ob-p">Conta um pouco sobre você. Assim a jornada faz sentido desde o primeiro episódio.</p>
           <div class="ob-fields">
             <div class="ob-field-group">
@@ -141,7 +141,7 @@ function renderOnboarding() {
             </div>
             <div class="ob-field-group">
               <label class="field-label" for="ob-login">Login corporativo</label>
-              <input class="input" id="ob-login" type="text" placeholder="Ex: joao.silva" autocomplete="username">
+              <input class="input" id="ob-login" type="text" placeholder="login@ciandt.com" autocomplete="username">
             </div>
           </div>
           <div class="ob-footer"><span></span><button class="btn btn-primary btn-lg" id="obn0" disabled>Continuar <i class="ti ti-arrow-right"></i></button></div>
@@ -168,10 +168,10 @@ function renderOnboarding() {
           <h1 class="ob-h1" id="ob-mood-h">Como você está chegando nessa jornada?</h1>
           <p class="ob-p">Sem resposta certa. Queremos entender como receber você da melhor forma.</p>
           <div class="opt-grid cols-1">
-            <div class="opt-card" data-g="mood" data-v="animado"><span class="opt-icon">🚀</span><div><p class="opt-name">Curioso e animado</p><p class="opt-desc">Quero entender tudo e já imagino como aplicar no meu trabalho.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="animado"><span class="opt-icon">🚀</span><div><p class="opt-name">Com muita curiosidade</p><p class="opt-desc">Quero entender tudo e já imagino como aplicar no meu trabalho.</p></div></div>
             <div class="opt-card" data-g="mood" data-v="cauteloso"><span class="opt-icon">🧭</span><div><p class="opt-name">Explorando com calma</p><p class="opt-desc">Tenho perguntas — quero entender antes de tirar conclusões.</p></div></div>
             <div class="opt-card" data-g="mood" data-v="receoso"><span class="opt-icon">😬</span><div><p class="opt-name">Com algumas dúvidas</p><p class="opt-desc">Ainda não tenho clareza sobre o que isso significa pro meu papel.</p></div></div>
-            <div class="opt-card" data-g="mood" data-v="pragmatico"><span class="opt-icon">⚡</span><div><p class="opt-name">Focado no prático</p><p class="opt-desc">Menos teoria, mais aplicação. Quero o que funciona agora.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="pragmatico"><span class="opt-icon">⚡</span><div><p class="opt-name">Com foco no prático</p><p class="opt-desc">Menos teoria, mais aplicação. Quero o que funciona agora.</p></div></div>
           </div>
           <div class="ob-footer"><button class="btn-link" id="obb2">← Voltar</button><button class="btn btn-primary btn-lg" id="obn2" disabled>Começar a jornada <i class="ti ti-arrow-right"></i></button></div>
         </div>
