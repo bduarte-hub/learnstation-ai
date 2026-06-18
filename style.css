@@ -161,6 +161,9 @@ button { font-family: var(--font); }
 .ob-step    { display: none; }
 .ob-step.on { display: block; }
 .field-label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+.ob-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin-bottom: 1.5rem; }
+.ob-field-group { display: flex; flex-direction: column; }
+@media (max-width: 480px) { .ob-fields { grid-template-columns: 1fr; } }
 .opt-grid { display: grid; gap: 0.5rem; margin-bottom: 0.25rem; }
 .opt-grid.cols-2 { grid-template-columns: 1fr 1fr; }
 .opt-grid.cols-1 { grid-template-columns: 1fr; }

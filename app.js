@@ -131,18 +131,26 @@ function renderOnboarding() {
         </div>
 
         <div class="ob-step on" id="os0">
-          <p class="ob-eyebrow">Bem-vindo</p>
-          <h1 class="ob-h1">Antes de começar, me conta um pouco sobre você</h1>
-          <p class="ob-p">Vamos personalizar sua jornada de aprendizagem em IA Agêntica.</p>
-          <label class="field-label" for="ob-name">Qual é o seu nome?</label>
-          <input class="input" id="ob-name" type="text" placeholder="Digite seu nome…" autocomplete="off">
+          <p class="ob-eyebrow">Boas-vindas</p>
+          <h1 class="ob-h1">Pronto para explorar o que a IA pode fazer pelo seu trabalho?</h1>
+          <p class="ob-p">Conta um pouco sobre você. Assim a jornada faz sentido desde o primeiro episódio.</p>
+          <div class="ob-fields">
+            <div class="ob-field-group">
+              <label class="field-label" for="ob-name">Nome</label>
+              <input class="input" id="ob-name" type="text" placeholder="Como prefere ser chamado?" autocomplete="given-name">
+            </div>
+            <div class="ob-field-group">
+              <label class="field-label" for="ob-login">Login corporativo</label>
+              <input class="input" id="ob-login" type="text" placeholder="Ex: joao.silva" autocomplete="username">
+            </div>
+          </div>
           <div class="ob-footer"><span></span><button class="btn btn-primary btn-lg" id="obn0" disabled>Continuar <i class="ti ti-arrow-right"></i></button></div>
         </div>
 
         <div class="ob-step" id="os1">
           <p class="ob-eyebrow">Sua área</p>
-          <h1 class="ob-h1">Em qual área você atua?</h1>
-          <p class="ob-p">Vamos conectar IA com os desafios do seu dia a dia.</p>
+          <h1 class="ob-h1">Onde você atua no RH?</h1>
+          <p class="ob-p">O conteúdo é o mesmo — o que muda são os exemplos. Escolha a área que mais reflete o seu dia a dia.</p>
           <div class="opt-grid cols-2">
             <div class="opt-card" data-g="area" data-v="talent-acquisition"><span class="opt-icon">🎯</span><div><p class="opt-name">Talent Acquisition</p><p class="opt-desc">R&S, triagem, shortlist</p></div></div>
             <div class="opt-card" data-g="area" data-v="business-partner"><span class="opt-icon">🤝</span><div><p class="opt-name">Business Partner</p><p class="opt-desc">Performance, retenção</p></div></div>
@@ -150,6 +158,7 @@ function renderOnboarding() {
             <div class="opt-card" data-g="area" data-v="learning"><span class="opt-icon">📚</span><div><p class="opt-name">Learning &amp; Engagement</p><p class="opt-desc">L&D, trilhas</p></div></div>
             <div class="opt-card" data-g="area" data-v="comms"><span class="opt-icon">📢</span><div><p class="opt-name">Comms &amp; ESG</p><p class="opt-desc">Comunicação, cultura</p></div></div>
             <div class="opt-card" data-g="area" data-v="executive"><span class="opt-icon">🏆</span><div><p class="opt-name">Executive Mastery</p><p class="opt-desc">Líderes de alto impacto</p></div></div>
+            <div class="opt-card" data-g="area" data-v="hr-tech"><span class="opt-icon">🔬</span><div><p class="opt-name">HR Tech &amp; Performance</p><p class="opt-desc">Sistemas, analytics, IA aplicada</p></div></div>
           </div>
           <div class="ob-footer"><button class="btn-link" id="obb1">← Voltar</button><button class="btn btn-primary btn-lg" id="obn1" disabled>Continuar <i class="ti ti-arrow-right"></i></button></div>
         </div>
@@ -157,19 +166,19 @@ function renderOnboarding() {
         <div class="ob-step" id="os2">
           <p class="ob-eyebrow">Momento atual</p>
           <h1 class="ob-h1" id="ob-mood-h">Como você está chegando nessa jornada?</h1>
-          <p class="ob-p">Sem certo ou errado — queremos entender como receber você melhor.</p>
+          <p class="ob-p">Sem resposta certa. Queremos entender como receber você da melhor forma.</p>
           <div class="opt-grid cols-1">
-            <div class="opt-card" data-g="mood" data-v="animado"><span class="opt-icon">🚀</span><div><p class="opt-name">Animado e curioso</p><p class="opt-desc">Quero entender tudo e já imagino como aplicar.</p></div></div>
-            <div class="opt-card" data-g="mood" data-v="cauteloso"><span class="opt-icon">🧭</span><div><p class="opt-name">Cauteloso e explorando</p><p class="opt-desc">Tenho dúvidas — quero entender antes de opinar.</p></div></div>
-            <div class="opt-card" data-g="mood" data-v="receoso"><span class="opt-icon">😬</span><div><p class="opt-name">Um pouco receoso</p><p class="opt-desc">Tenho dúvidas sobre o impacto no meu papel.</p></div></div>
-            <div class="opt-card" data-g="mood" data-v="pragmatico"><span class="opt-icon">⚡</span><div><p class="opt-name">Pragmático e focado</p><p class="opt-desc">Sem teoria — quero o que funciona agora.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="animado"><span class="opt-icon">🚀</span><div><p class="opt-name">Curioso e animado</p><p class="opt-desc">Quero entender tudo e já imagino como aplicar no meu trabalho.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="cauteloso"><span class="opt-icon">🧭</span><div><p class="opt-name">Explorando com calma</p><p class="opt-desc">Tenho perguntas — quero entender antes de tirar conclusões.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="receoso"><span class="opt-icon">😬</span><div><p class="opt-name">Com algumas dúvidas</p><p class="opt-desc">Ainda não tenho clareza sobre o que isso significa pro meu papel.</p></div></div>
+            <div class="opt-card" data-g="mood" data-v="pragmatico"><span class="opt-icon">⚡</span><div><p class="opt-name">Focado no prático</p><p class="opt-desc">Menos teoria, mais aplicação. Quero o que funciona agora.</p></div></div>
           </div>
-          <div class="ob-footer"><button class="btn-link" id="obb2">← Voltar</button><button class="btn btn-primary btn-lg" id="obn2" disabled>Começar <i class="ti ti-arrow-right"></i></button></div>
+          <div class="ob-footer"><button class="btn-link" id="obb2">← Voltar</button><button class="btn btn-primary btn-lg" id="obn2" disabled>Começar a jornada <i class="ti ti-arrow-right"></i></button></div>
         </div>
       </div>
     </div>`;
 
-  const st = {name:'',area:'',mood:''};
+  const st = {name:'',login:'',area:'',mood:''};
   function goStep(n) {
     wrap.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('on'));
     wrap.querySelector('#os'+n).classList.add('on');
@@ -177,10 +186,17 @@ function renderOnboarding() {
     if (n===2 && st.name) $('ob-mood-h').textContent = st.name.split(' ')[0]+', como você está chegando nessa jornada?';
   }
 
-  const ni = $('ob-name');
-  ni.addEventListener('input',  () => { st.name=ni.value.trim(); $('obn0').disabled=!st.name; });
-  ni.addEventListener('keydown',e => { if(e.key==='Enter'&&st.name) goStep(1); });
-  $('obn0').addEventListener('click', () => { if(st.name) goStep(1); });
+  function checkStep0() {
+    st.name  = $('ob-name').value.trim();
+    st.login = $('ob-login').value.trim();
+    $('obn0').disabled = !(st.name && st.login);
+  }
+
+  $('ob-name').addEventListener('input', checkStep0);
+  $('ob-login').addEventListener('input', checkStep0);
+  $('ob-name').addEventListener('keydown', e => { if(e.key==='Enter') $('ob-login').focus(); });
+  $('ob-login').addEventListener('keydown', e => { if(e.key==='Enter' && st.name && st.login) goStep(1); });
+  $('obn0').addEventListener('click', () => { if(st.name && st.login) goStep(1); });
 
   wrap.addEventListener('click', e => {
     const c = e.target.closest('.opt-card'); if(!c) return;
@@ -202,44 +218,44 @@ function renderOnboarding() {
    ASSESSMENT
    ══════════════════════════════════════════════════════ */
 const QS = [
-  { q:'Quando você pensa em usar IA no trabalho, qual mais se aproxima do que você faz hoje?',
-    ctx:'Não existe resposta certa — queremos entender seu ponto de partida.',
+  { q:'Como a IA já aparece no seu trabalho hoje?',
+    ctx:'Sem resposta certa — o que importa é o seu ponto de partida real.',
     opts:[
-      {l:'Nunca usei ou raramente — não sei bem por onde começar.',s:0},
+      {l:'Ainda não usei. Não sei bem por onde começar.',s:0},
       {l:'Uso ChatGPT ou similar para tarefas pontuais: resumir textos, rascunhar e-mails.',s:1},
-      {l:'Tenho rotina com IA: ferramentas diversas, bons prompts, experimento casos novos.',s:2},
+      {l:'Tenho uma rotina com IA: ferramentas variadas, bons prompts, experimento casos novos.',s:2},
       {l:'Já montei fluxos ou automações com IA — conecto ferramentas e penso em escala.',s:3}
     ]},
-  { q:'Imagine analisar 200 currículos. Qual seu nível de conforto para usar IA nisso?',
-    ctx:'Pense em como você abordaria hoje — não como gostaria de abordar no futuro.',
+  { q:'Precisando analisar 200 perfis de candidatos. Como você usaria IA nisso?',
+    ctx:'Pense em como agiria hoje — não em como gostaria de agir no futuro.',
     opts:[
-      {l:'Não me sinto confortável — não sei como a IA me ajudaria.',s:0},
-      {l:'Tentaria usar o ChatGPT para resumir alguns, sem processo estruturado.',s:1},
-      {l:'Saberia montar prompt completo com contexto, critérios e formato de saída.',s:2},
-      {l:'Pensaria direto em criar um agente ou fluxo automatizado.',s:3}
+      {l:'Não sei como a IA me ajudaria nessa tarefa.',s:0},
+      {l:'Tentaria usar o ChatGPT para resumir alguns perfis, sem processo definido.',s:1},
+      {l:'Montaria um prompt completo com contexto, critérios e formato de saída.',s:2},
+      {l:'Pensaria direto em criar um agente ou fluxo automatizado para o processo inteiro.',s:3}
     ]},
   { q:'O que são agentes de IA?',
-    ctx:'Escolha a alternativa que melhor descreve seu entendimento atual.',
+    ctx:'Escolha a opção que melhor descreve seu entendimento hoje.',
     opts:[
-      {l:'Não sei — ouço falar mas não tenho clareza.',s:0},
+      {l:'Ouço falar, mas ainda não tenho clareza sobre o que são.',s:0},
       {l:'São assistentes como ChatGPT ou Claude que respondem perguntas.',s:0},
-      {l:'São sistemas que executam tarefas autonomamente, usando ferramentas em múltiplos passos.',s:2},
+      {l:'São sistemas que executam tarefas de forma autônoma, usando ferramentas em múltiplos passos.',s:2},
       {l:'São pipelines que orquestram múltiplos modelos e ferramentas com supervisão mínima.',s:3}
     ]},
-  { q:'Qual frase mais se parece com como você pensa sobre IA no RH?',
-    ctx:'Escolha a que mais ressoa com seu momento atual.',
+  { q:'Qual frase mais reflete como você pensa sobre IA no RH hoje?',
+    ctx:'Escolha a que mais ressoa com o seu momento.',
     opts:[
-      {l:'Ainda entendendo o básico — quero saber o que é antes de experimentar.',s:0},
-      {l:'Já entendo, mas quero aprender a usar melhor no meu trabalho.',s:1},
-      {l:'Já uso bem — quero construir fluxos e automações para minha área.',s:2},
-      {l:'Quero ser referência em AI no RH — liderar experimentos e construir soluções.',s:3}
+      {l:'Ainda estou entendendo o básico — quero saber o que é antes de experimentar.',s:0},
+      {l:'Já entendo o conceito, mas quero aprender a usar melhor no dia a dia.',s:1},
+      {l:'Já uso bem — quero construir fluxos e automações para a minha área.',s:2},
+      {l:'Quero ser referência em IA no RH — liderar experimentos e construir soluções.',s:3}
     ]}
 ];
 
 const LV = {
-  basico:        {badge:'🟢 Nível Base',         cls:'badge-brand',   title:'Você está no lugar certo para começar.',           desc:'Sua jornada cobre fundamentos de IA Generativa, uso seguro de dados de pessoas e os primeiros passos práticos com o Claude.'},
-  intermediario: {badge:'🟡 Nível Intermediário', cls:'badge-warning', title:'Você já tem base — hora de ganhar profundidade.',   desc:'Sua jornada foca em projetos com contexto fixo, Skills reutilizáveis de RH e primeiros passos em orquestração de agentes.'},
-  avancado:      {badge:'🔴 Nível Avançado',      cls:'badge-indigo',  title:'Você está pronto para orquestrar.',                 desc:'Sua jornada vai direto ao AI Orchestrator path completo e VSM de processos. Objetivo: sair como AI Champion da sua área.'}
+  basico:        {badge:'🟢 Nível Base',         cls:'badge-brand',   title:'Você está no lugar certo para começar.',          desc:'A jornada cobre fundamentos de IA Generativa, uso responsável de dados de pessoas e os primeiros passos práticos com o Claude.'},
+  intermediario: {badge:'🟡 Nível Intermediário', cls:'badge-warning', title:'Você já tem base — hora de ir mais fundo.',        desc:'A jornada foca em projetos com contexto fixo, Skills reutilizáveis de RH e primeiros passos em orquestração de agentes.'},
+  avancado:      {badge:'🔴 Nível Avançado',      cls:'badge-indigo',  title:'Você está pronto para orquestrar.',               desc:'A jornada vai direto ao AI Orchestrator path completo. O objetivo: sair como referência em IA na sua área.'}
 };
 
 function calcLevel(ans) {
