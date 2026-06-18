@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — LearnStation.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #111116;
+  --surface:   #18181e;
+  --surface2:  #1e1e26;
+  --border:    #2e2e3e;
+  --border-dim:#222230;
+  --text:      #e8e8f0;
+  --muted:     #8a8a9e;
+  --dim:       #505068;
+  --coral:     #e0605e;
+  --coral-dim: #c94847;
+  --teal:      #3b9eff;
+  --green:     #22c55e;
+  --amber:     #f59e0b;
+  --indigo:    #818cf8;
+  --radius:    8px;
+  --radius-lg: 12px;
+  --font: 'Inter', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+
+/* ── Login screen ── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;
+  background:radial-gradient(ellipse at 30% 40%,rgba(224,96,94,0.07) 0%,transparent 55%),var(--bg);}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:380px;}
+.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem;}
+.login-mark{width:32px;height:32px;background:var(--coral);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.login-mark svg{width:16px;height:16px;}
+.login-title{font-size:1.25rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.375rem;}
+.login-sub{font-size:.875rem;color:var(--muted);margin-bottom:1.75rem;}
+.field-label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem;}
+.input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem 1rem;font-family:var(--font);font-size:.9375rem;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;}
+.input::placeholder{color:var(--dim);}
+.input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(224,96,94,.1);}
+.login-btn{width:100%;margin-top:1rem;padding:.8rem;background:var(--coral);color:#fff;border:none;border-radius:var(--radius);font-family:var(--font);font-size:.9375rem;font-weight:700;cursor:pointer;transition:background .15s;}
+.login-btn:hover{background:var(--coral-dim);}
+.login-error{font-size:.8rem;color:#f87171;margin-top:.75rem;display:none;}
+
+/* ── App shell ── */
+.app{display:none;flex-direction:column;min-height:100vh;}
+.app.visible{display:flex;}
+
+/* ── Header ── */
+.header{height:58px;border-bottom:1px solid var(--border-dim);background:rgba(17,17,22,.92);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:40;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.header-logo{display:flex;align-items:center;gap:8px;}
+.header-mark{width:26px;height:26px;background:var(--coral);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.header-mark svg{width:13px;height:13px;}
+.header-name{font-size:.9rem;font-weight:700;letter-spacing:-.02em;}
+.header-sub{font-size:.75rem;color:var(--dim);}
+.header-right{display:flex;align-items:center;gap:.75rem;}
+.refresh-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:.45rem .875rem;border-radius:var(--radius);font-size:.8rem;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px;transition:background .15s,color .15s;}
+.refresh-btn:hover{background:#2a2a38;color:var(--text);}
+.logout-btn{background:transparent;border:1px solid var(--border);color:var(--dim);padding:.45rem .875rem;border-radius:var(--radius);font-size:.8rem;cursor:pointer;font-family:var(--font);transition:color .15s,border-color .15s;}
+.logout-btn:hover{color:var(--coral);border-color:var(--coral);}
+
+/* ── Main content ── */
+.main{padding:2rem;max-width:1400px;width:100%;margin:0 auto;flex:1;}
+.page-title{font-size:1.5rem;font-weight:800;letter-spacing:-.035em;margin-bottom:.25rem;}
+.page-sub{font-size:.875rem;color:var(--muted);margin-bottom:2rem;}
+
+/* ── Metric cards ── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.metrics{grid-template-columns:1fr;}}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;}
+.metric-label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem;}
+.metric-num{font-size:2rem;font-weight:900;letter-spacing:-.04em;line-height:1;}
+.metric-sub{font-size:.75rem;color:var(--muted);margin-top:.375rem;}
+.metric-card.coral .metric-num{color:var(--coral);}
+.metric-card.teal  .metric-num{color:var(--teal);}
+.metric-card.green .metric-num{color:var(--green);}
+.metric-card.amber .metric-num{color:var(--amber);}
+
+/* ── Filters ── */
+.filters{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.filter-label{font-size:.75rem;color:var(--muted);font-weight:500;}
+.filter-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:.4rem .75rem;border-radius:var(--radius);font-size:.8125rem;font-family:var(--font);cursor:pointer;outline:none;}
+.filter-select:focus{border-color:var(--coral);}
+.search-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:.4rem .875rem;border-radius:var(--radius);font-size:.8125rem;font-family:var(--font);outline:none;min-width:200px;}
+.search-input::placeholder{color:var(--dim);}
+.search-input:focus{border-color:var(--coral);}
+.result-count{font-size:.75rem;color:var(--dim);margin-left:auto;}
+
+/* ── Table ── */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+.table-scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.8125rem;}
+thead tr{border-bottom:1px solid var(--border);}
+th{padding:.875rem 1rem;text-align:left;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap;cursor:pointer;user-select:none;}
+th:hover{color:var(--muted);}
+th .sort-arrow{margin-left:4px;opacity:.4;}
+th.sorted .sort-arrow{opacity:1;color:var(--coral);}
+td{padding:.875rem 1rem;border-bottom:1px solid var(--border-dim);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(255,255,255,.02);}
+
+/* Table cells */
+.cell-name{font-weight:600;color:var(--text);}
+.cell-login{color:var(--muted);font-family:ui-monospace,monospace;font-size:.75rem;}
+.cell-area{font-size:.75rem;}
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;letter-spacing:.05em;padding:.2rem .6rem;border-radius:999px;white-space:nowrap;}
+.badge-basico       {background:rgba(34,197,94,.1);  color:var(--green); border:1px solid rgba(34,197,94,.2);}
+.badge-intermediario{background:rgba(245,158,11,.1); color:var(--amber); border:1px solid rgba(245,158,11,.2);}
+.badge-avancado     {background:rgba(129,140,248,.1);color:var(--indigo);border:1px solid rgba(129,140,248,.2);}
+.badge-area{background:rgba(59,158,255,.08);color:var(--teal);border:1px solid rgba(59,158,255,.15);}
+
+.progress-cell{display:flex;align-items:center;gap:.625rem;min-width:130px;}
+.progress-track{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--coral) 0%,var(--teal) 100%);transition:width .3s;}
+.progress-pct{font-size:.7rem;font-weight:700;color:var(--muted);min-width:28px;text-align:right;font-variant-numeric:tabular-nums;}
+.progress-pct.done{color:var(--green);}
+
+.cell-date{font-size:.75rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;}
+.cell-mood{font-size:.8rem;}
+
+/* ── Empty / loading ── */
+.state-row td{text-align:center;padding:3rem;color:var(--muted);}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--coral);border-radius:50%;animation:spin .7s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── Export ── */
+.export-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:.45rem .875rem;border-radius:var(--radius);font-size:.8rem;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px;transition:background .15s,color .15s;}
+.export-btn:hover{color:var(--text);background:#2a2a38;}
+</style>
+</head>
+<body>
+
+<!-- ── Login ── -->
+<div id="login-wrap" class="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-mark">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h4l2-4 3 8 2-4h1" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-size:.9rem;font-weight:700;">CI&T · LearnStation.AI</span>
+    </div>
+    <h1 class="login-title">Dashboard de inscrições</h1>
+    <p class="login-sub">Acesso restrito a administradores.</p>
+    <label class="field-label" for="pwd-input">Senha</label>
+    <input class="input" id="pwd-input" type="password" placeholder="••••••••" autocomplete="current-password">
+    <button class="login-btn" id="login-btn">Entrar</button>
+    <p class="login-error" id="login-error">Senha incorreta. Tente novamente.</p>
+  </div>
+</div>
+
+<!-- ── App ── -->
+<div id="app" class="app">
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">
+        <div class="header-mark">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h4l2-4 3 8 2-4h1" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="header-name">LearnStation.AI</div>
+        </div>
+      </div>
+      <span style="color:var(--border);font-size:.75rem;">/</span>
+      <span style="font-size:.8125rem;color:var(--muted);">Admin Dashboard</span>
+    </div>
+    <div class="header-right">
+      <button class="refresh-btn" id="refresh-btn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M14 8A6 6 0 1 1 8 2v0M8 2l2.5 2.5M8 2 5.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Atualizar
+      </button>
+      <button class="export-btn" id="export-btn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 12h10M8 2v8m0 0 3-3M8 10 5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Exportar CSV
+      </button>
+      <button class="logout-btn" id="logout-btn">Sair</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <h1 class="page-title">Inscrições</h1>
+    <p class="page-sub" id="last-updated">Carregando dados...</p>
+
+    <!-- Metrics -->
+    <div class="metrics">
+      <div class="metric-card coral">
+        <div class="metric-label">Total inscritos</div>
+        <div class="metric-num" id="m-total">—</div>
+        <div class="metric-sub">pessoas na jornada</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-label">Concluíram assessment</div>
+        <div class="metric-num" id="m-assessed">—</div>
+        <div class="metric-sub">com nível definido</div>
+      </div>
+      <div class="metric-card teal">
+        <div class="metric-label">Progresso médio</div>
+        <div class="metric-num" id="m-avg">—</div>
+        <div class="metric-sub">da trilha completa</div>
+      </div>
+      <div class="metric-card amber">
+        <div class="metric-label">Concluíram a trilha</div>
+        <div class="metric-num" id="m-done">—</div>
+        <div class="metric-sub">100% dos episódios</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <span class="filter-label">Filtrar por</span>
+      <select class="filter-select" id="f-area">
+        <option value="">Todas as áreas</option>
+        <option value="talent-acquisition">Talent Acquisition</option>
+        <option value="business-partner">Business Partner</option>
+        <option value="people-services">People Services</option>
+        <option value="learning">Learning &amp; Engagement</option>
+        <option value="comms">Comms &amp; ESG</option>
+        <option value="executive">Executive Mastery</option>
+        <option value="hr-tech">HR Tech &amp; Performance</option>
+      </select>
+      <select class="filter-select" id="f-nivel">
+        <option value="">Todos os níveis</option>
+        <option value="basico">Base</option>
+        <option value="intermediario">Intermediário</option>
+        <option value="avancado">Avançado</option>
+      </select>
+      <input class="search-input" id="f-search" placeholder="Buscar por nome ou login…">
+      <span class="result-count" id="result-count"></span>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table id="users-table">
+          <thead>
+            <tr>
+              <th data-col="name">Nome <span class="sort-arrow">↕</span></th>
+              <th data-col="login">Login <span class="sort-arrow">↕</span></th>
+              <th data-col="area">Área <span class="sort-arrow">↕</span></th>
+              <th data-col="nivel">Nível <span class="sort-arrow">↕</span></th>
+              <th data-col="progress">Progresso <span class="sort-arrow">↕</span></th>
+              <th data-col="mood">Momento <span class="sort-arrow">↕</span></th>
+              <th data-col="joinedAt">Inscrição <span class="sort-arrow">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr class="state-row"><td colspan="7"><span class="spinner"></span>Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const PWD = 'learnstation2025';
+const TOTAL_EPS = 8;
+
+const AREA_LABELS = {
+  'talent-acquisition': 'Talent Acquisition',
+  'business-partner':   'Business Partner',
+  'people-services':    'People Services',
+  'learning':           'Learning & Engagement',
+  'comms':              'Comms & ESG',
+  'executive':          'Executive Mastery',
+  'hr-tech':            'HR Tech & Performance',
+};
+const NIVEL_LABELS = {
+  basico:         { label: 'Base',          cls: 'badge-basico' },
+  intermediario:  { label: 'Intermediário', cls: 'badge-intermediario' },
+  avancado:       { label: 'Avançado',      cls: 'badge-avancado' },
+};
+const MOOD_LABELS = {
+  animado:    'Com muita curiosidade 🚀',
+  cauteloso:  'Explorando com calma 🧭',
+  receoso:    'Com algumas dúvidas 😬',
+  pragmatico: 'Com foco no prático ⚡',
+};
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+// ── Auth ──
+const isAuth = () => sessionStorage.getItem('ls_admin') === '1';
+
+document.getElementById('pwd-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+document.getElementById('login-btn').addEventListener('click', () => {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PWD) {
+    sessionStorage.setItem('ls_admin', '1');
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    loadData();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+});
+document.getElementById('logout-btn').addEventListener('click', () => {
+  sessionStorage.removeItem('ls_admin');
+  location.reload();
+});
+
+if (isAuth()) {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+}
+
+// ── Data ──
+let allUsers = [];
+let sortCol  = 'joinedAt';
+let sortAsc  = false;
+
+async function loadData() {
+  document.getElementById('table-body').innerHTML =
+    '<tr class="state-row"><td colspan="7"><span class="spinner"></span>Carregando...</td></tr>';
+
+  try {
+    const res  = await fetch(`/api/users?pwd=${PWD}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+    allUsers = data;
+    renderAll();
+    document.getElementById('last-updated').textContent =
+      `Atualizado agora · ${allUsers.length} inscrição${allUsers.length !== 1 ? 'ões' : ''} no total`;
+  } catch (e) {
+    document.getElementById('table-body').innerHTML =
+      `<tr class="state-row"><td colspan="7">Erro ao carregar dados: ${e.message}</td></tr>`;
+  }
+}
+
+document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+// ── Metrics ──
+function updateMetrics(users) {
+  const total    = users.length;
+  const assessed = users.filter(u => u.nivel).length;
+  const progs    = users.map(u => {
+    const done = Object.values(u.progress || {}).filter(Boolean).length;
+    return Math.round(done / TOTAL_EPS * 100);
+  });
+  const avg  = progs.length ? Math.round(progs.reduce((a, b) => a + b, 0) / progs.length) : 0;
+  const done = progs.filter(p => p === 100).length;
+
+  document.getElementById('m-total').textContent    = total;
+  document.getElementById('m-assessed').textContent = assessed;
+  document.getElementById('m-avg').textContent      = avg + '%';
+  document.getElementById('m-done').textContent     = done;
+}
+
+// ── Filter + sort ──
+function filtered() {
+  const area   = document.getElementById('f-area').value;
+  const nivel  = document.getElementById('f-nivel').value;
+  const search = document.getElementById('f-search').value.toLowerCase().trim();
+
+  return allUsers.filter(u => {
+    if (area   && u.area  !== area)  return false;
+    if (nivel  && u.nivel !== nivel) return false;
+    if (search) {
+      const haystack = `${u.name} ${u.login}`.toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  }).sort((a, b) => {
+    let va = a[sortCol] ?? '';
+    let vb = b[sortCol] ?? '';
+    if (sortCol === 'progress') {
+      va = Object.values(a.progress || {}).filter(Boolean).length;
+      vb = Object.values(b.progress || {}).filter(Boolean).length;
+    }
+    const cmp = String(va).localeCompare(String(vb), 'pt-BR', { numeric: true });
+    return sortAsc ? cmp : -cmp;
+  });
+}
+
+function renderAll() {
+  const users = filtered();
+  updateMetrics(allUsers); // metrics always show full set
+
+  document.getElementById('result-count').textContent =
+    users.length < allUsers.length ? `${users.length} de ${allUsers.length}` : '';
+
+  if (!users.length) {
+    document.getElementById('table-body').innerHTML =
+      '<tr class="state-row"><td colspan="7">Nenhum resultado para os filtros selecionados.</td></tr>';
+    return;
+  }
+
+  document.getElementById('table-body').innerHTML = users.map(u => {
+    const doneCnt = Object.values(u.progress || {}).filter(Boolean).length;
+    const pct     = Math.round(doneCnt / TOTAL_EPS * 100);
+    const nivel   = NIVEL_LABELS[u.nivel] || { label: '—', cls: 'badge-basico' };
+    return `
+      <tr>
+        <td><div class="cell-name">${esc(u.name || '—')}</div></td>
+        <td><div class="cell-login">${esc(u.login)}</div></td>
+        <td><span class="badge badge-area">${esc(AREA_LABELS[u.area] || u.area || '—')}</span></td>
+        <td><span class="badge ${nivel.cls}">${nivel.label}</span></td>
+        <td>
+          <div class="progress-cell">
+            <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+            <span class="progress-pct ${pct===100?'done':''}">${pct}%</span>
+          </div>
+        </td>
+        <td><span class="cell-mood">${MOOD_LABELS[u.mood] || '—'}</span></td>
+        <td><span class="cell-date">${fmtDate(u.joinedAt)}</span></td>
+      </tr>`;
+  }).join('');
+
+  // Update sort arrows
+  document.querySelectorAll('th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.col === sortCol);
+    const arrow = th.querySelector('.sort-arrow');
+    if (arrow && th.dataset.col === sortCol) arrow.textContent = sortAsc ? '↑' : '↓';
+    else if (arrow) arrow.textContent = '↕';
+  });
+}
+
+// Sorting
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    if (sortCol === th.dataset.col) sortAsc = !sortAsc;
+    else { sortCol = th.dataset.col; sortAsc = true; }
+    renderAll();
+  });
+});
+
+// Filters
+['f-area', 'f-nivel', 'f-search'].forEach(id =>
+  document.getElementById(id).addEventListener('input', renderAll)
+);
+
+// ── Export CSV ──
+document.getElementById('export-btn').addEventListener('click', () => {
+  const rows = [['Nome','Login','Área','Nível','Progresso (%)','Momento','Inscrição']];
+  filtered().forEach(u => {
+    const pct = Math.round(Object.values(u.progress||{}).filter(Boolean).length / TOTAL_EPS * 100);
+    rows.push([
+      u.name || '', u.login, AREA_LABELS[u.area] || u.area || '',
+      NIVEL_LABELS[u.nivel]?.label || u.nivel || '',
+      pct + '%',
+      MOOD_LABELS[u.mood] || u.mood || '',
+      fmtDate(u.joinedAt),
+    ]);
+  });
+  const csv  = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href  = 'data:text/csv;charset=utf-8,﻿' + encodeURIComponent(csv);
+  link.download = `learnstation-inscricoes-${new Date().toISOString().slice(0,10)}.csv`;
+  link.click();
+});
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+if (isAuth()) loadData();
+</script>
+</body>
+</html>

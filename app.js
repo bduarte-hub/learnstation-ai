@@ -24,7 +24,11 @@ const SS = {
   set user(v)    { sessionStorage.setItem('of_user', JSON.stringify(v)); },
   set nivel(v)   { sessionStorage.setItem('of_nivel', v); },
   done(id)       { return !!this.progress[id]; },
-  markDone(id)   { const p=this.progress; p[id]=true; localStorage.setItem('of_progress',JSON.stringify(p)); },
+  markDone(id)   {
+    const p=this.progress; p[id]=true; localStorage.setItem('of_progress',JSON.stringify(p));
+    const login=this.user?.login;
+    if(login) fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({login,episodeId:id,done:true})}).catch(()=>{});
+  },
   stagePct(ids)  { const d=ids.filter(id=>this.done(id)).length; return {done:d,total:ids.length,pct:ids.length?Math.round(d/ids.length*100):0}; }
 };
 
@@ -210,7 +214,17 @@ function renderOnboarding() {
   $('obb1').addEventListener('click', () => goStep(0));
   $('obn1').addEventListener('click', () => { if(st.area) goStep(2); });
   $('obb2').addEventListener('click', () => goStep(1));
-  $('obn2').addEventListener('click', () => { if(!st.mood) return; SS.user=st; showView('assessment'); });
+  $('obn2').addEventListener('click', () => {
+    if(!st.mood) return;
+    SS.user = st;
+    // persist to backend (fire-and-forget — don't block UX)
+    fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: st.name, login: st.login, area: st.area, mood: st.mood }),
+    }).catch(() => {});
+    showView('assessment');
+  });
 }
 
 
@@ -330,6 +344,7 @@ function renderAssessment() {
       if(cur<QS.length-1){ cur++; card.innerHTML=qHTML(); wire(); }
       else {
         const nivel=calcLevel(ans); SS.nivel=nivel;
+        const u=SS.user; if(u?.login) fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...u,nivel})}).catch(()=>{});
         card.innerHTML=resHTML(nivel);
         $('as-go').addEventListener('click',()=>showView('portal'));
         $('as-redo').addEventListener('click',()=>renderAssessment());
