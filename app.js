@@ -420,7 +420,7 @@ const LANGS = {
   }
 };
 
-let _lang = 'en'; // always start in English
+let _lang = localStorage.getItem('of_lang') || 'en';
 const t = key => LANGS[_lang]?.[key] ?? LANGS['en'][key] ?? key;
 
 function setLang(lang) {
@@ -646,7 +646,7 @@ function showENPS() {
   modal.innerHTML = `
     <div class="completion-modal" id="completion-panel">
       <div class="completion-step" id="cs-enps">
-        <p class="completion-eyebrow">Uma última pergunta</p>
+        <p class="completion-eyebrow">${t('enps_last_q')}</p>
         <h2 class="completion-title" style="font-size:clamp(1.25rem,3vw,1.625rem)">${t('enps_q')}</h2>
         <div class="enps-scale" id="enps-scale">
           ${[0,1,2,3,4,5,6,7,8,9,10].map(n => `<button class="enps-btn" data-score="${n}">${n}</button>`).join('')}
@@ -656,7 +656,7 @@ function showENPS() {
           <span>${t('enps_high')}</span>
         </div>
         <div class="enps-comment-wrap" id="enps-comment-wrap" style="display:none">
-          <label class="enps-comment-label" for="enps-comment">Quer deixar um comentário? <span>(opcional)</span></label>
+          <label class="enps-comment-label" for="enps-comment">${t('enps_comment_label')} <span>${t('enps_comment_opt')}</span></label>
           <textarea class="enps-comment" id="enps-comment" placeholder="${t('enps_comment_ph')}" rows="3"></textarea>
           <button class="btn btn-primary enps-submit" id="enps-submit">
             ${t('enps_submit')} <i class="ti ti-send"></i>
@@ -867,7 +867,7 @@ function drainToastQueue() {
   el.innerHTML = `
     <div class="ach-toast-icon">${a.icon}</div>
     <div class="ach-toast-body">
-      <p class="ach-toast-title">Conquista desbloqueada!</p>
+      <p class="ach-toast-title">${t('ach_toast_title')}</p>
       <p class="ach-toast-name">${a.name}</p>
     </div>`;
   document.body.appendChild(el);
@@ -1216,8 +1216,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('nav-restart')?.addEventListener('click',  () => {
     if (!confirm(t('prof_reset_confirm'))) return;
     sessionStorage.clear();
-    localStorage.removeItem('of_user');
-    localStorage.removeItem('of_nivel');
+    ['of_user','of_nivel','of_progress','of_achievements','of_daily_done','of_ep_visits','of_enps_done','of_photo'].forEach(k => localStorage.removeItem(k));
     showView('onboarding');
   });
 
@@ -1902,7 +1901,7 @@ function renderEpisodes() {
           <p class="ep-num">${t('ep_label')} ${ep.id}</p>
           <p class="ep-title">${ep.title}</p>
           <p class="ep-tagline">${ep.tagline}</p>
-          <div class="ep-tags">${ep.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <div class="ep-tags">${ep.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
           ${!locked?`<div class="ep-cta">${t('mod_read')} <i class="ti ti-arrow-right"></i></div>`:''}
         </div>
       </div>`;
@@ -1911,7 +1910,7 @@ function renderEpisodes() {
   wrap.innerHTML = `
     <div class="ep-grid-scroll">
       <div class="ep-grid-inner">
-        <p class="ep-grid-title">Todos os episódios</p>
+        <p class="ep-grid-title">${t('ep_grid_title')}</p>
         <div class="ep-grid">${cards}</div>
       </div>
     </div>`;
@@ -1952,7 +1951,7 @@ function renderEpisode(slug) {
   initRP();
 
   if (!ep || ep.status!=='published') {
-    wrap.innerHTML=`<div class="ep-page-scroll"><div class="ep-page-inner"><button class="ep-back" id="ep-back"><i class="ti ti-arrow-left"></i> ${t('ep_back')}</button><p style="color:var(--text-muted);padding:2rem 0">Episódio não publicado ainda.</p></div></div>`;
+    wrap.innerHTML=`<div class="ep-page-scroll"><div class="ep-page-inner"><button class="ep-back" id="ep-back"><i class="ti ti-arrow-left"></i> ${t('ep_back')}</button><p style="color:var(--text-muted);padding:2rem 0">${t('ep_not_published')}</p></div></div>`;
     $('ep-back').addEventListener('click',()=>showView('portal'));
     return;
   }
@@ -1964,14 +1963,14 @@ function renderEpisode(slug) {
 
   const openerHTML = ep.openerVideo ? `
     <div class="ep-opener">
-      <p class="ep-opener-label"><i class="ti ti-player-play-filled"></i> Ative a intuição antes de ler${ometa.channel?` · <span style="color:var(--text-muted);font-weight:500;text-transform:none;letter-spacing:0">${ometa.channel}</span>`:''}</p>
+      <p class="ep-opener-label"><i class="ti ti-player-play-filled"></i> ${t('ep_opener_label')}${ometa.channel?` · <span style="color:var(--text-muted);font-weight:500;text-transform:none;letter-spacing:0">${ometa.channel}</span>`:''}</p>
       <div class="ep-opener-embed"><iframe src="https://www.youtube.com/embed/${ep.openerVideo}?rel=0&modestbranding=1" title="${esc(ometa.title||'')}" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
     </div>` : '';
 
   const nextHTML = next && next.status==='published' ? `
     <div class="next-ep" data-slug="${esc(next.slug)}" tabindex="0" role="button">
       <div>
-        <p class="next-ep-lbl">Próximo episódio</p>
+        <p class="next-ep-lbl">${t('ep_next_label')}</p>
         <p class="next-ep-title">${next.weekLabel}: ${next.title}</p>
         <p class="next-ep-sub">${next.tagline}</p>
       </div>
@@ -1989,7 +1988,7 @@ function renderEpisode(slug) {
   wrap.innerHTML = `
     <div class="ep-page-scroll" id="ep-scroll">
       <div class="ep-page-inner">
-        <button class="ep-back" id="ep-back"><i class="ti ti-arrow-left"></i> Voltar à jornada</button>
+        <button class="ep-back" id="ep-back"><i class="ti ti-arrow-left"></i> ${t('ep_back_journey')}</button>
         <header>
           <p class="ep-hd-eyebrow">${ep.weekLabel} · Episódio ${ep.id}</p>
           <h1 class="ep-hd-title">${ep.title}</h1>
@@ -1998,7 +1997,7 @@ function renderEpisode(slug) {
             <span>${fmt(ep.publishedAt)}</span>
             ${ep.duration?`<span class="dot">${ep.duration}</span>`:''}
           </div>
-          <div class="ep-hd-tags">${ep.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <div class="ep-hd-tags">${ep.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div>
         </header>
         ${openerHTML}
         <p class="ep-intro">${ep.intro}</p>
@@ -2007,11 +2006,11 @@ function renderEpisode(slug) {
         ${markDoneHTML}
         <div class="sandbox">
           <div class="sandbox-text">
-            <p class="sandbox-eyebrow">Agora é com você</p>
-            <p class="sandbox-title">Qual problema da sua área você resolveria com isso?</p>
-            <p class="sandbox-desc">Registre sua ideia — processo, desafio, hipótese. 2 minutos e é o primeiro passo real.</p>
+            <p class="sandbox-eyebrow">${t('sandbox_eyebrow')}</p>
+            <p class="sandbox-title">${t('sandbox_title')}</p>
+            <p class="sandbox-desc">${t('sandbox_desc')}</p>
           </div>
-          <a class="sandbox-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd_PLACEHOLDER/viewform" target="_blank" rel="noopener"><i class="ti ti-bulb"></i> Registrar ideia</a>
+          <span class="sandbox-btn" style="opacity:0.45;cursor:default;pointer-events:none" title="Em breve"><i class="ti ti-bulb"></i> ${t('sandbox_btn')}</span>
         </div>
       </div>
     </div>`;
@@ -2063,7 +2062,7 @@ function renderSec(s) {
     case 'stats':
       return `<div class="ep-sec">${s.title?`<h2 class="ep-sec-title">${s.title}</h2>`:''}<div class="stats-grid">${s.items.map(st=>`<div class="stat-card"><p class="stat-num">${st.number}</p><p class="stat-label">${st.label}</p></div>`).join('')}</div></div>`;
     case 'checkpoint':
-      return `<div class="checkpoint"><p class="checkpoint-lbl">Pausa para reflexão</p>${s.questions.map((q,i)=>`
+      return `<div class="checkpoint"><p class="checkpoint-lbl">${t('sec_checkpoint_lbl')}</p>${s.questions.map((q,i)=>`
         <div class="cp-q" id="cpq${i}">
           <div class="cp-q-text" onclick="toggleCp('cpq${i}')"><span>${q.question}</span><span class="cp-toggle">▾</span></div>
           <div class="cp-answer"><p>${q.answer}</p></div>
