@@ -837,6 +837,10 @@ button { font-family: var(--font); }
 .prof-area-opt.on    { border-color: var(--brand-500); color: var(--brand-500); background: rgba(250,90,80,0.06); font-weight: 700; }
 
 /* ── Achievements section ── */
+.portal-nps        { display: flex; flex-direction: column; gap: 0.5rem; }
+.portal-nps-q      { font-size: 0.8125rem; font-weight: 600; color: var(--text); }
+.portal-nps-scale  { flex-wrap: wrap; }
+.portal-nps-done   { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); padding: 0.5rem 0; }
 .ach-section       { margin-top: 1.5rem; }
 .ach-section-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
 .ach-count         { background: rgba(255,255,255,0.06); border: 1px solid var(--border-dim); border-radius: var(--radius-pill); padding: 0.1rem 0.5rem; font-size: 0.65rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0; }

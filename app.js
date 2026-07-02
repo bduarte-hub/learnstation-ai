@@ -1688,8 +1688,26 @@ function renderPortal() {
           <p class="ach-section-title"><i class="ti ti-trophy"></i> ${t('ach_title')} <span class="ach-count">${Object.keys(unlockedAchs).length}/${ACHIEVEMENTS.length}</span></p>
           <div class="ach-grid">${achHTML}</div>
         </div>
-        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border-dim);display:flex;align-items:center;justify-content:flex-end;gap:0.75rem;flex-wrap:wrap;">
-          <button class="btn btn-secondary btn-sm" id="preview-cert-btn"><i class="ti ti-certificate"></i> ${t('preview_cert')}</button>
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border-dim);">
+          ${localStorage.getItem('of_enps_done') ? `
+          <div class="portal-nps-done">
+            <i class="ti ti-circle-check" style="color:var(--brand-500)"></i>
+            <span>${t('enps_done_title')}</span>
+          </div>` : `
+          <div class="portal-nps">
+            <p class="portal-nps-q">${t('enps_q')}</p>
+            <div class="enps-scale portal-nps-scale" id="portal-enps-scale">
+              ${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="enps-btn" data-score="${n}">${n}</button>`).join('')}
+            </div>
+            <div class="enps-labels" style="margin-bottom:0.75rem"><span>${t('enps_low')}</span><span>${t('enps_high')}</span></div>
+            <div id="portal-enps-comment-wrap" style="display:none;margin-bottom:0.75rem">
+              <textarea id="portal-enps-comment" class="ob-input" rows="2" placeholder="${t('enps_comment_ph')}" style="width:100%;resize:vertical"></textarea>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;flex-wrap:wrap">
+              <button class="btn btn-primary btn-sm" id="portal-enps-submit" style="display:none"><i class="ti ti-send"></i> ${t('enps_submit')}</button>
+              <button class="btn btn-secondary btn-sm" id="preview-cert-btn" style="margin-left:auto"><i class="ti ti-certificate"></i> ${t('preview_cert')}</button>
+            </div>
+          </div>`}
         </div>
       </div>
     </div>`;
@@ -1700,6 +1718,33 @@ function renderPortal() {
   document.getElementById('preview-cert-btn')?.addEventListener('click', showCertificate);
   document.getElementById('preview-completion-btn')?.addEventListener('click', showCompletion);
   if (typeof observeStages === 'function') requestAnimationFrame(observeStages);
+
+  // NPS inline
+  let portalEnpsScore = null;
+  document.querySelectorAll('#portal-enps-scale .enps-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      portalEnpsScore = Number(btn.dataset.score);
+      document.querySelectorAll('#portal-enps-scale .enps-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('portal-enps-comment-wrap').style.display = 'block';
+      document.getElementById('portal-enps-submit').style.display = 'inline-flex';
+    });
+  });
+  document.getElementById('portal-enps-submit')?.addEventListener('click', async () => {
+    if (portalEnpsScore === null) return;
+    const comment = document.getElementById('portal-enps-comment')?.value.trim() || '';
+    const login   = SS.user?.login || 'anonimo';
+    try {
+      await fetch('/api/enps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, score: portalEnpsScore, comment }),
+      });
+    } catch(e) { /* não bloqueia */ }
+    localStorage.setItem('of_enps_done', '1');
+    const wrap = document.querySelector('.portal-nps');
+    if (wrap) wrap.innerHTML = `<div class="portal-nps-done"><i class="ti ti-circle-check" style="color:var(--brand-500)"></i><span>${t('enps_done_title')}</span></div>`;
+  });
 
   visible.forEach((stage, si) => {
     const sp = SS.stagePct(stage.mods.map(m=>m.id));
