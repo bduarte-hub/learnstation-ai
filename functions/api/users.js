@@ -1,5 +1,5 @@
 // GET /api/users?pwd=XXX — admin: list all users
-const ADMIN_PWD = 'learnstation2025';
+const ADMIN_PWD = 'hrsummit@2026';
 
 export async function onRequestGet({ request, env }) {
   const cors = {
