@@ -138,11 +138,24 @@ tbody tr:hover td{background:rgba(255,255,255,.02);}
 .export-btn:hover{color:var(--text);background:#2a2a38;}
 
 /* ── NPS score pill ── */
-.nps-pill{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;font-size:.75rem;font-weight:800;font-variant-numeric:tabular-nums;}
+.nps-pill{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 6px;border-radius:6px;font-size:.75rem;font-weight:800;font-variant-numeric:tabular-nums;gap:4px;}
 .nps-detractor{background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.2);}
 .nps-passive  {background:rgba(245,158,11,.12); color:var(--amber);border:1px solid rgba(245,158,11,.2);}
 .nps-promoter {background:rgba(34,197,94,.12);  color:var(--green);border:1px solid rgba(34,197,94,.2);}
 .nps-empty    {color:var(--dim);font-size:.75rem;}
+
+/* ── NPS comments section ── */
+.nps-section{margin-top:2rem;}
+.nps-section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.nps-section-title{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+.nps-toggle{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:.35rem .75rem;border-radius:var(--radius);font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:background .15s,color .15s;}
+.nps-toggle:hover{color:var(--text);background:#2a2a38;}
+.nps-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.75rem;}
+.nps-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;}
+.nps-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.nps-card-who{font-size:.8rem;font-weight:600;color:var(--text);}
+.nps-card-date{font-size:.7rem;color:var(--dim);}
+.nps-card-comment{font-size:.8125rem;color:var(--muted);line-height:1.6;margin-top:.375rem;}
 </style>
 </head>
 <body>
@@ -271,6 +284,15 @@ tbody tr:hover td{background:rgba(255,255,255,.02);}
         </table>
       </div>
     </div>
+
+    <!-- NPS Comments -->
+    <div class="nps-section" id="nps-section" style="display:none">
+      <div class="nps-section-hd">
+        <span class="nps-section-title">💬 Comentários NPS</span>
+        <button class="nps-toggle" id="nps-toggle-btn">Ocultar</button>
+      </div>
+      <div class="nps-cards" id="nps-cards"></div>
+    </div>
   </main>
 </div>
 
@@ -354,10 +376,11 @@ async function loadData() {
     allUsers = usersData;
     enpsMap  = {};
     if (Array.isArray(enpsData)) {
-      enpsData.forEach(r => { if (r?.login) enpsMap[r.login] = r.score; });
+      enpsData.forEach(r => { if (r?.login) enpsMap[r.login] = r; });
     }
 
     renderAll();
+    renderNpsComments();
     document.getElementById('last-updated').textContent =
       `Atualizado agora · ${allUsers.length} inscrição${allUsers.length !== 1 ? 'ões' : ''} no total`;
   } catch (e) {
@@ -367,6 +390,42 @@ async function loadData() {
 }
 
 document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+function renderNpsComments() {
+  const records = Object.values(enpsMap).filter(r => r.comment);
+  const section = document.getElementById('nps-section');
+  const cards   = document.getElementById('nps-cards');
+  if (!records.length) { section.style.display = 'none'; return; }
+
+  section.style.display = 'block';
+  const userIndex = {};
+  allUsers.forEach(u => { userIndex[u.login] = u; });
+
+  cards.innerHTML = records
+    .sort((a, b) => (b.answeredAt || '').localeCompare(a.answeredAt || ''))
+    .map(r => {
+      const u   = userIndex[r.login];
+      const who = u?.name ? esc(u.name) : esc(r.login);
+      const cls = r.score <= 6 ? 'nps-detractor' : r.score <= 8 ? 'nps-passive' : 'nps-promoter';
+      const date = r.answeredAt ? new Date(r.answeredAt).toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'}) : '';
+      return `<div class="nps-card">
+        <div class="nps-card-top">
+          <span class="nps-card-who">${who}</span>
+          <span class="nps-pill ${cls}" style="pointer-events:none">${r.score}</span>
+        </div>
+        ${date ? `<div class="nps-card-date">${date}</div>` : ''}
+        <p class="nps-card-comment">${esc(r.comment)}</p>
+      </div>`;
+    }).join('');
+}
+
+document.getElementById('nps-toggle-btn').addEventListener('click', () => {
+  const cards = document.getElementById('nps-cards');
+  const btn   = document.getElementById('nps-toggle-btn');
+  const hidden = cards.style.display === 'none';
+  cards.style.display = hidden ? '' : 'none';
+  btn.textContent = hidden ? 'Ocultar' : 'Ver comentários';
+});
 
 // ── Metrics ──
 function updateMetrics(users) {
@@ -379,7 +438,7 @@ function updateMetrics(users) {
   const avg  = progs.length ? Math.round(progs.reduce((a, b) => a + b, 0) / progs.length) : 0;
   const done = progs.filter(p => p === 100).length;
 
-  const enpsScores = Object.values(enpsMap);
+  const enpsScores = Object.values(enpsMap).map(r => r.score);
   const enpsAvg    = enpsScores.length
     ? (enpsScores.reduce((a, b) => a + b, 0) / enpsScores.length).toFixed(1)
     : null;
@@ -416,8 +475,8 @@ function filtered() {
       vb = Object.values(b.progress || {}).filter(Boolean).length;
     }
     if (sortCol === 'nps') {
-      va = enpsMap[a.login] ?? -1;
-      vb = enpsMap[b.login] ?? -1;
+      va = enpsMap[a.login]?.score ?? -1;
+      vb = enpsMap[b.login]?.score ?? -1;
     }
     const cmp = String(va).localeCompare(String(vb), 'pt-BR', { numeric: true });
     return sortAsc ? cmp : -cmp;
@@ -487,7 +546,7 @@ document.getElementById('export-btn').addEventListener('click', () => {
   const rows = [['Nome','Login','Área','Nível','Progresso (%)','Momento','NPS','Inscrição']];
   filtered().forEach(u => {
     const pct = Math.round(Object.values(u.progress||{}).filter(Boolean).length / TOTAL_EPS * 100);
-    const nps = enpsMap[u.login] !== undefined ? enpsMap[u.login] : '';
+    const nps = enpsMap[u.login] !== undefined ? enpsMap[u.login].score : '';
     rows.push([
       u.name || '', u.login, AREA_LABELS[u.area] || u.area || '',
       NIVEL_LABELS[u.nivel]?.label || u.nivel || '',
@@ -504,10 +563,12 @@ document.getElementById('export-btn').addEventListener('click', () => {
   link.click();
 });
 
-function renderNps(score) {
-  if (score === undefined || score === null) return '<span class="nps-empty">—</span>';
-  const cls = score <= 6 ? 'nps-detractor' : score <= 8 ? 'nps-passive' : 'nps-promoter';
-  return `<span class="nps-pill ${cls}">${score}</span>`;
+function renderNps(record) {
+  if (!record) return '<span class="nps-empty">—</span>';
+  const score = record.score;
+  const cls   = score <= 6 ? 'nps-detractor' : score <= 8 ? 'nps-passive' : 'nps-promoter';
+  const tip   = record.comment ? esc(record.comment) : '';
+  return `<span class="nps-pill ${cls}" title="${tip}" style="${tip?'cursor:help':''}">${score}${tip?' 💬':''}</span>`;
 }
 
 function esc(s) {
