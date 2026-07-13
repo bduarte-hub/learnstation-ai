@@ -298,7 +298,8 @@ tbody tr:hover td{background:rgba(255,255,255,.02);}
 
 <script>
 const PWD = 'hrsummit@2026';
-const TOTAL_EPS = 8;
+const REQ_MODS = ['genai','genai-hr','c101','c-hr','flow-ob','lean','cow','cc101'];
+const TOTAL_EPS = REQ_MODS.length; // 8 módulos obrigatórios ativos
 
 const AREA_LABELS = {
   'talent-acquisition': 'Talent Acquisition',
@@ -432,7 +433,7 @@ function updateMetrics(users) {
   const total    = users.length;
   const assessed = users.filter(u => u.nivel).length;
   const progs    = users.map(u => {
-    const done = Object.values(u.progress || {}).filter(Boolean).length;
+    const done = REQ_MODS.filter(id => u.progress?.[id]).length;
     return Math.round(done / TOTAL_EPS * 100);
   });
   const avg  = progs.length ? Math.round(progs.reduce((a, b) => a + b, 0) / progs.length) : 0;
@@ -497,7 +498,7 @@ function renderAll() {
   }
 
   document.getElementById('table-body').innerHTML = users.map(u => {
-    const doneCnt = Object.values(u.progress || {}).filter(Boolean).length;
+    const doneCnt = REQ_MODS.filter(id => u.progress?.[id]).length;
     const pct     = Math.round(doneCnt / TOTAL_EPS * 100);
     const nivel   = NIVEL_LABELS[u.nivel] || { label: '—', cls: 'badge-basico' };
     return `
@@ -545,7 +546,7 @@ document.querySelectorAll('th[data-col]').forEach(th => {
 document.getElementById('export-btn').addEventListener('click', () => {
   const rows = [['Nome','Login','Área','Nível','Progresso (%)','Momento','NPS','Inscrição']];
   filtered().forEach(u => {
-    const pct = Math.round(Object.values(u.progress||{}).filter(Boolean).length / TOTAL_EPS * 100);
+    const pct = Math.round(REQ_MODS.filter(id => u.progress?.[id]).length / TOTAL_EPS * 100);
     const nps = enpsMap[u.login] !== undefined ? enpsMap[u.login].score : '';
     rows.push([
       u.name || '', u.login, AREA_LABELS[u.area] || u.area || '',
