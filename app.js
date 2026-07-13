@@ -1216,7 +1216,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('nav-restart')?.addEventListener('click',  () => {
     if (!confirm(t('prof_reset_confirm'))) return;
     sessionStorage.clear();
-    ['of_user','of_nivel','of_progress','of_achievements','of_daily_done','of_ep_visits','of_enps_done','of_photo'].forEach(k => localStorage.removeItem(k));
+    ['of_user','of_nivel','of_progress','of_achievements','of_daily_done','of_ep_visits','of_enps_done','of_enps_v2','of_photo'].forEach(k => localStorage.removeItem(k));
     showView('onboarding');
   });
 
@@ -1688,7 +1688,7 @@ function renderPortal() {
           <div class="ach-grid">${achHTML}</div>
         </div>
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border-dim);">
-          ${localStorage.getItem('of_enps_done') ? `
+          ${localStorage.getItem('of_enps_v2') ? `
           <div class="portal-nps-done">
             <i class="ti ti-circle-check" style="color:var(--brand-500)"></i>
             <span>${t('enps_done_title')}</span>
@@ -1740,7 +1740,7 @@ function renderPortal() {
         body: JSON.stringify({ login, score: portalEnpsScore, comment }),
       });
     } catch(e) { /* não bloqueia */ }
-    localStorage.setItem('of_enps_done', '1');
+    localStorage.setItem('of_enps_v2', '1');
     const wrap = document.querySelector('.portal-nps');
     if (wrap) wrap.innerHTML = `<div class="portal-nps-done"><i class="ti ti-circle-check" style="color:var(--brand-500)"></i><span>${t('enps_done_title')}</span></div>`;
   });

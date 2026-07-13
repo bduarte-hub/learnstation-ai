@@ -3,16 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orquestrando o Futuro</title>
+  <title>Agentic HR</title>
   <meta name="description" content="Uma jornada de aprendizagem em IA Agêntica para times de RH da CI&T.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- Tabler Icons CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- ── Language toggle (fixed, global) ── -->
+  <div id="lang-toggle" role="group" aria-label="Language">
+    <button class="lang-btn active" data-lang="en" title="English">
+      <span class="lang-flag">
+        <svg viewBox="0 0 20 15" width="20" height="15" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="15" fill="#012169"/>
+          <path d="M0 0 L20 15 M20 0 L0 15" stroke="#fff" stroke-width="3"/>
+          <path d="M0 0 L20 15 M20 0 L0 15" stroke="#C8102E" stroke-width="1.8"/>
+          <path d="M10 0 V15 M0 7.5 H20" stroke="#fff" stroke-width="5"/>
+          <path d="M10 0 V15 M0 7.5 H20" stroke="#C8102E" stroke-width="3"/>
+        </svg>
+      </span>
+      <span class="lang-code">EN</span>
+    </button>
+    <button class="lang-btn" data-lang="pt" title="Português">
+      <span class="lang-flag">
+        <svg viewBox="0 0 20 15" width="20" height="15" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fundo verde -->
+          <rect width="20" height="15" fill="#009C3B"/>
+          <!-- Losango amarelo centralizado -->
+          <polygon points="10,1.5 19,7.5 10,13.5 1,7.5" fill="#FFDF00"/>
+          <!-- Círculo azul -->
+          <circle cx="10" cy="7.5" r="3.2" fill="#002776"/>
+          <!-- Faixa branca curva -->
+          <path d="M7.1 8.8 Q10 7.0 12.9 8.8" fill="none" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="lang-code">PT</span>
+    </button>
+  </div>
 
   <!-- ── Full-page views (onboarding / assessment) ── -->
   <div id="view-onboarding" class="view view-fullpage"></div>
@@ -33,8 +64,9 @@
         <button class="sidebar-btn active" id="nav-portal" data-view="portal" title="Minha jornada">
           <i class="ti ti-layout-cards"></i>
         </button>
-        <button class="sidebar-btn" id="nav-episodes" data-view="episodes" title="Episódios">
-          <i class="ti ti-book-2"></i>
+
+        <button class="sidebar-btn" id="nav-profile" data-view="profile" title="Meu perfil">
+          <i class="ti ti-user-circle"></i>
         </button>
       </nav>
       <div class="sidebar-bottom">
@@ -52,7 +84,7 @@
           <div class="header-breadcrumb" id="header-breadcrumb">
             <span class="header-brand">CI&amp;T · LearnStation.AI</span>
             <i class="ti ti-chevron-right header-sep"></i>
-            <span class="header-page" id="header-page">Orquestrando o Futuro</span>
+            <span class="header-page" id="header-page">Agentic HR</span>
           </div>
         </div>
         <div class="app-header-right">
@@ -69,6 +101,7 @@
       <div id="view-portal"   class="view shell-view"></div>
       <div id="view-episodes" class="view shell-view"></div>
       <div id="view-episode"  class="view shell-view"></div>
+      <div id="view-profile"  class="view shell-view"></div>
     </div>
 
   </div>
