@@ -520,8 +520,9 @@ function checkAchievements() {
   const nivel   = SS.nivel || 'basico';
   const visible = STAGES.filter(s => s.levels.includes(nivel));
   const allIds  = visible.flatMap(s => s.mods.map(m => m.id));
-  const doneIds = allIds.filter(id => SS.done(id));
-  const pct     = allIds.length ? Math.round(doneIds.length / allIds.length * 100) : 0;
+  const reqIds  = visible.flatMap(s => s.mods.filter(m => m.req && !m.soon).map(m => m.id));
+  const doneIds = reqIds.filter(id => SS.done(id));
+  const pct     = reqIds.length ? Math.round(doneIds.length / reqIds.length * 100) : 0;
 
   const today   = new Date().toISOString().slice(0,10);
   const todayDone = SS.dailyDone[today] || 0;
@@ -958,7 +959,8 @@ function renderProfile() {
 
   const visible = STAGES.filter(s => s.levels.includes(nivel));
   const allIds  = visible.flatMap(s => s.mods.map(m => m.id));
-  const overall = SS.stagePct(allIds);
+  const reqIds  = visible.flatMap(s => s.mods.filter(m => m.req && !m.soon).map(m => m.id));
+  const overall = SS.stagePct(reqIds);
 
   const unlockedAchs = SS.achievements;
   const achCount     = Object.keys(unlockedAchs).length;
@@ -1638,7 +1640,8 @@ function renderPortal() {
 
   const visible = STAGES.filter(s=>s.levels.includes(nivel));
   const allIds  = visible.flatMap(s=>s.mods.map(m=>m.id));
-  const overall = SS.stagePct(allIds);
+  const reqIds  = visible.flatMap(s=>s.mods.filter(m=>m.req&&!m.soon).map(m=>m.id));
+  const overall = SS.stagePct(reqIds);
   const lv = LV[nivel];
 
   const unlockedAchs = SS.achievements;
