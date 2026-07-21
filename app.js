@@ -1391,9 +1391,30 @@ function renderOnboarding() {
   $('obb1').addEventListener('click', () => goStep(0));
   $('obn1').addEventListener('click', () => { if(st.area) goStep(2); });
   $('obb2').addEventListener('click', () => goStep(1));
-  $('obn2').addEventListener('click', () => {
+  $('obn2').addEventListener('click', async () => {
     if(!st.mood) return;
     SS.user = st;
+
+    // Tenta recuperar progresso do servidor se existir
+    try {
+      const res = await fetch(`/api/users?login=${encodeURIComponent(st.login)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.progress && Object.keys(data.progress).length > 0) {
+          // Mescla com progresso local (prioriza o que tem mais itens)
+          const localProgress = SS.progress;
+          const serverProgress = data.progress;
+          const merged = {...serverProgress, ...localProgress};
+          if (Object.keys(merged).length > Object.keys(localProgress).length) {
+            localStorage.setItem('of_progress', JSON.stringify(merged));
+            console.log('✅ Progresso sincronizado do servidor:', merged);
+          }
+        }
+      }
+    } catch(e) {
+      console.log('ℹ️ Sem progresso anterior no servidor');
+    }
+
     // persist to backend (fire-and-forget — don't block UX)
     fetch('/api/register', {
       method: 'POST',

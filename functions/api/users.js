@@ -1,4 +1,5 @@
 // GET /api/users?pwd=XXX — admin: list all users
+// GET /api/users?login=XXX — get single user progress (no auth required for own data)
 const ADMIN_PWD = 'hrsummit@2026';
 
 export async function onRequestGet({ request, env }) {
@@ -8,6 +9,23 @@ export async function onRequestGet({ request, env }) {
   };
 
   const url = new URL(request.url);
+  const login = url.searchParams.get('login');
+
+  // Single user lookup (no auth required)
+  if (login) {
+    try {
+      const key = `user:${login.toLowerCase().trim()}`;
+      const user = await env.LEARNSTATION_USERS.get(key, 'json');
+      if (!user) {
+        return new Response(JSON.stringify({ error: 'user not found' }), { status: 404, headers: cors });
+      }
+      return new Response(JSON.stringify(user), { headers: cors });
+    } catch (e) {
+      return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: cors });
+    }
+  }
+
+  // Admin: list all users
   if (url.searchParams.get('pwd') !== ADMIN_PWD) {
     return new Response(JSON.stringify({ error: 'unauthorized' }), { status: 401, headers: cors });
   }
