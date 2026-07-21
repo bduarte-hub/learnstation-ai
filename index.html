@@ -1,53 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LearnStation.AI — AI Orchestration</title>
-  <meta name="description" content="Uma jornada de 8 episódios em AI Orchestration — destilada de um programa corporativo e traduzida para quem quer entender de verdade.">
-  <meta property="og:title" content="LearnStation.AI">
-  <meta property="og:description" content="Aprenda AI Orchestration em 8 episódios com um líder sênior da CI&T.">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><text x='4' y='24' font-size='22' font-family='system-ui' font-weight='900' fill='%233b82f6'>L</text><text x='16' y='24' font-size='14' font-family='system-ui' font-weight='700' fill='%23f87171'>AI</text></svg>">
+  <title>Agentic HR</title>
+  <meta name="description" content="Uma jornada de aprendizagem em IA Agêntica para times de RH da CI&T.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1781019535">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Tabler Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="site-logo">
-      <span class="logo-wordmark">
-        <span class="logo-learn">Learn</span><span class="logo-station">Station</span><span class="logo-ai">.AI</span>
+  <!-- ── Language toggle (fixed, global) ── -->
+  <div id="lang-toggle" role="group" aria-label="Language">
+    <button class="lang-btn active" data-lang="en" title="English">
+      <span class="lang-flag">
+        <svg viewBox="0 0 20 15" width="20" height="15" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="15" fill="#012169"/>
+          <path d="M0 0 L20 15 M20 0 L0 15" stroke="#fff" stroke-width="3"/>
+          <path d="M0 0 L20 15 M20 0 L0 15" stroke="#C8102E" stroke-width="1.8"/>
+          <path d="M10 0 V15 M0 7.5 H20" stroke="#fff" stroke-width="5"/>
+          <path d="M10 0 V15 M0 7.5 H20" stroke="#C8102E" stroke-width="3"/>
+        </svg>
       </span>
-    </div>
-    <nav>
-      <a href="index.html" data-i18n="navEpisodes">Episódios</a>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <div class="hero-banner" id="hero-banner">
-    <div class="hero-fade"></div>
+      <span class="lang-code">EN</span>
+    </button>
+    <button class="lang-btn" data-lang="pt" title="Português">
+      <span class="lang-flag">
+        <svg viewBox="0 0 20 15" width="20" height="15" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fundo verde -->
+          <rect width="20" height="15" fill="#009C3B"/>
+          <!-- Losango amarelo centralizado -->
+          <polygon points="10,1.5 19,7.5 10,13.5 1,7.5" fill="#FFDF00"/>
+          <!-- Círculo azul -->
+          <circle cx="10" cy="7.5" r="3.2" fill="#002776"/>
+          <!-- Faixa branca curva -->
+          <path d="M7.1 8.8 Q10 7.0 12.9 8.8" fill="none" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="lang-code">PT</span>
+    </button>
   </div>
 
-  <!-- Episodes -->
-  <section class="episodes-section" id="all-episodes">
-    <div class="row-header">
-      <p class="section-label" data-i18n="allEpisodes">Todos os episódios</p>
+  <!-- ── Full-page views (onboarding / assessment) ── -->
+  <div id="view-onboarding" class="view view-fullpage"></div>
+  <div id="view-assessment" class="view view-fullpage"></div>
+
+  <!-- ── App shell (portal + episode) ── -->
+  <div id="app-shell" class="app-shell" style="display:none">
+
+    <!-- Sidebar 76px -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#00e87a"/>
+          <path d="M7 14h5l2-5 3 10 2-5h2" stroke="#0a0f0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <button class="sidebar-btn active" id="nav-portal" data-view="portal" title="Minha jornada">
+          <i class="ti ti-layout-cards"></i>
+        </button>
+
+        <button class="sidebar-btn" id="nav-profile" data-view="profile" title="Meu perfil">
+          <i class="ti ti-user-circle"></i>
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="sidebar-btn" id="nav-restart" title="Reiniciar jornada">
+          <i class="ti ti-refresh"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-area">
+      <!-- Header -->
+      <header class="app-header" id="app-header">
+        <div class="app-header-left">
+          <div class="header-breadcrumb" id="header-breadcrumb">
+            <span class="header-brand">CI&amp;T · LearnStation.AI</span>
+            <i class="ti ti-chevron-right header-sep"></i>
+            <span class="header-page" id="header-page">Agentic HR</span>
+          </div>
+        </div>
+        <div class="app-header-right">
+          <div class="user-chip" id="user-chip">
+            <div class="user-avatar" id="user-avatar">
+              <i class="ti ti-user"></i>
+            </div>
+            <span class="user-name" id="user-name"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Views inside shell -->
+      <div id="view-portal"   class="view shell-view"></div>
+      <div id="view-episodes" class="view shell-view"></div>
+      <div id="view-episode"  class="view shell-view"></div>
+      <div id="view-profile"  class="view shell-view"></div>
     </div>
-    <div class="episodes-grid" id="episodes-grid"></div>
-  </section>
 
-  <!-- About -->
-  <div class="about-strip" id="about-strip"></div>
+  </div>
 
-  <footer>
-    <p id="footer-text"></p>
-  </footer>
-
-  <script src="i18n.js"></script>
-  <script src="app.js?v=1781019535"></script>
+  <script src="app.js"></script>
 </body>
 </html>

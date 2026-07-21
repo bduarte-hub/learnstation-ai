@@ -3,36 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Episódio — LearnStation.AI</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><text x='4' y='24' font-size='22' font-family='system-ui' font-weight='900' fill='%233b82f6'>L</text><text x='16' y='24' font-size='14' font-family='system-ui' font-weight='700' fill='%23f87171'>AI</text></svg>">
-  <meta name="description" content="">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1781019535">
+  <title>Orquestrando o Futuro</title>
+  <script>
+    // Redirect to SPA shell, preserving the ?ep= slug
+    const slug = new URLSearchParams(location.search).get('ep');
+    if (slug) {
+      location.replace('index.html?ep=' + encodeURIComponent(slug));
+    } else {
+      location.replace('index.html');
+    }
+  </script>
 </head>
-<body>
-
-  <header class="site-header">
-    <div class="site-logo">
-      <span class="logo-wordmark">
-        <span class="logo-learn">Learn</span><span class="logo-station">Station</span><span class="logo-ai">.AI</span>
-      </span>
-    </div>
-    <nav>
-      <a href="index.html" data-i18n="navEpisodes">Episódios</a>
-    </nav>
-  </header>
-
-  <main class="episode-page" id="episode-page">
-    <p style="color: var(--text-muted); padding: 4rem 0;" data-i18n="loading">Carregando episódio...</p>
-  </main>
-
-  <footer>
-    <p id="footer-text"></p>
-  </footer>
-
-  <script src="i18n.js"></script>
-  <script src="app.js?v=1781019535"></script>
-</body>
+<body></body>
 </html>

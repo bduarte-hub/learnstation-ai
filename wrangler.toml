@@ -1,0 +1,6 @@
+name = "learnstation-ai"
+pages_build_output_dir = "."
+
+[[kv_namespaces]]
+binding = "LEARNSTATION_USERS"
+id = "f68e3fbebc584afe911a50ac920a5f57"
